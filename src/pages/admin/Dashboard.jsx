@@ -10,7 +10,6 @@ function Dashboard() {
                 <title>Emter - Dashboard</title>
             </Helmet>
             <Topbar />
-            <Navbar />
         </>
     );
 }
