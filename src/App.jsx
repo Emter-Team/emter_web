@@ -1,61 +1,42 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import React, { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export const UserContext = React.createContext();
 
 function App() {
+    const [authenticatedUser, setAuthenticatedUser] = useState(null);
+
+    useEffect(() => {
+        // Check if user is already authenticated (e.g., from stored token)
+        const token = localStorage.getItem("Authorization");
+        if (token) {
+            instance
+                .get("auth/user", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    setAuthenticatedUser(response.data.user);
+                })
+                .catch((error) => {
+                    console.error("Failed to fetch user:", error);
+                });
+        }
+    }, []);
+
     return (
-        <>
-            <Button>Click me</Button>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Button variant="outline">Edit Profile</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Edit profile</DialogTitle>
-                        <DialogDescription>
-                            Make changes to your profile here. Click save when
-                            you're done.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name" className="text-right">
-                                Name
-                            </Label>
-                            <Input
-                                id="name"
-                                defaultValue="Pedro Duarte"
-                                className="col-span-3"
-                            />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="username" className="text-right">
-                                Username
-                            </Label>
-                            <Input
-                                id="username"
-                                defaultValue="@peduarte"
-                                className="col-span-3"
-                            />
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button type="submit">Save changes</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-        </>
+        <UserContext.Provider
+            value={{ authenticatedUser, setAuthenticatedUser }}
+        >
+            <div className="min-h-screen bg-white">
+                <Outlet />
+            </div>
+            <ToastContainer />
+        </UserContext.Provider>
     );
 }
+
 export default App;

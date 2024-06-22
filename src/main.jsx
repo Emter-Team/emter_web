@@ -1,50 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
-import Login from "./pages/auth/Login";
-import Dashboard from "./pages/admin/Dashboard";
-
-const router = createBrowserRouter([
-    {
-        path: "/auth/login",
-        element: <Login />,
-    },
-    {
-        path: "/dashboard",
-        element: <Dashboard />,
-    },
-    {
-        path: "/users",
-        element: <Dashboard />,
-    },
-    {
-        path: "/services",
-        element: <Dashboard />,
-    },
-    {
-        path: "/posts",
-        element: <Dashboard />,
-    },
-    {
-        path: "/incidents",
-        element: <Dashboard />,
-    },
-    {
-        path: "/vehicles",
-        element: <Dashboard />,
-    },
-    {
-        path: "/settings",
-        element: <Dashboard />,
-    },
-]);
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
+import { ContextProvider } from "./contexts/ContextProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <HelmetProvider>
+        <ContextProvider>
             <RouterProvider router={router} />
-        </HelmetProvider>
+        </ContextProvider>
     </React.StrictMode>
 );

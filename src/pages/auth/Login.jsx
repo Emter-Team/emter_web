@@ -1,106 +1,87 @@
-import loginImg from "../../../public/images/app/login.svg";
-import emterImg from "../../../public/images/app/emter.png";
 import { Button } from "@/components/ui/button";
+import Error from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-label";
-import { useFormAction } from "react-router-dom";
+import { Label } from "@/components/ui/label";
+import { useStateContext } from "@/contexts/ContextProvider";
+import http from "@/services/axios";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 
-export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useFormAction({
-        email: "",
-        password: "",
-        remember: "",
-    });
+export default function Login() {
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const [error, setError] = useState({});
 
-    const submit = (e) => {
+    const { setUser, setToken } = useStateContext();
+
+    const handleLogin = async (e) => {
         e.preventDefault();
+        const payload = {
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+        };
+
+        try {
+            const response = await http.post("/auth/login", payload);
+            console.log(response.data); // Log response data
+            setUser(response.data.data.user);
+            setToken(response.data.data.token);
+            toast.success("Berhasil login");
+            setError({});
+        } catch (err) {
+            const response = err.response;
+            if (response.status === 422) {
+                setError(response.data.message);
+            } else if (response && response.status === 400) {
+                toast.error("Gagal login");
+            } else {
+                toast.error("Terjadi kesalahan");
+            }
+        }
     };
 
     return (
-        <>
-            {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
-                    {status}
+        <div className="flex">
+            <form
+                onSubmit={handleLogin}
+                className="w-full px-4 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-auto h-screen flex flex-col justify-center"
+            >
+                <div className="mb-8">
+                    <h6 className="text-3xl text-slate-700">
+                        Selamat Datang kembali
+                    </h6>
+                    <p className="text-slate-500">
+                        Silakan masukkan kredensial login Anda
+                    </p>
                 </div>
-            )}
-
-            <div className="flex">
-                <div className="w-full sm:w-1/2 md:w-1/4 hidden sm:flex border-r border-gray-300 p-8 py-8  sm:flex-col sm:justify-between">
-                    <div>
-                        <img src={emterImg} alt="" width="180px" />
-                    </div>
-                    <div>
-                        <img
-                            src={loginImg}
-                            alt=""
-                            width="120%"
-                            className="mx-auto"
-                        />
-                    </div>
-                    <div>
-                        <h6 className="text-xl font-semibold text-slate-700">
-                            Emter
-                        </h6>
-                        <p className="text-slate-500">
-                            Mengubah Layanan Darurat untuk Masyarakat yang lebih
-                            cepat, baik dan tepat
-                        </p>
-                    </div>
+                <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        name="email"
+                        ref={emailRef}
+                        autoComplete="email"
+                    />
+                    {error && <Error>{error.email}</Error>}
                 </div>
-                <form
-                    onSubmit={submit}
-                    className="w-full px-4 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-auto h-screen flex flex-col justify-center"
-                >
-                    <div className="mb-8">
-                        <h6 className="text-3xl text-slate-700">
-                            Selamat Datang kembali
-                        </h6>
-                        <p className="text-slate-500">
-                            Silakan masukkan kredensial login Anda
-                        </p>
-                    </div>
-                    <div>
-                        <Label htmlFor="email">Email</Label>
 
-                        <Input
-                            id="email"
-                            type="email"
-                            name="email"
-                            // value={data.email}
-                            autoComplete="email"
-                            onChange={handleOnChange}
-                        />
-                    </div>
+                <div className="mt-4">
+                    <Label htmlFor="password">Kata Sandi</Label>
+                    <Input
+                        id="password"
+                        type="password"
+                        name="password"
+                        ref={passwordRef}
+                        autoComplete="current-password"
+                    />
+                    {error && <Error>{error.password}</Error>}
+                </div>
 
-                    <div className="mt-4">
-                        <Label htmlFor="email">Kata Sandi</Label>
-
-                        <Input
-                            id="password"
-                            type="password"
-                            name="password"
-                            // value={data.password}
-                            autoComplete="current-password"
-                            onChange={handleOnChange}
-                        />
-                    </div>
-
-                    {/* <div className="flex justify-between mt-4 mb-8">
-                        {canResetPassword && (
-                            <Link
-                                href={route("password.request")}
-                                className="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Forgot your password?
-                            </Link>
-                        )}
-                    </div> */}
-
-                    <div className="flex items-center justify-end mt-4">
-                        <Button>Masuk</Button>
-                    </div>
-                </form>
-            </div>
-        </>
+                <div className="flex items-center justify-end mt-4">
+                    <Button type="submit">Masuk</Button>
+                </div>
+            </form>
+        </div>
     );
 }

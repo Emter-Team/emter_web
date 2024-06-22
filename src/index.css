@@ -16,3 +16,7 @@
 .scrolling-wrapper::-webkit-scrollbar-thumb {
     @apply bg-gradient-to-b from-slate-300 to-orange-500 rounded border;
 }
+
+input:focus {
+    border-color: black !important;
+}
