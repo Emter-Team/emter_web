@@ -11,7 +11,7 @@ const Table = ({ children, className }) => {
         >
             <table
                 className={clsx(
-                    "w-full text-sm text-left text-dark whitespace-nowrap",
+                    "w-full text-sm text-left text-primary whitespace-nowrap",
                     className
                 )}
             >
@@ -21,11 +21,24 @@ const Table = ({ children, className }) => {
     );
 };
 
+const Tr = ({ children, className }) => {
+    return (
+        <tr
+            className={clsx(
+                "bg-white border-b border-b-secondary/20 text-primary whitespace-nowrap",
+                className
+            )}
+        >
+            {children}
+        </tr>
+    );
+};
+
 const Thead = ({ children, className }) => {
     return (
         <thead
             className={clsx(
-                " text-dark bg-third rounded border-b-2 whitespace-nowrap",
+                " text-primary bg-white rounded border-b-2 border-secondary/20 whitespace-nowrap",
                 className
             )}
         >
@@ -58,7 +71,10 @@ const Td = ({ children, className, colSpan, width, textAlign }) => {
         <td
             width={width}
             align={textAlign}
-            className={clsx("px-6 py-2 text-dark whitespace-nowrap", className)}
+            className={clsx(
+                "px-6 py-2 text-primary whitespace-nowrap",
+                className
+            )}
             colSpan={colSpan}
         >
             {children}
@@ -66,6 +82,7 @@ const Td = ({ children, className, colSpan, width, textAlign }) => {
     );
 };
 
+Table.Tr = Tr;
 Table.Thead = Thead;
 Table.Tbody = Tbody;
 Table.Th = Th;

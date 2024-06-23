@@ -9,14 +9,6 @@
     display: var(--scroll-display);
 }
 
-.scrolling-wrapper::-webkit-scrollbar-track {
-    @apply bg-slate-200/80 rounded;
-}
-
-.scrolling-wrapper::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-b from-slate-300 to-orange-500 rounded border;
-}
-
 input:focus {
-    border-color: black !important;
+    border-color: #3b3b3b !important;
 }

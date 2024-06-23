@@ -69,7 +69,7 @@ export default function DetailResident() {
                     <h3 className="text-xl md:text-3xl font-semibold">
                         {resident.name}
                     </h3>
-                    <span className="text-slate-700">{resident.username}</span>
+                    <span className="text-primary">{resident.username}</span>
                 </div>
                 <Table className="border-none w-1/2 text-[16px]">
                     <tr className="border-none">

@@ -9,6 +9,17 @@ module.exports = {
     ],
     prefix: "",
     theme: {
+        colors: {
+            white: "#ffffff",
+            primary: "#3f3f46",
+            secondary: "#475569",
+            danger: "#ef4444",
+            warning: "#565584",
+            success: "#22c55e",
+        },
+        fontFamily: {
+            sans: ["Work Sans", "sans-serif"],
+        },
         container: {
             center: true,
             padding: "2rem",

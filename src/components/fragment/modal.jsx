@@ -23,7 +23,7 @@ export default function Modal({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="fixed inset-0 bg-primary bg-opacity-25" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -42,7 +42,7 @@ export default function Modal({
                                 >
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg text-dark font-medium leading-6 mt-4 text-dark"
+                                        className="text-lg text-primary font-medium leading-6 mt-4 text-primary"
                                     >
                                         {`${type === "rincian" ? "" : "Form"}`}{" "}
                                         {type === "create"

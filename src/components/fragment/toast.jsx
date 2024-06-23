@@ -16,7 +16,7 @@ export default function Toast({ isToast, name, onClose, title, children }) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="fixed inset-0 bg-primary bg-opacity-25" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -35,13 +35,13 @@ export default function Toast({ isToast, name, onClose, title, children }) {
                                 >
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-start text-dark leading-6 mb-5 mt-2 text-gray-700"
+                                        className="text-start text-primary leading-6 mb-5 mt-2 text-primary"
                                     >
                                         <p className="font-medium text-lg mb-2">
                                             {name}
                                         </p>
 
-                                        <p className="font-normal text-dark">
+                                        <p className="font-normal text-primary">
                                             {name
                                                 ? `Tindakan ini akan memulai proses verifikasi akun. Apakah Anda ingin melanjutkan?`
                                                 : `Apakah kamu yakin ingin menghapus ${title}?`}{" "}

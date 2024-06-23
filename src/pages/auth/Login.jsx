@@ -22,20 +22,22 @@ export default function Login() {
         };
 
         try {
-            const response = await http.post("/auth/login", payload); // Log response data
+            const response = await http.post("/auth/login", payload);
             setUser(response.data.data);
             setToken(response.data.data.token);
-            toast.success("Berhasil login");
             setError({});
         } catch (err) {
             const response = err.response;
-            if (response.status === 422) {
+            console.log(response);
+            if (response.data.status === 422) {
                 setError(response.data.message);
             } else if (response && response.status === 400) {
                 toast.error("Gagal login");
             } else {
                 toast.error("Terjadi kesalahan");
             }
+
+            console.log(err);
         }
     };
 
@@ -46,10 +48,10 @@ export default function Login() {
                 className="w-full px-4 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-auto h-screen flex flex-col justify-center"
             >
                 <div className="mb-8">
-                    <h6 className="text-3xl text-slate-700">
+                    <h6 className="text-3xl text-primary">
                         Selamat Datang kembali
                     </h6>
-                    <p className="text-slate-500">
+                    <p className="text-secondary">
                         Silakan masukkan kredensial login Anda
                     </p>
                 </div>

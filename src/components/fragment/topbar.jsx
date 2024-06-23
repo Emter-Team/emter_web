@@ -20,7 +20,6 @@ export default function Topbar({ user }) {
     const { setUser, setToken } = useStateContext();
     const location = useLocation();
 
-
     const handleLogout = async () => {
         try {
             await http.post("/auth/logout");
@@ -38,12 +37,12 @@ export default function Topbar({ user }) {
 
     return (
         <>
-            <nav className="bg-white fixed z-[99] top-0 md:border-b-[1.5px] border-b-slate-300 w-full h-[72px]">
+            <nav className="bg-white fixed z-[99] top-0 md:border-b-[2px] border-b-secondary/20 w-full h-[72px]">
                 <div className="max-w-8xl mx-auto px-4 sm:px-4 lg:px-24">
                     <div className="flex justify-between w-full items-center">
                         <NavLink
                             to="/"
-                            className="text-2xl p-2 rounded font-bold text-black"
+                            className="text-2xl p-2 rounded font-bold text-primary"
                         >
                             <img
                                 src="/images/app/emter.png"
@@ -52,19 +51,19 @@ export default function Topbar({ user }) {
                             />
                         </NavLink>
                         {user ? (
-                            <div className="flex justify-end items-center">
+                            <div className="flex justify-end items-center gap-x-2">
                                 <Bell
                                     size={24}
                                     absoluteStrokeWidth={true}
-                                    className="text-slate-700"
+                                    className="text-secondary"
                                 />
                                 <Menubar className="border-none items-center flex">
                                     <MenubarMenu>
-                                        <MenubarTrigger>
+                                        <MenubarTrigger className="bg-white focus:bg-primary/10 focus:text-white  hover:bg-primary/10 rounded-xl py-3">
                                             <CircleUserRound
                                                 absoluteStrokeWidth={true}
                                                 size="36"
-                                                className="text-slate-900"
+                                                className="text-primary"
                                             />
                                         </MenubarTrigger>
                                         <MenubarContent align="end">
@@ -79,22 +78,22 @@ export default function Topbar({ user }) {
                                                 </div>
                                             </MenubarItem>
                                             <MenubarSeparator />
-                                            <MenubarItem>
-                                                <NavLink
-                                                    to="/admin/dashboard"
-                                                    active={
-                                                        location.pathname ===
-                                                        "/admin/dashboard"
-                                                    }
-                                                    className="flex items-center"
-                                                >
+                                            <NavLink
+                                                to="/admin/dashboard"
+                                                active={
+                                                    location.pathname ===
+                                                    "/admin/dashboard"
+                                                }
+                                                className="flex items-center w-full h-full"
+                                            >
+                                                <MenubarItem>
                                                     <CircleGauge
                                                         size={18}
                                                         className={`mr-2`}
                                                     />
                                                     Dashboard
-                                                </NavLink>
-                                            </MenubarItem>
+                                                </MenubarItem>
+                                            </NavLink>
                                             <MenubarSeparator />
                                             <MenubarItem>
                                                 <UserRoundCog
@@ -104,14 +103,14 @@ export default function Topbar({ user }) {
                                                 Pengaturan
                                             </MenubarItem>
                                             <MenubarSeparator />
-                                            <MenubarItem>
-                                                <Button
-                                                    className="w-full"
-                                                    onClick={handleLogout}
-                                                >
+                                            <Button
+                                                className="w-48"
+                                                onClick={handleLogout}
+                                            >
+                                                <MenubarItem className="flex justify-center">
                                                     Logout
-                                                </Button>
-                                            </MenubarItem>
+                                                </MenubarItem>
+                                            </Button>
                                         </MenubarContent>
                                     </MenubarMenu>
                                 </Menubar>

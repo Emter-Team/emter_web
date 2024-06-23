@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ContextProvider } from "./contexts/ContextProvider";
 
 export const UserContext = React.createContext();
 
@@ -9,11 +10,10 @@ function App() {
     const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
     useEffect(() => {
-        // Check if user is already authenticated (e.g., from stored token)
         const token = localStorage.getItem("Authorization");
         if (token) {
             instance
-                .get("auth/user", {
+                .get("/auth/user", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -28,14 +28,16 @@ function App() {
     }, []);
 
     return (
-        <UserContext.Provider
-            value={{ authenticatedUser, setAuthenticatedUser }}
-        >
-            <div className="min-h-screen bg-white">
-                <Outlet />
-            </div>
-            <ToastContainer />
-        </UserContext.Provider>
+        <ContextProvider>
+            <UserContext.Provider
+                value={{ authenticatedUser, setAuthenticatedUser }}
+            >
+                <div className="min-h-screen bg-white">
+                    <Outlet />
+                </div>
+                <ToastContainer />
+            </UserContext.Provider>
+        </ContextProvider>
     );
 }
 

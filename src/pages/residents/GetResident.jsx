@@ -1,17 +1,26 @@
-import Table from "@/components/fragment/table";
-import { Button } from "@/components/ui/button";
-import http from "@/services/axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IconCircleCheckFilled, IconCircleXFilled } from "@tabler/icons-react";
-
-import React, { useEffect, useState } from "react";
-import { MoreHorizontal } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+    IconCircleCheckFilled,
+    IconCircleXFilled,
+    IconDetails,
+} from "@tabler/icons-react";
+import {
+    Check,
+    CheckCheck,
+    Eye,
+    MoreHorizontal,
+    Trash,
+    Trash2,
+} from "lucide-react";
+import Table from "@/components/fragment/table";
+import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
 import Loading from "@/components/ui/loading";
 import {
@@ -22,12 +31,17 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import http from "@/services/axios";
+import Pagination from "@/components/fragment/paginate";
 
 export default function GetResident() {
     const [residents, setResidents] = useState([]);
+    const [totalResident, setTotalResidents] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [paginationLinks, setPaginationLinks] = useState([]);
 
-    let [isToast, setIsToast] = useState(false);
+    const [isToast, setIsToast] = useState(false);
     const [toastTitle, setToastTitle] = useState("");
     const [residentId, setResidentId] = useState("");
 
@@ -46,57 +60,69 @@ export default function GetResident() {
     }
 
     useEffect(() => {
-        getResidents();
-    }, [searchName, ktpFilter, emailFilter]);
+        getResidents(currentPage);
+    }, [searchName, ktpFilter, emailFilter, currentPage]);
 
-    const getResidents = async () => {
-        try {
-            setLoading(true);
-            const params = {
-                name: searchName,
-                ktp_verified_at: ktpFilter,
-                email_verified_at: emailFilter,
-            };
-            const { data } = await http.get("/admin/residents", { params });
-            setTimeout(() => {
+    const getResidents = async (page) => {
+        setLoading(true);
+        const params = {
+            name: searchName,
+            ktp_verified_at: ktpFilter,
+            email_verified_at: emailFilter,
+            page: page,
+        };
+
+        // Add a delay of 0.3 seconds before showing loading indicator
+        setTimeout(async () => {
+            try {
+                const response = await http.get("/admin/residents", { params });
+                setResidents(response.data.data.data);
+                setPaginationLinks(response.data.data.meta.links);
+                setTotalResidents(response.data.data.total_residents);
+            } catch (error) {
+                console.error(error);
+            } finally {
                 setLoading(false);
-                setResidents(data.data.data);
-            }, 300);
-        } catch (error) {
-            setTimeout(() => {
-                setLoading(false);
-            }, 300);
-        }
+            }
+        }, 300); // 0.3 seconds delay
     };
+
+    console.log(totalResident);
 
     const verifyKTP = async (username) => {
-        try {
-            setLoading(true);
-            await http.put(`/admin/residents/verificate/${username}`);
-            setTimeout(() => {
-                setLoading(false);
+        setLoading(true);
+
+        // Add a delay of 0.3 seconds before showing loading indicator
+        setTimeout(async () => {
+            try {
+                await http.put(`/admin/residents/verificate/${username}`);
                 setIsToast(false);
-            }, 300);
-        } catch (error) {
-            setTimeout(() => {
+                getResidents(currentPage); // Refresh resident list after verification
+            } catch (error) {
+                console.error(error);
+            } finally {
                 setLoading(false);
-            }, 300);
-        }
+            }
+        }, 300); // 0.3 seconds delay
     };
+
+    console.log(residents);
 
     return (
         <>
+            {loading && <Loading />} {/* Show loading indicator */}
             <div>
-                {loading && <Loading />}
-                <div className="w-full flex">
-                    <div className="title w-1/4">
-                        <h3 className="text-3xl font-semibold">Masyarakat</h3>
-                        <p className="text-slate-700">
+                <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">
+                    <div className="title w-full md:w-1/3">
+                        <h3 className="text-3xl font-semibold text-primary">
+                            Masyarakat
+                        </h3>
+                        <p className="text-secondary">
                             Daftar semua masyarakat yang telah mendaftar ke
                             sistem
                         </p>
                     </div>
-                    <div className="w-3/4 flex justify-end gap-x-4">
+                    <div className="w-full md:w-2/3 mt-8 md:mt-0 flex justify-end gap-x-4">
                         <Select onValueChange={(value) => setKtpFilter(value)}>
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Verifikasi KTP" />
@@ -142,23 +168,20 @@ export default function GetResident() {
                             <Table.Th>#</Table.Th>
                             <Table.Th>NIK</Table.Th>
                             <Table.Th>Nama</Table.Th>
-                            <Table.Th className="text-center">
+                            <Table.Th className="text-center w-48">
                                 Verifikasi KTP
                             </Table.Th>
-                            <Table.Th className="text-center">
+                            <Table.Th className="text-center w-48">
                                 Verifikasi Email
                             </Table.Th>
-                            <Table.Th>Avatar</Table.Th>
+                            <Table.Th className="w-12">Avatar</Table.Th>
                             <Table.Th className="w-12 px-2">Aksi</Table.Th>
                         </tr>
                     </Table.Thead>
                     <Table.Tbody>
                         {residents.length > 0 ? (
                             residents.map((resident, index) => (
-                                <tr
-                                    className="bg-white border-b text-third"
-                                    key={index}
-                                >
+                                <Table.Tr key={index}>
                                     <Table.Td className="w-5">
                                         {index + 1}
                                     </Table.Td>
@@ -168,22 +191,28 @@ export default function GetResident() {
                                     <Table.Td className="w-min">
                                         {resident.name}
                                     </Table.Td>
-                                    <Table.Td textAlign="center">
+                                    <Table.Td
+                                        textAlign="center"
+                                        className="w-48"
+                                    >
                                         {resident.resident.ktp_verified_at ? (
-                                            <IconCircleCheckFilled className="text-green-500" />
+                                            <IconCircleCheckFilled className="text-success" />
                                         ) : (
-                                            <IconCircleXFilled className="text-red-500" />
+                                            <IconCircleXFilled className="text-danger" />
                                         )}
                                     </Table.Td>
-                                    <Table.Td textAlign="center">
+                                    <Table.Td
+                                        textAlign="center"
+                                        className="w-48"
+                                    >
                                         {resident.email_verified_at ? (
-                                            <IconCircleCheckFilled className="text-green-500" />
+                                            <IconCircleCheckFilled className="text-success" />
                                         ) : (
-                                            <IconCircleXFilled className="text-red-500" />
+                                            <IconCircleXFilled className="text-danger" />
                                         )}
                                     </Table.Td>
-                                    <Table.Td className="w-min">
-                                        {resident.email_verified_at ? (
+                                    <Table.Td className="w-50">
+                                        {resident.avatar ? (
                                             <img src="" alt="" />
                                         ) : (
                                             <img
@@ -208,17 +237,21 @@ export default function GetResident() {
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
-                                                <DropdownMenuItem className="group:name">
-                                                    <Link
-                                                        className="group:name w-full h-full"
-                                                        to={
-                                                            "/admin/residents/" +
-                                                            resident.username
-                                                        }
-                                                    >
+                                                <Link
+                                                    className="group:name w-full h-full"
+                                                    to={
+                                                        "/admin/residents/" +
+                                                        resident.username
+                                                    }
+                                                >
+                                                    <DropdownMenuItem className="group:name">
+                                                        <Eye
+                                                            size={18}
+                                                            className={`mr-2`}
+                                                        />
                                                         Rincian
-                                                    </Link>
-                                                </DropdownMenuItem>
+                                                    </DropdownMenuItem>
+                                                </Link>
                                                 <DropdownMenuItem
                                                     onClick={() =>
                                                         openToast(
@@ -227,30 +260,45 @@ export default function GetResident() {
                                                         )
                                                     }
                                                 >
+                                                    <CheckCheck
+                                                        size={18}
+                                                        className={`mr-2`}
+                                                    />
                                                     Verifikasi KTP
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem>
+                                                    <Trash2
+                                                        size={18}
+                                                        className={`mr-2`}
+                                                    />
                                                     Arsipkan
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </Table.Td>
-                                </tr>
+                                </Table.Tr>
                             ))
                         ) : (
-                            <tr className="bg-white border-b text-third text-center">
+                            <tr className="bg-white border-b text-primary text-center">
                                 <Table.Td colSpan="7">Item kosong</Table.Td>
                             </tr>
                         )}
                     </Table.Tbody>
                 </Table>
-                <div className="flex w-full justify-between items-center">
-                    <p className="text-sm text-dark mt-10">
-                        Total Stok: <span className="font-bold"></span>
-                    </p>
-                </div>
-            </div>
 
+                {residents.length > 0 && (
+                    <div className="flex w-full justify-between items-center">
+                        <p className="text-sm text-primary mt-10">
+                            Total Produk:{" "}
+                            <span className="font-bold">{totalResident}</span>
+                        </p>
+                        <Pagination
+                            links={paginationLinks}
+                            onPageChange={(page) => setCurrentPage(page)}
+                        />
+                    </div>
+                )}
+            </div>
             {/* Toast */}
             <Toast
                 isToast={isToast}
