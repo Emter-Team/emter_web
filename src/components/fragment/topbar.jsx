@@ -1,7 +1,6 @@
 // Topbar.js
 import React from "react";
 import { Link } from "react-router-dom";
-import emterImg from "../../../public/images/app/emter.png";
 import {
     Menubar,
     MenubarContent,
@@ -10,15 +9,11 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "@/components/ui/menubar";
-import {
-    IconBell,
-    IconDashboard,
-    IconSettings,
-    IconUserCircle,
-} from "@tabler/icons-react";
 import { Button } from "../ui/button";
 import { useStateContext } from "@/contexts/ContextProvider";
 import http from "@/services/axios";
+import Navbar from "./navbar";
+import { Bell, CircleGauge, CircleUserRound, UserRoundCog } from "lucide-react";
 
 export default function Topbar({ user }) {
     const { setUser, setToken } = useStateContext();
@@ -39,28 +34,32 @@ export default function Topbar({ user }) {
 
     return (
         <>
-            <nav className="bg-white fixed z-[99] top-0 border-b-[1.5px] border-b-slate-300 w-full h-[72px]">
+            <nav className="bg-white fixed z-[99] top-0 md:border-b-[1.5px] border-b-slate-300 w-full h-[72px]">
                 <div className="max-w-8xl mx-auto px-4 sm:px-4 lg:px-24">
                     <div className="flex justify-between w-full items-center">
                         <Link
                             to="/"
                             className="text-2xl p-2 rounded font-bold text-black"
                         >
-                            <img src={emterImg} alt="" className="w-40" />
+                            <img
+                                src="/images/app/emter.png"
+                                alt=""
+                                className="w-40"
+                            />
                         </Link>
                         {user ? (
                             <div className="flex justify-end items-center">
-                                <IconBell
-                                    size="24"
-                                    stroke="1.2"
-                                    className="text-slate-900"
+                                <Bell
+                                    size={24}
+                                    absoluteStrokeWidth={true}
+                                    className="text-slate-700"
                                 />
                                 <Menubar className="border-none items-center flex">
                                     <MenubarMenu>
                                         <MenubarTrigger>
-                                            <IconUserCircle
+                                            <CircleUserRound
+                                                absoluteStrokeWidth={true}
                                                 size="36"
-                                                stroke="1.4"
                                                 className="text-slate-900"
                                             />
                                         </MenubarTrigger>
@@ -77,16 +76,16 @@ export default function Topbar({ user }) {
                                             </MenubarItem>
                                             <MenubarSeparator />
                                             <MenubarItem>
-                                                <IconDashboard
-                                                    size={20}
+                                                <CircleGauge
+                                                    size={18}
                                                     className="mr-2"
                                                 />{" "}
                                                 Dashboard
                                             </MenubarItem>
                                             <MenubarSeparator />
                                             <MenubarItem>
-                                                <IconSettings
-                                                    size={20}
+                                                <UserRoundCog
+                                                    size={18}
                                                     className="mr-2"
                                                 />{" "}
                                                 Pengaturan
@@ -108,6 +107,7 @@ export default function Topbar({ user }) {
                     </div>
                 </div>
             </nav>
+            <Navbar />
         </>
     );
 }

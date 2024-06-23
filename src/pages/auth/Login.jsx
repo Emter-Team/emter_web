@@ -22,8 +22,7 @@ export default function Login() {
         };
 
         try {
-            const response = await http.post("/auth/login", payload);
-            console.log(response.data); // Log response data
+            const response = await http.post("/auth/login", payload); // Log response data
             setUser(response.data.data.user);
             setToken(response.data.data.token);
             toast.success("Berhasil login");

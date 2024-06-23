@@ -4,11 +4,11 @@ import NavLink from "./navlink";
 
 export default function Navbar() {
     return (
-        <div className="flex scrolling-wrapper w-full flex-row overflow-x-auto overflow-y-hidden gap-x-6 max-w-8xl mx-auto px-4 sm:px-4 lg:px-24 bg-white items-center flex mt-[72px] h-[50px] border-b border-slate-200">
+        <div className="fixed flex scrolling-wrapper z-[99] w-full flex-row overflow-x-auto overflow-y-hidden gap-x-6 max-w-8xl mx-auto px-4 sm:px-4 lg:px-24 bg-white items-center flex h-[50px] border-b border-slate-200">
             <NavLink to="/dashboard" className="whitespace-nowrap">
                 Dashboard
             </NavLink>
-            <NavLink to="/residents" className="whitespace-nowrap">
+            <NavLink to="/admin/residents" className="whitespace-nowrap">
                 Daftar Pengguna
             </NavLink>
             <NavLink to="/services" className="whitespace-nowrap">

@@ -1,5 +1,8 @@
 // DefaultLayout.jsx
+import Content from "@/components/fragment/content";
+import Sidebar from "@/components/fragment/sidebar";
 import Topbar from "@/components/fragment/topbar";
+import Container from "@/components/ui/container";
 import { useStateContext } from "@/contexts/ContextProvider";
 import http from "@/services/axios";
 import React, { useEffect } from "react";
@@ -15,7 +18,12 @@ export default function DefaultLayout() {
         <div>
             <Topbar user={user} />
             <main>
-                <Outlet />
+                <Container>
+                    <Sidebar />
+                    <Content>
+                        <Outlet />
+                    </Content>
+                </Container>
             </main>
         </div>
     );

@@ -1,12 +1,19 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { XIcon } from "lucide-react";
+import { X } from "lucide-react";
 import { Fragment } from "react";
 
-export default function Toast({ isToast, name, onClose, title, children }) {
+export default function Modal({
+    isOpen,
+    onClose,
+    size,
+    title,
+    children,
+    type,
+}) {
     return (
         <>
-            <Transition appear show={isToast} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={onClose}>
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-50" onClose={onClose}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -31,22 +38,30 @@ export default function Toast({ isToast, name, onClose, title, children }) {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel
-                                    className={`w-full max-w-lg transform overflow-hidden rounded-lg bg-white px-6 py-4 text-left align-middle shadow-xl transition-all`}
+                                    className={`w-full sm:w-${size} bg-white absolute z-10 transform rounded p-6 text-left align-middle shadow-xl transition-all`}
                                 >
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-start text-dark leading-6 mb-5 mt-2 text-gray-700"
+                                        className="text-lg text-dark font-medium leading-6 mt-4 text-dark"
                                     >
-                                        <p className="font-medium text-lg mb-2">
-                                            {name}
-                                        </p>
-
-                                        <p className="font-normal text-dark">
-                                            {name
-                                                ? `Tindakan ini akan memulai proses verifikasi akun. Apakah Anda ingin melanjutkan?`
-                                                : `Apakah kamu yakin ingin menghapus ${title}?`}{" "}
-                                        </p>
+                                        {`${type === "rincian" ? "" : "Form"}`}{" "}
+                                        {type === "create"
+                                            ? "Tambah"
+                                            : type === "delete"
+                                            ? "Hapus"
+                                            : type === "edit"
+                                            ? "Ubah"
+                                            : type === "add"
+                                            ? "Tambah"
+                                            : "Rincian"}{" "}
+                                        {title}
                                     </Dialog.Title>
+                                    <button
+                                        className="absolute right-2 top-2 py-2 px-2 bg-transparent text-fifth"
+                                        onClick={onClose}
+                                    >
+                                        <X />
+                                    </button>
                                     <div className="mt-2">{children}</div>
                                 </Dialog.Panel>
                             </Transition.Child>
