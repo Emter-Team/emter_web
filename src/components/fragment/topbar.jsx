@@ -1,6 +1,5 @@
-// Topbar.js
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     Menubar,
     MenubarContent,
@@ -14,15 +13,20 @@ import { useStateContext } from "@/contexts/ContextProvider";
 import http from "@/services/axios";
 import Navbar from "./navbar";
 import { Bell, CircleGauge, CircleUserRound, UserRoundCog } from "lucide-react";
+import NavLink from "./navlink";
 
 export default function Topbar({ user }) {
+    const navigate = useNavigate();
     const { setUser, setToken } = useStateContext();
+    const location = useLocation();
+
 
     const handleLogout = async () => {
         try {
             await http.post("/auth/logout");
             setUser(null);
             setToken(null);
+            navigate("/auth/login");
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 console.log("Unauthorized, token invalid or expired");
@@ -37,7 +41,7 @@ export default function Topbar({ user }) {
             <nav className="bg-white fixed z-[99] top-0 md:border-b-[1.5px] border-b-slate-300 w-full h-[72px]">
                 <div className="max-w-8xl mx-auto px-4 sm:px-4 lg:px-24">
                     <div className="flex justify-between w-full items-center">
-                        <Link
+                        <NavLink
                             to="/"
                             className="text-2xl p-2 rounded font-bold text-black"
                         >
@@ -46,7 +50,7 @@ export default function Topbar({ user }) {
                                 alt=""
                                 className="w-40"
                             />
-                        </Link>
+                        </NavLink>
                         {user ? (
                             <div className="flex justify-end items-center">
                                 <Bell
@@ -76,11 +80,20 @@ export default function Topbar({ user }) {
                                             </MenubarItem>
                                             <MenubarSeparator />
                                             <MenubarItem>
-                                                <CircleGauge
-                                                    size={18}
-                                                    className="mr-2"
-                                                />{" "}
-                                                Dashboard
+                                                <NavLink
+                                                    to="/admin/dashboard"
+                                                    active={
+                                                        location.pathname ===
+                                                        "/admin/dashboard"
+                                                    }
+                                                    className="flex items-center"
+                                                >
+                                                    <CircleGauge
+                                                        size={18}
+                                                        className={`mr-2`}
+                                                    />
+                                                    Dashboard
+                                                </NavLink>
                                             </MenubarItem>
                                             <MenubarSeparator />
                                             <MenubarItem>

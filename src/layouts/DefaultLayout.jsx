@@ -10,7 +10,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 export default function DefaultLayout() {
     const { user, token } = useStateContext();
-    if (!token) {
+    if (!token && user) {
         return <Navigate to="/auth/login" />;
     }
 

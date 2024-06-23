@@ -14,6 +14,14 @@ import { MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import Toast from "@/components/fragment/toast";
 import Loading from "@/components/ui/loading";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 export default function GetResident() {
     const [residents, setResidents] = useState([]);
@@ -22,6 +30,10 @@ export default function GetResident() {
     let [isToast, setIsToast] = useState(false);
     const [toastTitle, setToastTitle] = useState("");
     const [residentId, setResidentId] = useState("");
+
+    const [searchName, setSearchName] = useState("");
+    const [ktpFilter, setKtpFilter] = useState("");
+    const [emailFilter, setEmailFilter] = useState("");
 
     function openToast(residentId, title) {
         setIsToast(true);
@@ -35,12 +47,17 @@ export default function GetResident() {
 
     useEffect(() => {
         getResidents();
-    }, []);
+    }, [searchName, ktpFilter, emailFilter]);
 
     const getResidents = async () => {
         try {
             setLoading(true);
-            const { data } = await http.get("/admin/residents");
+            const params = {
+                name: searchName,
+                ktp_verified_at: ktpFilter,
+                email_verified_at: emailFilter,
+            };
+            const { data } = await http.get("/admin/residents", { params });
             setTimeout(() => {
                 setLoading(false);
                 setResidents(data.data.data);
@@ -71,13 +88,52 @@ export default function GetResident() {
         <>
             <div>
                 {loading && <Loading />}
-                <div className="title">
-                    <h3 className="text-3xl font-semibold">Masyarakat</h3>
-                    <p className="text-slate-700">
-                        Daftar semua masyarakat yang telah mendaftar ke sistem
-                    </p>
+                <div className="w-full flex">
+                    <div className="title w-1/4">
+                        <h3 className="text-3xl font-semibold">Masyarakat</h3>
+                        <p className="text-slate-700">
+                            Daftar semua masyarakat yang telah mendaftar ke
+                            sistem
+                        </p>
+                    </div>
+                    <div className="w-3/4 flex justify-end gap-x-4">
+                        <Select onValueChange={(value) => setKtpFilter(value)}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Verifikasi KTP" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="true">
+                                    Sudah Verifikasi
+                                </SelectItem>
+                                <SelectItem value="false">
+                                    Belum Verifikasi
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Select
+                            onValueChange={(value) => setEmailFilter(value)}
+                        >
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Verifikasi Email" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="true">
+                                    Sudah Verifikasi
+                                </SelectItem>
+                                <SelectItem value="false">
+                                    Belum Verifikasi
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Input
+                            type="search"
+                            className="w-48"
+                            placeholder="Cari nama..."
+                            value={searchName}
+                            onChange={(e) => setSearchName(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div className="filter"></div>
             </div>
             <div className="w-full">
                 <Table>

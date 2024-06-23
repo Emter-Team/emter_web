@@ -23,7 +23,7 @@ export default function Login() {
 
         try {
             const response = await http.post("/auth/login", payload); // Log response data
-            setUser(response.data.data.user);
+            setUser(response.data.data);
             setToken(response.data.data.token);
             toast.success("Berhasil login");
             setError({});
