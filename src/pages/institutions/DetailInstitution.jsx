@@ -4,13 +4,11 @@ import http from "@/services/axios"; // pastikan Anda mengimpor axios service de
 import Loading from "@/components/ui/loading"; // pastikan Anda memiliki komponen Loading
 import { formatDate } from "@/lib/dateUtils";
 import Table from "@/components/fragment/table";
-import { Calendar, Mail, Phone, PhoneCallIcon } from "lucide-react";
-import { IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
+import { Calendar, Files, Mail, Phone } from "lucide-react";
 
-export default function DetailResident() {
+export default function DetailInstitution() {
     const { id } = useParams(); // mengambil id dari URL
-    const [resident, setResident] = useState(null);
+    const [institution, setInstitution] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -20,10 +18,10 @@ export default function DetailResident() {
     const getDetailResident = async () => {
         try {
             setLoading(true);
-            const { data } = await http.get(`/admin/residents/${id}`);
+            const { data } = await http.get(`/admin/institutions/${id}`);
             setTimeout(() => {
                 setLoading(false);
-                setResident(data.data);
+                setInstitution(data.data);
             }, 300);
         } catch (error) {
             setTimeout(() => {
@@ -36,23 +34,9 @@ export default function DetailResident() {
         return <Loading />;
     }
 
-    if (!resident) {
-        return <div>Resident data not found.</div>;
+    if (!institution) {
+        return <div>Institution data not found.</div>;
     }
-
-    const verifyKTP = async (id) => {
-        try {
-            setLoading(true);
-            await http.put(`/admin/residents/verificate/${id}`);
-            setTimeout(() => {
-                setLoading(false);
-            }, 300);
-        } catch (error) {
-            setTimeout(() => {
-                setLoading(false);
-            }, 300);
-        }
-    };
 
     return (
         <div className="flex flex-col md:flex-row gap-6">
@@ -64,53 +48,40 @@ export default function DetailResident() {
                 />
             </div>
             <div className="w-full md:w-1/2">
-                <div className="space-y-3">
-                    <p>{formatDate(resident.created_at)}</p>
+                <div className="space-y-3 mb-4">
+                    <p>{formatDate(institution.created_at)}</p>
                     <h3 className="text-xl md:text-3xl font-semibold">
-                        {resident.name}
+                        {institution.name}
                     </h3>
-                    <span className="text-primary">{resident.username}</span>
+                    <span className="text-primary">{institution.username}</span>
                 </div>
-                <Table className="border-none w-1/2 text-[16px]">
+                <span className="px-3 py-1.5 bg-success rounded-md text-white">
+                    {institution.institution.service.name}
+                </span>
+                <Table className="border-none w-1/2 text-[16px] overflow-x-hidden">
                     <tr className="border-none">
                         <th className="px-0 py-2 flex gap-x-2 items-center">
                             <Mail />
                             Email
                         </th>
-                        <td className="py-2">: {resident.email}</td>
+                        <td className="py-2">: {institution.email}</td>
                     </tr>
                     <tr className="border-none">
                         <th className="px-0 py-2 flex gap-x-2 items-center">
                             <Calendar />
-                            Tempat, Tanggal lahir
+                            Garis Bujur
                         </th>
                         <td className="py-2">
-                            : {resident.resident.date_place_of_birth}
-                        </td>
-                    </tr>
-                    <tr className="border-none">
-                        <th className="px-0 py-2 flex gap-x-2 items-center">
-                            {resident.resident.gender === "man" ? (
-                                <IconGenderMale></IconGenderMale>
-                            ) : (
-                                <IconGenderFemale></IconGenderFemale>
-                            )}
-                            Jenis Kelamin
-                        </th>
-                        <td className="py-2">
-                            :{" "}
-                            {resident.resident.gender == "man"
-                                ? "Laki-laki"
-                                : "Perempuan"}
+                            : {institution.institution.longitude}
                         </td>
                     </tr>
                     <tr className="border-none">
                         <th className="px-0 py-2 flex gap-x-2 items-center">
                             <Calendar />
-                            Nomor Telepon
+                            Garis Lintang
                         </th>
                         <td className="py-2">
-                            : {resident.resident.phone_number}
+                            : {institution.institution.latitude}
                         </td>
                     </tr>
                     <tr className="border-none">
@@ -118,25 +89,18 @@ export default function DetailResident() {
                             <Phone />
                             Alamat
                         </th>
-                        <td className="py-2">: {resident.address}</td>
+                        <td className="py-2">: {institution.address}</td>
                     </tr>
+                    <tr className="border-none"></tr>
                 </Table>
-                <div className="mt-10 flex gap-x-4 justify-end md:justify-start">
-                    <Button variant="secondary">
-                        {" "}
-                        {resident.ktp_verified_at !== null
-                            ? "Batalkan Verifikasi"
-                            : "Tolak Verifikasi"}
-                    </Button>
-                    <Button
-                        onClick={() => verifyKTP(resident.id)}
-                        disabled={resident.ktp_verified_at !== null}
-                    >
-                        {resident.ktp_verified_at !== null
-                            ? "Sudah Terverifikasi"
-                            : "Setujui Verifikasi"}
-                    </Button>
-                </div>
+                <td className="py-2 text-secondary">
+                    {institution.institution.description} Lorem ipsum dolor sit,
+                    amet consectetur adipisicing elit. Necessitatibus eum
+                    laborum laboriosam deleniti repudiandae suscipit, fugit
+                    culpa nihil quaerat natus perferendis, ullam optio?
+                    Accusamus quae, reprehenderit laborum ut distinctio
+                    explicabo.
+                </td>
             </div>
         </div>
     );

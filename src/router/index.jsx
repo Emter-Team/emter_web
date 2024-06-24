@@ -8,6 +8,7 @@ import GetOfficer from "@/pages/officers/GetOfficer.jsx";
 import GetInstitution from "@/pages/institutions/GetInstitution.jsx";
 import DetailResident from "@/pages/residents/DetailResident.jsx";
 import DetailOfficer from "@/pages/officers/DetailOfficer.jsx";
+import DetailInstitution from "@/pages/institutions/DetailInstitution.jsx";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "institutions",
                 element: <GetInstitution />,
+            },
+            {
+                path: "institutions/:id",
+                element: <DetailInstitution />,
             },
         ],
     },
