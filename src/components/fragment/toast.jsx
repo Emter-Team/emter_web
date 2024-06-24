@@ -44,7 +44,7 @@ export default function Toast({ isToast, name, onClose, title, children }) {
                                         <p className="font-normal text-primary">
                                             {name
                                                 ? `Tindakan ini akan memulai proses verifikasi akun. Apakah Anda ingin melanjutkan?`
-                                                : `Apakah kamu yakin ingin menghapus ${title}?`}{" "}
+                                                : `Tindakan ini akan memulai proses menghapus akun. Apakah Anda ingin menghapus? ${title}?`}{" "}
                                         </p>
                                     </Dialog.Title>
                                     <div className="mt-2">{children}</div>

@@ -13,7 +13,6 @@ export default function DefaultLayout() {
         return <Navigate to="/auth/login" />;
     }
 
-    console.log(user);
 
     return (
         <div>

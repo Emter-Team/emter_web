@@ -42,6 +42,7 @@ export default function GetResident() {
     const [paginationLinks, setPaginationLinks] = useState([]);
 
     const [isToast, setIsToast] = useState(false);
+    const [isDeleteToast, setIsDeleteToast] = useState(false);
     const [toastTitle, setToastTitle] = useState("");
     const [residentId, setResidentId] = useState("");
 
@@ -55,8 +56,14 @@ export default function GetResident() {
         setResidentId(residentId);
     }
 
-    function onCancelToast() {
-        setIsToast(false);
+    function openDeleteToast(residentId, title) {
+        setIsDeleteToast(true);
+        setToastTitle(title);
+        setResidentId(residentId);
+    }
+
+    function onCancelDeleteToast() {
+        setIsDeleteToast(false);
     }
 
     useEffect(() => {
@@ -87,12 +94,8 @@ export default function GetResident() {
         }, 300); // 0.3 seconds delay
     };
 
-    console.log(totalResident);
-
     const verifyKTP = async (username) => {
         setLoading(true);
-
-        // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
             try {
                 await http.put(`/admin/residents/verificate/${username}`);
@@ -106,7 +109,20 @@ export default function GetResident() {
         }, 300); // 0.3 seconds delay
     };
 
-    console.log(residents);
+    const handleTrash = (username) => {
+        setLoading(true);
+        setTimeout(async () => {
+            try {
+                await http.delete(`/admin/residents/${username}`);
+                setIsDeleteToast(false);
+                getResidents(currentPage);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }, 300); // 0.3 seconds delay
+    };
 
     return (
         <>
@@ -226,15 +242,17 @@ export default function GetResident() {
                                     <Table.Td>
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
-                                                <Button
-                                                    variant="ghost"
-                                                    className="h-8 w-8 p-0"
-                                                >
-                                                    <span className="sr-only">
-                                                        Open menu
-                                                    </span>
-                                                    <MoreHorizontal className="h-4 w-4" />
-                                                </Button>
+                                                <div className="group">
+                                                    <Button
+                                                        variant="ghost"
+                                                        className="h-8 w-8 p-0 group-hover:bg-primary"
+                                                    >
+                                                        <span className="sr-only">
+                                                            Open menu
+                                                        </span>
+                                                        <MoreHorizontal className="h-4 w-4 group-hover:text-white" />
+                                                    </Button>
+                                                </div>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
                                                 <Link
@@ -266,12 +284,19 @@ export default function GetResident() {
                                                     />
                                                     Verifikasi KTP
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem>
+                                                <DropdownMenuItem
+                                                    onClick={() =>
+                                                        openDeleteToast(
+                                                            resident.id,
+                                                            resident.name
+                                                        )
+                                                    }
+                                                >
                                                     <Trash2
                                                         size={18}
                                                         className={`mr-2`}
                                                     />
-                                                    Arsipkan
+                                                    Hapus
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
@@ -279,9 +304,9 @@ export default function GetResident() {
                                 </Table.Tr>
                             ))
                         ) : (
-                            <tr className="bg-white border-b text-primary text-center">
+                            <Table.Tr className="text-center">
                                 <Table.Td colSpan="7">Item kosong</Table.Td>
-                            </tr>
+                            </Table.Tr>
                         )}
                     </Table.Tbody>
                 </Table>
@@ -289,7 +314,7 @@ export default function GetResident() {
                 {residents.length > 0 && (
                     <div className="flex w-full justify-between items-center">
                         <p className="text-sm text-primary mt-10">
-                            Total Produk:{" "}
+                            Total Masyarakat:{" "}
                             <span className="font-bold">{totalResident}</span>
                         </p>
                         <Pagination
@@ -317,6 +342,27 @@ export default function GetResident() {
                     <Button
                         className="w-32"
                         onClick={() => verifyKTP(residentId)}
+                    >
+                        Yes
+                    </Button>
+                </div>
+            </Toast>
+            <Toast
+                isToast={isDeleteToast}
+                onClose={() => setIsDeleteToast(false)}
+                title={toastTitle}
+            >
+                <div className="flex justify-end gap-2">
+                    <Button
+                        variant="secondary"
+                        className="w-32"
+                        onClick={() => onCancelDeleteToast()}
+                    >
+                        No
+                    </Button>
+                    <Button
+                        className="w-32"
+                        onClick={() => handleTrash(residentId)}
                     >
                         Yes
                     </Button>

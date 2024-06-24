@@ -16,6 +16,18 @@ export default function Navbar() {
             >
                 Dashboard
             </NavLink>
+            <NavLink
+                to="/admin/dashboard"
+                className={`flex items-center whitespace-nowrap ${
+                    location.pathname === "/admin/residents" ||
+                    location.pathname === "/admin/officers" ||
+                    location.pathname === "/admin/institutions"
+                        ? "font-semibold px-1 border-b border-b-2 border-secondary"
+                        : ""
+                }`}
+            >
+                Daftar Pengguna
+            </NavLink>
             <NavLink to="/admin/residents" className="whitespace-nowrap ">
                 Daftar Pengguna
             </NavLink>
