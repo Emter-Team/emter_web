@@ -7,9 +7,9 @@ export default function Navbar() {
     return (
         <div className="fixed flex scrolling-wrapper z-[99] w-full flex-row overflow-x-auto overflow-y-hidden gap-x-6 max-w-8xl mx-auto px-4 sm:px-4 lg:px-24 bg-white items-center flex h-[50px] border-b border-secondary/20">
             <NavLink
-                to="/admin/dashboard"
+                to="/dashboard"
                 className={`flex items-center whitespace-nowrap ${
-                    location.pathname === "/admin/dashboard"
+                    location.pathname === "/dashboard"
                         ? "font-semibold px-1 border-b border-b-2 border-secondary"
                         : ""
                 }`}
@@ -17,21 +17,17 @@ export default function Navbar() {
                 Dashboard
             </NavLink>
             <NavLink
-                to="/admin/dashboard"
-                className={`flex items-center whitespace-nowrap ${
-                    location.pathname === "/admin/residents" ||
-                    location.pathname === "/admin/officers" ||
-                    location.pathname === "/admin/institutions"
-                        ? "font-semibold px-1 border-b border-b-2 border-secondary"
-                        : ""
-                }`}
+                to="/dashboard"
+                className={`flex items-center whitespace-nowrap`}
+                active={location.pathname === "/residents"}
             >
                 Daftar Pengguna
             </NavLink>
-            <NavLink to="/admin/residents" className="whitespace-nowrap ">
-                Daftar Pengguna
-            </NavLink>
-            <NavLink to="/services" className="whitespace-nowrap">
+            <NavLink
+                to="/services"
+                className="whitespace-nowrap"
+                active={location.pathname === "/services"}
+            >
                 Daftar Layanan Darurat
             </NavLink>
             <NavLink to="/posts" className="whitespace-nowrap">

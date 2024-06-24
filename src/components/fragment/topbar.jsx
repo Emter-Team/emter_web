@@ -79,10 +79,10 @@ export default function Topbar({ user }) {
                                             </MenubarItem>
                                             <MenubarSeparator />
                                             <NavLink
-                                                to="/admin/dashboard"
+                                                to="/dashboard"
                                                 active={
                                                     location.pathname ===
-                                                    "/admin/dashboard"
+                                                    "/dashboard"
                                                 }
                                                 className="flex items-center w-full h-full"
                                             >

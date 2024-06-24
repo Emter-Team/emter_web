@@ -7,10 +7,11 @@ import GetResident from "@/pages/residents/GetResident.jsx";
 import GetOfficer from "@/pages/officers/GetOfficer.jsx";
 import GetInstitution from "@/pages/institutions/GetInstitution.jsx";
 import DetailResident from "@/pages/residents/DetailResident.jsx";
+import DetailOfficer from "@/pages/officers/DetailOfficer.jsx";
 
 const router = createBrowserRouter([
     {
-        path: "/admin/",
+        path: "/",
         element: <DefaultLayout />,
         children: [
             {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "officers",
                 element: <GetOfficer />,
+            },
+            {
+                path: "officers/:id",
+                element: <DetailOfficer />,
             },
             {
                 path: "institutions",

@@ -154,7 +154,7 @@ export default function GetOfficers() {
                                         {officer.officer.institution.user.name}
                                     </Table.Td>
                                     <Table.Td className="w-min">
-                                        {officer.name}
+                                        {officer.username}
                                     </Table.Td>
                                     <Table.Td className="w-min">
                                         {officer.email}
@@ -200,7 +200,7 @@ export default function GetOfficers() {
                                                 <Link
                                                     className="group:name w-full h-full"
                                                     to={
-                                                        "/admin/officers/" +
+                                                        "/officers/" +
                                                         officer.username
                                                     }
                                                 >
