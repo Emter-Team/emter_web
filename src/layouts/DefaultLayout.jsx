@@ -1,6 +1,3 @@
-// DefaultLayout.jsx
-import Content from "@/components/fragment/content";
-import Sidebar from "@/components/fragment/sidebar";
 import Topbar from "@/components/fragment/topbar";
 import Container from "@/components/ui/container";
 import { useStateContext } from "@/contexts/ContextProvider";
@@ -12,17 +9,12 @@ export default function DefaultLayout() {
     if (!token || user == null) {
         return <Navigate to="/auth/login" />;
     }
-
-
     return (
         <div>
             <Topbar user={user} />
             <main>
                 <Container>
-                    <Sidebar />
-                    <Content>
-                        <Outlet />
-                    </Content>
+                    <Outlet />
                 </Container>
             </main>
         </div>

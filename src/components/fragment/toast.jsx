@@ -2,7 +2,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "lucide-react";
 import { Fragment } from "react";
 
-export default function Toast({ isToast, name, onClose, title, children }) {
+export default function Toast({
+    isToast,
+    onClose,
+    title,
+    children,
+}) {
     return (
         <>
             <Transition appear show={isToast} as={Fragment}>
@@ -37,14 +42,8 @@ export default function Toast({ isToast, name, onClose, title, children }) {
                                         as="h3"
                                         className="text-start text-primary leading-6 mb-5 mt-2 text-primary"
                                     >
-                                        <p className="font-medium text-lg mb-2">
-                                            {name}
-                                        </p>
-
                                         <p className="font-normal text-primary">
-                                            {name
-                                                ? `Tindakan ini akan memulai proses verifikasi akun. Apakah Anda ingin melanjutkan?`
-                                                : `Tindakan ini akan memulai proses menghapus akun. Apakah Anda ingin menghapus? ${title}?`}{" "}
+                                            {title}
                                         </p>
                                     </Dialog.Title>
                                     <div className="mt-2">{children}</div>

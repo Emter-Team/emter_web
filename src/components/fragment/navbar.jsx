@@ -17,7 +17,7 @@ export default function Navbar() {
                 Dashboard
             </NavLink>
             <NavLink
-                to="/dashboard"
+                to="/residents"
                 className={`flex items-center whitespace-nowrap`}
                 active={location.pathname === "/residents"}
             >

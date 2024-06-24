@@ -71,10 +71,7 @@ const Td = ({ children, className, colSpan, width, textAlign }) => {
         <td
             width={width}
             align={textAlign}
-            className={clsx(
-                "px-6 py-2 text-primary whitespace-nowrap",
-                className
-            )}
+            className={clsx("px-6 py-2 text-primary", className)}
             colSpan={colSpan}
         >
             {children}

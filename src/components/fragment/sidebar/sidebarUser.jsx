@@ -1,7 +1,7 @@
 import React from "react";
-import NavLink from "./navlink";
+import NavLink from "../navlink";
 
-export default function Sidebar() {
+export default function SidebarUser() {
     return (
         <div className="h-min md:h-screen w-full md:w-2/12 mt-20 pt-4 flex flex-col gap-4">
             <NavLink

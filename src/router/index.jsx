@@ -9,6 +9,7 @@ import GetInstitution from "@/pages/institutions/GetInstitution.jsx";
 import DetailResident from "@/pages/residents/DetailResident.jsx";
 import DetailOfficer from "@/pages/officers/DetailOfficer.jsx";
 import DetailInstitution from "@/pages/institutions/DetailInstitution.jsx";
+import GetPost from "@/pages/posts/GetPost.jsx";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
                 path: "institutions/:id",
                 element: <DetailInstitution />,
             },
+            {
+                path: "posts",
+                element: <GetPost />,
+            },
+            // {
+            //     path: "posts/:id",
+            //     element: <DetailPost />,
+            // },
         ],
     },
     {

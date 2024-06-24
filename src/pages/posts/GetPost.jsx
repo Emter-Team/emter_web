@@ -6,8 +6,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IconCircleCheckFilled, IconCircleXFilled } from "@tabler/icons-react";
-import { Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import { CheckCheck, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
@@ -22,26 +21,27 @@ import {
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
-import SidebarUser from "@/components/fragment/sidebar/sidebarUser";
+import SidebarPost from "@/components/fragment/sidebar/sidebarPost";
 
-export default function GetOfficers() {
-    const [officers, setOfficers] = useState([]);
-    const [totalOfficers, setTotalOfficers] = useState([]);
+export default function GetPost() {
+    const [posts, setPosts] = useState([]);
+    const [postCategories, setPostCategories] = useState([]);
+    const [institutions, setInstitutions] = useState([]);
+    const [totalPosts, setTotalPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationLinks, setPaginationLinks] = useState([]);
 
     const [isDeleteToast, setIsDeleteToast] = useState(false);
-    const [toastTitle, setToastTitle] = useState("");
-    const [OfficersId, setOfficersId] = useState("");
+    const [institutionId, setPostId] = useState("");
 
-    const [searchName, setSearchName] = useState("");
-    const [emailFilter, setEmailFilter] = useState("");
+    const [searchTitle, setSearchTitle] = useState("");
+    const [institutionFilter, setInstitutionFilter] = useState("");
+    const [categoryFilter, setServiceFilter] = useState("");
 
-    function openDeleteToast(OfficersId, title) {
+    function openDeleteToast(institutionId) {
         setIsDeleteToast(true);
-        setToastTitle(title);
-        setOfficersId(OfficersId);
+        setPostId(institutionId);
     }
 
     function onCancelDeleteToast() {
@@ -49,24 +49,51 @@ export default function GetOfficers() {
     }
 
     useEffect(() => {
-        getOfficers(currentPage);
-    }, [searchName, emailFilter, currentPage]);
+        getPosts(currentPage);
+        getService();
+        getInstitution();
+    }, [searchTitle, institutionFilter, categoryFilter, currentPage]);
 
-    const getOfficers = async (page) => {
+    const getService = async () => {
+        setLoading(true);
+        try {
+            const response = await http.get("/admin/post_categories");
+            setPostCategories(response.data.data.data);
+        } catch (error) {
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getInstitution = async () => {
+        setLoading(true);
+        try {
+            const response = await http.get("/admin/institutions");
+            setInstitutions(response.data.data.data);
+        } catch (error) {
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getPosts = async (page) => {
         setLoading(true);
         const params = {
-            name: searchName,
-            email_verified_at: emailFilter,
+            title: searchTitle,
+            category: categoryFilter,
+            institution: institutionFilter,
             page: page,
         };
 
         // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
             try {
-                const response = await http.get("/admin/officers/", { params });
-                setOfficers(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
-                setTotalOfficers(response.data.data.total_officers);
+                const response = await http.get("/admin/posts", {
+                    params,
+                });
+                setPaginationLinks(response.data.data.meta);
+                setPosts(response.data.data.data);
+                setTotalPosts(response.data.data.total_posts);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -79,9 +106,9 @@ export default function GetOfficers() {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/officers/${username}`);
+                await http.delete(`/admin/posts/${username}`);
                 setIsDeleteToast(false);
-                getOfficers(currentPage);
+                getPosts(currentPage);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -93,91 +120,93 @@ export default function GetOfficers() {
     return (
         <>
             {loading && <Loading />} {/* Show loading indicator */}
-            <SidebarUser />
+            <SidebarPost />
             <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
-                <div>
-                    <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">
-                        <div className="title w-full md:w-1/3">
-                            <h3 className="text-3xl font-semibold text-primary">
-                                Petugas
-                            </h3>
-                            <p className="text-secondary">
-                                Daftar semua petugas yang telah mendaftar ke
-                                sistem
-                            </p>
-                        </div>
-                        <div className="w-full md:w-2/3 mt-8 md:mt-0 flex justify-end gap-x-4">
-                            <Select
-                                onValueChange={(value) => setEmailFilter(value)}
-                            >
-                                <SelectTrigger className="w-[180px]">
-                                    <SelectValue placeholder="Verifikasi Email" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="true">
-                                        Sudah Verifikasi
+                <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">
+                    <div className="title w-full md:w-1/3">
+                        <h3 className="text-3xl font-semibold text-primary">
+                            Berita
+                        </h3>
+                        <p className="text-secondary">
+                            Daftar semua informasi darurat dari Instansi
+                        </p>
+                    </div>
+                    <div className="w-full md:w-2/3 mt-8 md:mt-0 flex justify-end gap-x-4">
+                        <Select
+                            onValueChange={(value) =>
+                                setInstitutionFilter(value)
+                            }
+                        >
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Instansi" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {institutions.map((institution, index) => (
+                                    <SelectItem
+                                        value={institution.username}
+                                        key={index}
+                                    >
+                                        {institution.name}
                                     </SelectItem>
-                                    <SelectItem value="false">
-                                        Belum Verifikasi
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Select
+                            onValueChange={(value) => setServiceFilter(value)}
+                        >
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Layanan" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {postCategories.map((post_category, index) => (
+                                    <SelectItem
+                                        value={post_category.slug}
+                                        key={index}
+                                    >
+                                        {post_category.name}
                                     </SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <Input
-                                type="search"
-                                className="w-48"
-                                placeholder="Cari nama..."
-                                value={searchName}
-                                onChange={(e) => setSearchName(e.target.value)}
-                            />
-                        </div>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Input
+                            type="search"
+                            className="w-48"
+                            placeholder="Cari nama..."
+                            value={searchTitle}
+                            onChange={(e) => setSearchTitle(e.target.value)}
+                        />
                     </div>
                 </div>
+
                 <div className="w-full">
                     <Table>
                         <Table.Thead>
                             <tr>
                                 <Table.Th>#</Table.Th>
-                                <Table.Th>Instansi</Table.Th>
-                                <Table.Th>Nama</Table.Th>
-                                <Table.Th>Email</Table.Th>
-                                <Table.Th className="text-center w-48">
-                                    Verifikasi Email
-                                </Table.Th>
-                                <Table.Th className="w-12">Avatar</Table.Th>
+                                <Table.Th>Judul</Table.Th>
+                                <Table.Th>Kontent</Table.Th>
+                                <Table.Th className="w-12">Gambar</Table.Th>
                                 <Table.Th className="w-12 px-2">Aksi</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {officers.length > 0 ? (
-                                officers.map((officer, index) => (
+                            {posts.length > 0 ? (
+                                posts.map((post, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
-                                        <Table.Td className="w-min">
-                                            {
-                                                officer.officer.institution.user
-                                                    .name
-                                            }
-                                        </Table.Td>
-                                        <Table.Td className="w-min">
-                                            {officer.username}
-                                        </Table.Td>
-                                        <Table.Td className="w-min">
-                                            {officer.email}
+                                        <Table.Td className="w-48">
+                                            {post.title}
                                         </Table.Td>
                                         <Table.Td
-                                            textAlign="center"
-                                            className="w-48"
+                                            className="whitespace-normal"
+                                            width="60%"
                                         >
-                                            {officer.email_verified_at ? (
-                                                <IconCircleCheckFilled className="text-success" />
-                                            ) : (
-                                                <IconCircleXFilled className="text-danger" />
-                                            )}
+                                            {post.content}
                                         </Table.Td>
                                         <Table.Td className="w-50">
-                                            {officer.avatar ? (
+                                            {post.avatar ? (
                                                 <img src="" alt="" />
                                             ) : (
                                                 <img
@@ -207,8 +236,8 @@ export default function GetOfficers() {
                                                     <Link
                                                         className="group:name w-full h-full"
                                                         to={
-                                                            "/officers/" +
-                                                            officer.username
+                                                            "/posts/" +
+                                                            post.slug
                                                         }
                                                     >
                                                         <DropdownMenuItem className="group:name">
@@ -222,8 +251,8 @@ export default function GetOfficers() {
                                                     <DropdownMenuItem
                                                         onClick={() =>
                                                             openDeleteToast(
-                                                                officer.id,
-                                                                officer.name
+                                                                post.id,
+                                                                post.title
                                                             )
                                                         }
                                                     >
@@ -246,16 +275,14 @@ export default function GetOfficers() {
                         </Table.Tbody>
                     </Table>
 
-                    {officers.length > 0 && (
+                    {posts.length > 0 && (
                         <div className="flex w-full justify-between items-center">
                             <p className="text-sm text-primary mt-10">
-                                Total Petugas:{" "}
-                                <span className="font-bold">
-                                    {totalOfficers}
-                                </span>
+                                Total Berita:{" "}
+                                <span className="font-bold">{totalPosts}</span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>
@@ -266,7 +293,7 @@ export default function GetOfficers() {
             <Toast
                 isToast={isDeleteToast}
                 onClose={() => setIsDeleteToast(false)}
-                title={toastTitle}
+                title={`Tindakan ini akan memulai proses menghapus berita. Apakah Anda ingin menghapus?`}
             >
                 <div className="flex justify-end gap-2">
                     <Button
@@ -278,7 +305,7 @@ export default function GetOfficers() {
                     </Button>
                     <Button
                         className="w-32"
-                        onClick={() => handleTrash(OfficersId)}
+                        onClick={() => handleTrash(institutionId)}
                     >
                         Yes
                     </Button>
