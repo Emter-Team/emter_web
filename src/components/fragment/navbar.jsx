@@ -45,9 +45,9 @@ export default function Navbar({ user }) {
                 Daftar Berita
             </NavLink>
             <NavLink
-                to="/incidents"
+                to="/incident_types"
                 className="whitespace-nowrap"
-                active={location.pathname === "/incidents"}
+                active={location.pathname === "/incident_types"}
             >
                 Daftar Laporan Kejadian
             </NavLink>
