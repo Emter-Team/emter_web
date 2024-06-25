@@ -15,6 +15,7 @@ import GetPostCategories from "@/pages/post_categories/GetPostCategories.jsx";
 import GetVehicles from "@/pages/vehicles/GetVehicles.jsx";
 import DetailProfile from "@/pages/settings/DetailProfile.jsx";
 import FormUpdateProfile from "@/pages/settings/FormUpdateProfile.jsx";
+import GetService from "@/pages/service/GetService.jsx";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: "institutions/:id",
                 element: <DetailInstitution />,
+            },
+            {
+                path: "services",
+                element: <GetService />,
             },
             {
                 path: "posts",
