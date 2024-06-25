@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
@@ -7,24 +7,30 @@ import Loading from "@/components/ui/loading";
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
-import SidebarPostCategory from "@/components/fragment/sidebar/sidebarPostCategory";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
 
-export default function GetPostCategories() {
-    const [post_categories, setPosts] = useState([]);
-    const [totalPostCategories, setTotalPostCategories] = useState([]);
+export default function GetService() {
+    const [services, setServices] = useState([]);
+    const [totalServices, setTotalServices] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationLinks, setPaginationLinks] = useState([]);
 
     const [isDeleteToast, setIsDeleteToast] = useState(false);
-    const [PostCategoriesId, setPostCategoriesId] = useState("");
+    const [ServicesId, setServicesId] = useState("");
 
     const [searchName, setSearchName] = useState("");
 
-    function openDeleteToast(PostCategoriesId, title) {
+    function openDeleteToast(ServicesId, title) {
         setIsDeleteToast(true);
-        setToastTitle(title);
-        setPostCategoriesId(PostCategoriesId);
+        setServicesId(ServicesId);
     }
 
     function onCancelDeleteToast() {
@@ -32,10 +38,10 @@ export default function GetPostCategories() {
     }
 
     useEffect(() => {
-        getPostCategories(currentPage);
+        getServices(currentPage);
     }, [searchName, currentPage]);
 
-    const getPostCategories = async (page) => {
+    const getServices = async (page) => {
         setLoading(true);
         const params = {
             name: searchName,
@@ -45,12 +51,13 @@ export default function GetPostCategories() {
         // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
             try {
-                const response = await http.get("/admin/post_categories/", {
+                const response = await http.get("/admin/services/", {
                     params,
                 });
-                setPosts(response.data.data.data);
+                console.log(response);
+                setServices(response.data.data.data);
                 setPaginationLinks(response.data.data.meta.links);
-                setTotalPostCategories(response.data.data.total_officers);
+                setTotalServices(response.data.data.total_services);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -63,9 +70,9 @@ export default function GetPostCategories() {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/post_categories/${username}`);
+                await http.delete(`/admin/services/${username}`);
                 setIsDeleteToast(false);
-                getPostCategories(currentPage);
+                getServices(currentPage);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -77,16 +84,16 @@ export default function GetPostCategories() {
     return (
         <>
             {loading && <Loading />} {/* Show loading indicator */}
-            <SidebarPostCategory />
+            <SidebarSetting />
             <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
                 <div>
                     <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">
                         <div className="title w-full md:w-1/3">
                             <h3 className="text-3xl font-semibold text-primary">
-                                Jenis Berita
+                                Layanan Darurat
                             </h3>
                             <p className="text-secondary">
-                                Daftar semua jenis informasi darurat yang
+                                Daftar semua layanan darurat yang telah
                                 terdaftar di sistem
                             </p>
                         </div>
@@ -113,30 +120,65 @@ export default function GetPostCategories() {
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {post_categories.length > 0 ? (
-                                post_categories.map((post_category, index) => (
+                            {services.length > 0 ? (
+                                services.map((service, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
                                             {index + 1}
                                         </Table.Td>
                                         <Table.Td className="w-min">
-                                            {post_category.name}
+                                            {service.name}
                                         </Table.Td>
                                         <Table.Td className="w-min">
-                                            {post_category.description}
+                                            {service.description}
                                         </Table.Td>
                                         <Table.Td>
-                                            <Button
-                                                variant="secondary border-none"
-                                                onClick={() =>
-                                                    openDeleteToast(
-                                                        post_category.id,
-                                                        post_category.name
-                                                    )
-                                                }
-                                            >
-                                                <Trash2 size={18} />
-                                            </Button>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <div className="group">
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="h-8 w-8 p-0 group-hover:bg-primary"
+                                                        >
+                                                            <span className="sr-only">
+                                                                Open menu
+                                                            </span>
+                                                            <MoreHorizontal className="h-4 w-4 group-hover:text-white" />
+                                                        </Button>
+                                                    </div>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end">
+                                                    <Link
+                                                        className="group:name w-full h-full"
+                                                        to={
+                                                            "/services/" +
+                                                            service.username
+                                                        }
+                                                    >
+                                                        <DropdownMenuItem className="group:name">
+                                                            <Pencil
+                                                                size={18}
+                                                                className={`mr-2`}
+                                                            />
+                                                            Ubah
+                                                        </DropdownMenuItem>
+                                                    </Link>
+                                                    <DropdownMenuItem
+                                                        onClick={() =>
+                                                            openDeleteToast(
+                                                                service.id,
+                                                                service.name
+                                                            )
+                                                        }
+                                                    >
+                                                        <Trash2
+                                                            size={18}
+                                                            className={`mr-2`}
+                                                        />
+                                                        Hapus
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         </Table.Td>
                                     </Table.Tr>
                                 ))
@@ -148,12 +190,12 @@ export default function GetPostCategories() {
                         </Table.Tbody>
                     </Table>
 
-                    {post_categories.length > 0 && (
+                    {services.length > 0 && (
                         <div className="flex w-full justify-between items-center">
                             <p className="text-sm text-primary mt-10">
-                                Total Jenis Berita:{" "}
+                                Total Jenis Layanan Darurat:{" "}
                                 <span className="font-bold">
-                                    {totalPostCategories}
+                                    {totalServices}
                                 </span>
                             </p>
                             <Pagination
@@ -169,7 +211,7 @@ export default function GetPostCategories() {
                 isToast={isDeleteToast}
                 onClose={() => setIsDeleteToast(false)}
                 title={
-                    "Tindakan ini akan memulai proses menghapus berita. Apakah Anda ingin menghapus?"
+                    "Tindakan ini akan memulai proses menghapus jenis layanan darurat. Apakah Anda ingin menghapus?"
                 }
             >
                 <div className="flex justify-end gap-2">
@@ -182,7 +224,7 @@ export default function GetPostCategories() {
                     </Button>
                     <Button
                         className="w-32"
-                        onClick={() => handleTrash(PostCategoriesId)}
+                        onClick={() => handleTrash(ServicesId)}
                     >
                         Yes
                     </Button>

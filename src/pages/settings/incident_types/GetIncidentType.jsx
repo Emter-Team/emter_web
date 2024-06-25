@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import SidebarIncident from "@/components/fragment/sidebar/sidebarIncident";
+import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
 
 export default function GetIncidentType() {
     const [services, setServices] = useState([]);
@@ -84,7 +85,7 @@ export default function GetIncidentType() {
     return (
         <>
             {loading && <Loading />} {/* Show loading indicator */}
-            <SidebarIncident />
+            <SidebarSetting />
             <div className="w-full mt-10 md:mt-20 md:w-10/12 p-0 md:p-4 h-screen">
                 <div>
                     <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">

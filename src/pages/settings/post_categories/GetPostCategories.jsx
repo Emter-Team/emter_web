@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
@@ -7,29 +7,24 @@ import Loading from "@/components/ui/loading";
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
 
-export default function GetService() {
-    const [services, setServices] = useState([]);
-    const [totalServices, setTotalServices] = useState([]);
+export default function GetPostCategories() {
+    const [post_categories, setPosts] = useState([]);
+    const [totalPostCategories, setTotalPostCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationLinks, setPaginationLinks] = useState([]);
 
     const [isDeleteToast, setIsDeleteToast] = useState(false);
-    const [ServicesId, setServicesId] = useState("");
+    const [PostCategoriesId, setPostCategoriesId] = useState("");
 
     const [searchName, setSearchName] = useState("");
 
-    function openDeleteToast(ServicesId, title) {
+    function openDeleteToast(PostCategoriesId, title) {
         setIsDeleteToast(true);
-        setServicesId(ServicesId);
+        setToastTitle(title);
+        setPostCategoriesId(PostCategoriesId);
     }
 
     function onCancelDeleteToast() {
@@ -37,10 +32,10 @@ export default function GetService() {
     }
 
     useEffect(() => {
-        getServices(currentPage);
+        getPostCategories(currentPage);
     }, [searchName, currentPage]);
 
-    const getServices = async (page) => {
+    const getPostCategories = async (page) => {
         setLoading(true);
         const params = {
             name: searchName,
@@ -50,13 +45,12 @@ export default function GetService() {
         // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
             try {
-                const response = await http.get("/admin/services/", {
+                const response = await http.get("/admin/post_categories/", {
                     params,
                 });
-                console.log(response);
-                setServices(response.data.data.data);
+                setPosts(response.data.data.data);
                 setPaginationLinks(response.data.data.meta.links);
-                setTotalServices(response.data.data.total_services);
+                setTotalPostCategories(response.data.data.total_officers);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -69,9 +63,9 @@ export default function GetService() {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/services/${username}`);
+                await http.delete(`/admin/post_categories/${username}`);
                 setIsDeleteToast(false);
-                getServices(currentPage);
+                getPostCategories(currentPage);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -83,15 +77,16 @@ export default function GetService() {
     return (
         <>
             {loading && <Loading />} {/* Show loading indicator */}
-            <div className="w-full mt-10 md:mt-20 p-0 md:p-4 h-screen">
+            <SidebarSetting />
+            <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
                 <div>
                     <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">
                         <div className="title w-full md:w-1/3">
                             <h3 className="text-3xl font-semibold text-primary">
-                                Layanan Darurat
+                                Jenis Berita
                             </h3>
                             <p className="text-secondary">
-                                Daftar semua layanan darurat yang telah
+                                Daftar semua jenis informasi darurat yang
                                 terdaftar di sistem
                             </p>
                         </div>
@@ -118,65 +113,30 @@ export default function GetService() {
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {services.length > 0 ? (
-                                services.map((service, index) => (
+                            {post_categories.length > 0 ? (
+                                post_categories.map((post_category, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
                                             {index + 1}
                                         </Table.Td>
                                         <Table.Td className="w-min">
-                                            {service.name}
+                                            {post_category.name}
                                         </Table.Td>
                                         <Table.Td className="w-min">
-                                            {service.description}
+                                            {post_category.description}
                                         </Table.Td>
                                         <Table.Td>
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <div className="group">
-                                                        <Button
-                                                            variant="ghost"
-                                                            className="h-8 w-8 p-0 group-hover:bg-primary"
-                                                        >
-                                                            <span className="sr-only">
-                                                                Open menu
-                                                            </span>
-                                                            <MoreHorizontal className="h-4 w-4 group-hover:text-white" />
-                                                        </Button>
-                                                    </div>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <Link
-                                                        className="group:name w-full h-full"
-                                                        to={
-                                                            "/services/" +
-                                                            service.username
-                                                        }
-                                                    >
-                                                        <DropdownMenuItem className="group:name">
-                                                            <Pencil
-                                                                size={18}
-                                                                className={`mr-2`}
-                                                            />
-                                                            Ubah
-                                                        </DropdownMenuItem>
-                                                    </Link>
-                                                    <DropdownMenuItem
-                                                        onClick={() =>
-                                                            openDeleteToast(
-                                                                service.id,
-                                                                service.name
-                                                            )
-                                                        }
-                                                    >
-                                                        <Trash2
-                                                            size={18}
-                                                            className={`mr-2`}
-                                                        />
-                                                        Hapus
-                                                    </DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
+                                            <Button
+                                                variant="secondary border-none"
+                                                onClick={() =>
+                                                    openDeleteToast(
+                                                        post_category.id,
+                                                        post_category.name
+                                                    )
+                                                }
+                                            >
+                                                <Trash2 size={18} />
+                                            </Button>
                                         </Table.Td>
                                     </Table.Tr>
                                 ))
@@ -188,12 +148,12 @@ export default function GetService() {
                         </Table.Tbody>
                     </Table>
 
-                    {services.length > 0 && (
+                    {post_categories.length > 0 && (
                         <div className="flex w-full justify-between items-center">
                             <p className="text-sm text-primary mt-10">
-                                Total Jenis Layanan Darurat:{" "}
+                                Total Jenis Berita:{" "}
                                 <span className="font-bold">
-                                    {totalServices}
+                                    {totalPostCategories}
                                 </span>
                             </p>
                             <Pagination
@@ -209,7 +169,7 @@ export default function GetService() {
                 isToast={isDeleteToast}
                 onClose={() => setIsDeleteToast(false)}
                 title={
-                    "Tindakan ini akan memulai proses menghapus jenis layanan darurat. Apakah Anda ingin menghapus?"
+                    "Tindakan ini akan memulai proses menghapus berita. Apakah Anda ingin menghapus?"
                 }
             >
                 <div className="flex justify-end gap-2">
@@ -222,7 +182,7 @@ export default function GetService() {
                     </Button>
                     <Button
                         className="w-32"
-                        onClick={() => handleTrash(ServicesId)}
+                        onClick={() => handleTrash(PostCategoriesId)}
                     >
                         Yes
                     </Button>

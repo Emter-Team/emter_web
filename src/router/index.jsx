@@ -11,12 +11,12 @@ import DetailOfficer from "@/pages/officers/DetailOfficer.jsx";
 import DetailInstitution from "@/pages/institutions/DetailInstitution.jsx";
 import GetPost from "@/pages/posts/GetPost.jsx";
 import DetailPost from "@/pages/posts/DetailPost.jsx";
-import GetPostCategories from "@/pages/post_categories/GetPostCategories.jsx";
 import GetVehicles from "@/pages/vehicles/GetVehicles.jsx";
-import DetailProfile from "@/pages/settings/DetailProfile.jsx";
-import FormUpdateProfile from "@/pages/settings/FormUpdateProfile.jsx";
-import GetService from "@/pages/service/GetService.jsx";
-import GetIncidentType from "@/pages/incident_types/GetIncidentType.jsx";
+import GetPostCategories from "@/pages/settings/post_categories/GetPostCategories.jsx";
+import GetIncidentType from "@/pages/settings/incident_types/GetIncidentType.jsx";
+import GetService from "@/pages/settings/service/GetService.jsx";
+import DetailProfile from "@/pages/profiles/DetailProfile.jsx";
+import FormUpdateProfile from "@/pages/profiles/FormUpdateProfile.jsx";
 
 const router = createBrowserRouter([
     {

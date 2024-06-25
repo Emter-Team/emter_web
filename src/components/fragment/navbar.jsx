@@ -28,13 +28,6 @@ export default function Navbar({ user }) {
                 Daftar Pengguna
             </NavLink>
             <NavLink
-                to="/services"
-                className="whitespace-nowrap"
-                active={location.pathname === "/services"}
-            >
-                Daftar Layanan Darurat
-            </NavLink>
-            <NavLink
                 to="/posts"
                 active={
                     location.pathname === "/posts" ||
@@ -45,9 +38,9 @@ export default function Navbar({ user }) {
                 Daftar Berita
             </NavLink>
             <NavLink
-                to="/incident_types"
+                to="/incidents"
                 className="whitespace-nowrap"
-                active={location.pathname === "/incident_types"}
+                active={location.pathname === "/incidents"}
             >
                 Daftar Laporan Kejadian
             </NavLink>
@@ -59,11 +52,22 @@ export default function Navbar({ user }) {
                 Daftar Kendaraan
             </NavLink>
             <NavLink
+                to={`/services`}
+                className="whitespace-nowrap"
+                active={
+                    location.pathname === `/profiles` ||
+                    location.pathname === `/incident_types` ||
+                    location.pathname === `/post_categories`
+                }
+            >
+                Pengaturan
+            </NavLink>
+            <NavLink
                 to={`/profiles/${user?.username}`}
                 className="whitespace-nowrap"
                 active={location.pathname === `/profiles/${user?.username}`}
             >
-                Pengaturan
+                Profil Saya
             </NavLink>
         </div>
     );
