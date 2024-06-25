@@ -33,7 +33,7 @@ export default function GetPostCategories() {
 
     useEffect(() => {
         getPostCategories(currentPage);
-    }, [searchName, emailFilter, currentPage]);
+    }, [searchName, currentPage]);
 
     const getPostCategories = async (page) => {
         setLoading(true);

@@ -57,7 +57,9 @@ export default function DetailOfficer() {
                             <h3 className="text-xl md:text-3xl font-semibold">
                                 {officer.name}
                             </h3>
-                            <span className="text-primary">{officer.name}</span>
+                            <span className="text-primary">
+                                {officer.username}
+                            </span>
                         </div>
                         <Table className="border-none w-1/2 text-[16px]">
                             <tr className="border-none">

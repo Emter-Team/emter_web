@@ -13,6 +13,8 @@ import GetPost from "@/pages/posts/GetPost.jsx";
 import DetailPost from "@/pages/posts/DetailPost.jsx";
 import GetPostCategories from "@/pages/post_categories/GetPostCategories.jsx";
 import GetVehicles from "@/pages/vehicles/GetVehicles.jsx";
+import DetailProfile from "@/pages/settings/DetailProfile.jsx";
+import FormUpdateProfile from "@/pages/settings/FormUpdateProfile.jsx";
 
 const router = createBrowserRouter([
     {
@@ -62,6 +64,22 @@ const router = createBrowserRouter([
             {
                 path: "vehicles",
                 element: <GetVehicles />,
+            },
+            {
+                path: "profiles/:id",
+                element: <DetailProfile />,
+            },
+            {
+                path: "profiles/:id/update",
+                element: <FormUpdateProfile />,
+            },
+            {
+                path: "profiles/:id/change_password",
+                element: <FormUpdateProfile />,
+            },
+            {
+                path: "profiles/:id/danger",
+                element: <FormUpdateProfile />,
             },
         ],
     },

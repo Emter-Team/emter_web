@@ -95,13 +95,22 @@ export default function Topbar({ user }) {
                                                 </MenubarItem>
                                             </NavLink>
                                             <MenubarSeparator />
-                                            <MenubarItem>
-                                                <UserRoundCog
-                                                    size={18}
-                                                    className="mr-2"
-                                                />{" "}
-                                                Pengaturan
-                                            </MenubarItem>
+                                            <NavLink
+                                                to={`/profiles/${user?.username}`}
+                                                active={
+                                                    location.pathname ===
+                                                    `/profiles/${user?.username}`
+                                                }
+                                                className="flex items-center w-full h-full"
+                                            >
+                                                <MenubarItem>
+                                                    <UserRoundCog
+                                                        size={18}
+                                                        className="mr-2"
+                                                    />{" "}
+                                                    Pengaturan
+                                                </MenubarItem>
+                                            </NavLink>
                                             <MenubarSeparator />
                                             <Button
                                                 className="w-48"
@@ -119,7 +128,7 @@ export default function Topbar({ user }) {
                     </div>
                 </div>
             </nav>
-            <Navbar />
+            <Navbar user={user} />
         </>
     );
 }

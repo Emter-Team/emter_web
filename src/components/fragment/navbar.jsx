@@ -1,8 +1,9 @@
 import React from "react";
 import NavLink from "./navlink";
 import { useLocation } from "react-router-dom";
+import { useStateContext } from "@/contexts/ContextProvider";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
     const location = useLocation();
     return (
         <div className="fixed flex scrolling-wrapper z-[99] w-full flex-row overflow-x-auto overflow-y-hidden gap-x-6 max-w-8xl mx-auto px-4 sm:px-4 lg:px-24 bg-white items-center flex h-[50px] border-b border-secondary/20">
@@ -19,7 +20,11 @@ export default function Navbar() {
             <NavLink
                 to="/residents"
                 className={`flex items-center whitespace-nowrap`}
-                active={location.pathname === "/residents"}
+                active={
+                    location.pathname === "/residents" ||
+                    location.pathname === "/officers" ||
+                    location.pathname === "/institutions"
+                }
             >
                 Daftar Pengguna
             </NavLink>
@@ -54,7 +59,11 @@ export default function Navbar() {
             >
                 Daftar Kendaraan
             </NavLink>
-            <NavLink to="/settings" className="whitespace-nowrap">
+            <NavLink
+                to={`/profiles/${user?.username}`}
+                className="whitespace-nowrap"
+                active={location.pathname === `/profiles/${user?.username}`}
+            >
                 Pengaturan
             </NavLink>
         </div>
