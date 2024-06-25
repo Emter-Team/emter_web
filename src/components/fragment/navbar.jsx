@@ -30,7 +30,14 @@ export default function Navbar() {
             >
                 Daftar Layanan Darurat
             </NavLink>
-            <NavLink to="/posts" className="whitespace-nowrap">
+            <NavLink
+                to="/posts"
+                active={
+                    location.pathname === "/posts" ||
+                    location.pathname === "/post_categories"
+                }
+                className="whitespace-nowrap"
+            >
                 Daftar Berita
             </NavLink>
             <NavLink to="/incidents" className="whitespace-nowrap">
