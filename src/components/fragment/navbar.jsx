@@ -1,7 +1,6 @@
 import React from "react";
 import NavLink from "./navlink";
 import { useLocation } from "react-router-dom";
-import { useStateContext } from "@/contexts/ContextProvider";
 
 export default function Navbar({ user }) {
     const location = useLocation();
@@ -15,7 +14,7 @@ export default function Navbar({ user }) {
                         : ""
                 }`}
             >
-                Dashboard
+                Dasbor
             </NavLink>
             <NavLink
                 to="/residents"
