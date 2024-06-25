@@ -6,7 +6,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CheckCheck, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import { Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";

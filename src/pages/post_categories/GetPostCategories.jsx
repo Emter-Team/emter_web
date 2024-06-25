@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { IconCircleCheckFilled, IconCircleXFilled } from "@tabler/icons-react";
-import { Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
 import Loading from "@/components/ui/loading";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
@@ -32,11 +17,9 @@ export default function GetPostCategories() {
     const [paginationLinks, setPaginationLinks] = useState([]);
 
     const [isDeleteToast, setIsDeleteToast] = useState(false);
-    const [toastTitle, setToastTitle] = useState("");
     const [PostCategoriesId, setPostCategoriesId] = useState("");
 
     const [searchName, setSearchName] = useState("");
-    const [emailFilter, setEmailFilter] = useState("");
 
     function openDeleteToast(PostCategoriesId, title) {
         setIsDeleteToast(true);
@@ -56,7 +39,6 @@ export default function GetPostCategories() {
         setLoading(true);
         const params = {
             name: searchName,
-            email_verified_at: emailFilter,
             page: page,
         };
 

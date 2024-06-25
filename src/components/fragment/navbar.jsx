@@ -40,10 +40,18 @@ export default function Navbar() {
             >
                 Daftar Berita
             </NavLink>
-            <NavLink to="/incidents" className="whitespace-nowrap">
+            <NavLink
+                to="/incidents"
+                className="whitespace-nowrap"
+                active={location.pathname === "/incidents"}
+            >
                 Daftar Laporan Kejadian
             </NavLink>
-            <NavLink to="/vehicles" className="whitespace-nowrap">
+            <NavLink
+                to="/vehicles"
+                className="whitespace-nowrap"
+                active={location.pathname === "/vehicles"}
+            >
                 Daftar Kendaraan
             </NavLink>
             <NavLink to="/settings" className="whitespace-nowrap">
