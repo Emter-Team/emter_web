@@ -184,7 +184,7 @@ export default function GetPost() {
                             <tr>
                                 <Table.Th>#</Table.Th>
                                 <Table.Th>Judul</Table.Th>
-                                <Table.Th>Kontent</Table.Th>
+                                <Table.Th>Konten</Table.Th>
                                 <Table.Th className="w-12">Gambar</Table.Th>
                                 <Table.Th className="w-12 px-2">Aksi</Table.Th>
                             </tr>
@@ -196,13 +196,10 @@ export default function GetPost() {
                                         <Table.Td className="w-5">
                                             {paginationLinks.from + index}
                                         </Table.Td>
-                                        <Table.Td className="w-48">
+                                        <Table.Td className="whitespace-normal">
                                             {post.title}
                                         </Table.Td>
-                                        <Table.Td
-                                            className="whitespace-normal"
-                                            width="60%"
-                                        >
+                                        <Table.Td className="whitespace-normal">
                                             {post.content}
                                         </Table.Td>
                                         <Table.Td className="w-50">
@@ -276,7 +273,7 @@ export default function GetPost() {
                     </Table>
 
                     {posts.length > 0 && (
-                        <div className="flex w-full justify-between items-center">
+                        <div className="flex w-full justify-between items-center pb-12">
                             <p className="text-sm text-primary mt-10">
                                 Total Berita:{" "}
                                 <span className="font-bold">{totalPosts}</span>

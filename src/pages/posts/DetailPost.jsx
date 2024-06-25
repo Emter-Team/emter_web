@@ -3,17 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import http from "@/services/axios";
 import Loading from "@/components/ui/loading";
 import { formatDate } from "@/lib/dateUtils";
-import {
-    Building2,
-    Calendar,
-    ChevronRight,
-    Mail,
-    MapPin,
-    Phone,
-} from "lucide-react";
-import SidebarUser from "@/components/fragment/sidebar/sidebarUser";
-import { Button } from "@/components/ui/button";
+import { ChevronRight, MapPin } from "lucide-react";
 import NavLink from "@/components/fragment/navlink";
+import SidebarPost from "@/components/fragment/sidebar/sidebarPost";
 
 export default function DetailPost() {
     const { id } = useParams();
@@ -60,7 +52,7 @@ export default function DetailPost() {
 
     return (
         <>
-            <SidebarUser />
+            <SidebarPost />
             <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
                 <div className="w-full">
                     <div className="space-y-3">
