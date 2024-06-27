@@ -55,7 +55,7 @@ export default function GetPostCategories() {
                     params,
                 });
                 setPosts(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setPaginationLinks(response.data.data.meta);
                 setTotalPostCategories(
                     response.data.data.total_post_categories
                 );
@@ -136,7 +136,7 @@ export default function GetPostCategories() {
                                 post_categories.map((post_category, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {post_category.name}
@@ -211,7 +211,7 @@ export default function GetPostCategories() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>
