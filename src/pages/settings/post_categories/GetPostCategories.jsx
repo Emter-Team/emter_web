@@ -15,6 +15,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "react-toastify";
 
 export default function GetPostCategories() {
     const [post_categories, setPosts] = useState([]);
@@ -67,12 +68,13 @@ export default function GetPostCategories() {
         }, 300); // 0.3 seconds delay
     };
 
-    const handleTrash = (username) => {
+    const handleTrash = (slug) => {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/post_categories/${username}`);
+                await http.delete(`/admin/post_categories/${slug}`);
                 setIsDeleteToast(false);
+                toast.success("Kategori berhasil dihapus");
                 getPostCategories(currentPage);
             } catch (error) {
                 console.error(error);
@@ -163,8 +165,8 @@ export default function GetPostCategories() {
                                                     <Link
                                                         className="group:name w-full h-full"
                                                         to={
-                                                            "/post_categories/" +
-                                                            post_category.username
+                                                            "/post_categories/edit/" +
+                                                            post_category.slug
                                                         }
                                                     >
                                                         <DropdownMenuItem className="group:name">

@@ -12,3 +12,7 @@
 input:focus {
     border-color: #3b3b3b !important;
 }
+
+.toast-container .Toastify__toast {
+    font-family: "Work Sans", sans-serif; /* Ganti dengan font yang Anda inginkan */
+}

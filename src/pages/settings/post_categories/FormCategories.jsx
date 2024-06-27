@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Loading from "@/components/ui/loading";
 import { Input } from "@/components/ui/input";
@@ -7,36 +7,57 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "react-toastify";
 import Error from "@/components/ui/error";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import http from "@/services/axios";
 
 export default function FormCategories() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});
-    const nameRef = useRef();
-    const descriptionRef = useRef();
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [id, setId] = useState("");
 
     const navigate = useNavigate();
+    const { id: paramId } = useParams(); // Get the id from the URL
 
-    const handleAddCategory = async (e) => {
+    useEffect(() => {
+        if (paramId) {
+            setIsEditMode(true);
+            http.get(`/admin/post_categories/${paramId}`)
+                .then((response) => {
+                    const { name, description, id } = response.data.data;
+                    setId(id);
+                    setName(name);
+                    setDescription(description);
+                })
+                .catch((err) => {
+                    toast.error("Failed to load category data");
+                });
+        }
+    }, [paramId]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const payload = {
-            name: nameRef.current.value,
-            description: descriptionRef.current.value,
-        };
+        const payload = { name, description };
 
         try {
-            await http.post("/admin/post_categories", payload);
-            toast.success("Kategori berhasil ditambahkan");
+            if (isEditMode) {
+                await http.put(`/admin/post_categories/${id}`, payload);
+                toast.success("Kategori berhasil diperbarui");
+            } else {
+                await http.post("/admin/post_categories", payload);
+                toast.success("Kategori berhasil ditambahkan");
+            }
             setError({});
-            nameRef.current.value = "";
-            descriptionRef.current.value = "";
+            setName("");
+            setDescription("");
             navigate("/post_categories");
         } catch (err) {
             const response = err.response;
             if (response && response.status === 400) {
-                setError(response.data.message); // Adjust this based on the actual error structure
+                setError(response.data.message);
             } else {
                 toast.error("Terjadi kesalahan pada server");
             }
@@ -53,22 +74,23 @@ export default function FormCategories() {
                 <div>
                     <div className="title w-full">
                         <h3 className="text-3xl font-semibold text-primary">
-                            Form Tambah Data
+                            {isEditMode ? "Form Edit Data" : "Form Tambah Data"}
                         </h3>
                         <p className="text-secondary">
-                            Form untuk menambahkan data Jenis Berita yang ada di
-                            sistem
+                            Form untuk {isEditMode ? "mengubah" : "menambahkan"}{" "}
+                            data Jenis Berita yang ada di sistem
                         </p>
                     </div>
                     <div className="w-full mt-8 border rounded-md border-primary/50 p-4">
-                        <form onSubmit={handleAddCategory}>
+                        <form onSubmit={handleSubmit}>
                             <div>
                                 <Label htmlFor="name">Nama Kategori</Label>
                                 <Input
                                     id="name"
                                     type="text"
                                     name="name"
-                                    ref={nameRef}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                     autoComplete="name"
                                 />
                                 {error.name && <Error>{error.name[0]}</Error>}
@@ -79,7 +101,10 @@ export default function FormCategories() {
                                 <Textarea
                                     id="description"
                                     name="description"
-                                    ref={descriptionRef}
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
                                 />
                                 {error.description && (
                                     <Error>{error.description[0]}</Error>

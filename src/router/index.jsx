@@ -79,6 +79,10 @@ const router = createBrowserRouter([
                 element: <FormCategories />,
             },
             {
+                path: "post_categories/edit/:id",
+                element: <FormCategories />,
+            },
+            {
                 path: "incident_types",
                 element: <GetIncidentType />,
             },
