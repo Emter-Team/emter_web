@@ -7,7 +7,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import ContainerHome from "@/components/ui/containerHome";
-import { ArrowRightCircle, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -20,10 +20,10 @@ export default function Index() {
         AOS.init();
     }, []);
     return (
-        <div className="home">
+        <div className="home overflow-hidden">
             <div className="relative overflow-hidden">
-                <div className="fixed z-[999] top-0 w-full py-2 bg-danger text-center text-white">
-                    Inovasi Vokasi untuk Tren Informatika Masa Depan lorem20
+                <div className="fixed z-[999] top-0 w-full py-2 bg-danger text-center text-white text-xs md:text-base">
+                    Inovasi Vokasi untuk Tren Informatika Masa Depan
                 </div>
                 <div className="absolute inset-0 w-full h-full overflow-hidden">
                     <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white to-transparent opacity-100 animate-shine"></div>
@@ -37,15 +37,15 @@ export default function Index() {
                 className="h-1/3 pt-36 w-full flex items-start justify-between py-12 pb-24 bg-dots-pattern"
             >
                 <ContainerHome className="flex-col md:flex-row">
-                    <div className="space-y-3 w-1/2 mt-14 order-2 md:order-1">
+                    <div className="space-y-3 w-full md:w-1/2 mt-14 order-2 md:order-1">
                         <h2
-                            className="text-8xl font-bold tracking-wider text-danger"
+                            className="text-5xl text-center md:text-start md:text-8xl font-bold tracking-wider text-danger"
                             data-aos="fade-right"
                         >
                             Emergency Center
                         </h2>
                         <p
-                            className="text-lg text-secondary/80 pt-4"
+                            className="text-lg text-center md:text-start text-secondary/80 pt-4"
                             data-aos="fade-right"
                         >
                             Emter adalah aplikasi terintegrasi yang memungkinkan
@@ -71,7 +71,7 @@ export default function Index() {
                                 ></ArrowRightCircle>
                             </a>
                         </div> */}
-                        <div className="flex pt-4 items-center gap-x-3">
+                        <div className="flex justify-center md:justify-start pt-4 items-center gap-x-3">
                             <Button data-aos="flip-right" variant="secondary">
                                 Cepat
                             </Button>
@@ -83,13 +83,13 @@ export default function Index() {
                             </Button>
                         </div>
                     </div>
-                    <div className="w-1/2 order-1 md:order-2 flex justify-end">
+                    <div className="w-full md:w-1/2 order-1 md:order-2 flex justify-center md:justify-end">
                         <img
                             src="/images/app/emter_only.png"
-                            width="60%"
+                            width="80%"
                             alt=""
-                            data-aos="zoom-in"
-                            data-aos-duration="3000"
+                            data-aos="fade-in"
+                            data-aos-duration="1000"
                         />
                     </div>
                 </ContainerHome>
@@ -102,15 +102,14 @@ export default function Index() {
                     data-aos="fade-up"
                     data-aos-anchor-placement="top-bottom"
                 >
-                    <div className="w-full p-10 shadow text-center rounded-md text-danger text-5xl bg-white">
+                    <div className="w-full p-10 shadow text-center rounded-md text-danger text-3xl md:text-5xl bg-white">
                         <h3>
                             Mengubah{" "}
                             <span className="font-bold">Layanan Darurat</span>{" "}
                             untuk <span className="font-bold">Masyarakat </span>{" "}
-                            <br />
                             agar lebih <span className="font-bold">cepat</span>
-                            <span className="font-bold">, baik </span>
-                            <span className="font-bold">tepat</span>
+                            <span className="font-bold">, baik </span> dan
+                            <span className="font-bold"> tepat</span>
                         </h3>
                     </div>
                 </div>
@@ -120,26 +119,26 @@ export default function Index() {
             <section id="tujuan" className="pt-28">
                 <ContainerHome>
                     <div
-                        className="flex items-center w-full mb-12 gap-x-24"
+                        className="flex flex-col md:flex-row items-center w-full mb-12 gap-x-24"
                         data-aos="fade-up-right"
                     >
-                        <div className="w-1/2">
+                        <div className="w-full md:w-1/2">
                             <img
                                 src="/images/homepage/emter_web_phone.png"
                                 width="90%"
                                 alt=""
                             />
                         </div>
-                        <div className="w-1/2">
+                        <div className="w-full md:w-1/2">
                             <div className="mb-4 mt-12">
                                 <h3
-                                    className="text-5xl font-semibold text-primary"
+                                    className="text-center md:text-start text-3xl md:text-5xl font-semibold text-primary"
                                     data-aos="fade-up-left"
                                 >
                                     Tujuan utama yang kami prioritaskan
                                 </h3>
                                 <p
-                                    className="text-secondary mt-2 font-light"
+                                    className="text-secondary text-center md:text-start mt-2 font-light"
                                     data-aos="fade-up-left"
                                 >
                                     Berikut adalah tujuan dari Aplikasi
@@ -153,7 +152,7 @@ export default function Index() {
                                 data-aos="fade-up-left"
                             >
                                 <AccordionItem value="item-1">
-                                    <AccordionTrigger className="text-xl text-secondary">
+                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
                                         Membantu masyarakat
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -163,7 +162,7 @@ export default function Index() {
                                     </AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem value="item-2">
-                                    <AccordionTrigger className="text-xl text-secondary">
+                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
                                         Meningkatkan akses layanan darurat
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -174,7 +173,7 @@ export default function Index() {
                                     </AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem value="item-3">
-                                    <AccordionTrigger className="text-xl text-secondary">
+                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
                                         Memberikan informasi
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -184,7 +183,7 @@ export default function Index() {
                                     </AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem value="item-4">
-                                    <AccordionTrigger className="text-xl text-secondary">
+                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
                                         Meningkatkan koordinasi
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -203,21 +202,21 @@ export default function Index() {
             <section id="fitur" className="pt-28">
                 <ContainerHome className="mb-12">
                     <div
-                        className="mb-24 w-full flex items-center justify-center"
+                        className="mb-24 w-full flex-col md:flex-row flex items-center justify-center"
                         data-aos="zoom-out"
                     >
-                        <div className="w-2/3">
+                        <div className="w-full md:w-2/3 order-2 md:order-1">
                             <div className="mb-4 mt-12">
-                                <h3 className="text-5xl font-semibold text-primary">
+                                <h3 className="text-3xl md:text-5xl text-center md:text-start font-semibold text-primary">
                                     Fitur yang kami diberikan <br /> kepada Anda
                                 </h3>
-                                <p className="text-secondary mt-2 font-light">
+                                <p className="text-secondary text-center md:text-start mt-2 font-light">
                                     Berikut adalah fitur unggulan dari Aplikasi
                                     (Emergency Center)
                                 </p>
                             </div>
-                            <div className="flex items-start justify-start gap-2 w-full mb-8 text-primary">
-                                <div className="w-1/3">
+                            <div className="flex flex-col md:flex-row items-start justify-start gap-2 w-full mb-8 text-primary">
+                                <div className="w-full md:w-1/2">
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
                                         Ease to call
@@ -228,104 +227,61 @@ export default function Index() {
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Pencarian Lokasi Terdekat
+                                        Pencarian Instansi Terdekat
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Peta Digital
+                                        Pembaruan Status
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Chat App
+                                        Informasi Lalu Lintas
                                     </div>
                                 </div>
-                                <div className="w-1/2">
+                                <div className="w-full md:w-1/2">
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Blog Informasi Terpercaya
+                                        Persebaran Kejadian
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Analisis Data Kejadian
+                                        Notifikasi Real-Time
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Verifikasi KTP (Kartu Tanda Penduduk)
+                                        Aksesibilitas Tinggi
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Verifikasi Pengguna Umum
+                                        Membagi Lokasi
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Ease to call
+                                        Pembaruan Petunjuk
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="w-1/3">
+                        <div className="w-full md:w-1/3 order-1 md:order-2">
                             <img
                                 src="/images/homepage/mobile_ui.png"
-                                alt="Mobile UI Homepage"
-                                width={`80%`}
+                                width="90%"
+                                alt=""
+                                data-aos="zoom-in"
                             />
                         </div>
                     </div>
                 </ContainerHome>
             </section>
 
-            {/* Teknologi */}
-            <section id="teknologi" className="pt-28 pb-12">
-                <div className="w-full flex flex-col items-center bg-danger/20 text-white py-12">
-                    <div className="flex justify-center text-center flex-col">
-                        <h5 className="text-2xl text-primary text-center font-semibold">
-                            Teknologi yang digunakan untuk membangun Emter
-                        </h5>
-                        <p className="text-center mb-12 text-secondary/80 font-light">
-                            Emter dibangun dengan skalabilitas dan juga penerapa
-                            yang baik
-                        </p>
-                        <div className="absolute inset-0 w-full h-full overflow-hidden">
-                            <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white to-transparent opacity-100 animate-shine"></div>
-                        </div>
-                    </div>
-                    <div className="w-3/4 flex items-center justify-evenly px-24">
-                        <img
-                            className="w-24"
-                            src="images/homepage/laravel.png"
-                            alt=""
-                            data-aos="flip-left"
-                        />
-                        <img
-                            className="w-20"
-                            src="images/homepage/flutter.png"
-                            alt=""
-                            data-aos="flip-left"
-                        />
-                        <img
-                            className="w-24"
-                            src="images/homepage/reactjs.png"
-                            alt=""
-                            data-aos="flip-left"
-                        />
-                        <img
-                            className="w-24"
-                            src="images/homepage/azure.png"
-                            alt=""
-                            data-aos="flip-left"
-                        />
-                    </div>
-                </div>
-            </section>
-
             {/* Hubungi Kami */}
             <section id="hubungi" className="pt-4">
                 <ContainerHome>
-                    <div className="w-full mb-24 flex flex-row justify-between items-start">
-                        <div className="w-1/2">
+                    <div className="w-full mb-24 flex flex-col gap-x-8 md:flex-row justify-between items-start">
+                        <div className="w-full md:w-1/2 order-2 md:order-1 flex flex-col md:flex-col">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.894960356452!2d97.15579137484612!3d5.1206249948564615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304777a35c813bbf%3A0xfac9e2831347f07f!2sPoliteknik%20Negeri%20Lhokseumawe!5e0!3m2!1sid!2sid!4v1719515929195!5m2!1sid!2sid"
-                                width={600}
+                                className="w-full rounded-lg"
                                 height={450}
                                 style={{ border: 0 }}
                                 allowFullScreen
@@ -333,9 +289,9 @@ export default function Index() {
                                 referrerPolicy="no-referrer-when-downgrade"
                             />
                         </div>
-                        <div className="w-1/2">
+                        <div className="w-full md:w-1/2 order-1 md:order-2">
                             <div className="mb-4 mt-12">
-                                <h3 className="text-5xl font-semibold text-primary">
+                                <h3 className="text-3xl md:text-5xl text-center md:text-start font-semibold text-primary">
                                     Kontak Kami
                                 </h3>
                                 <p className="text-secondary mt-2 font-light">
@@ -379,7 +335,7 @@ export default function Index() {
                                     />
                                 </div>
 
-                                <div className="flex items-center justify-end mt-4">
+                                <div className="flex items-center mb-20 md:mb-0 justify-end mt-4">
                                     <Button type="submit">Simpan</Button>
                                 </div>
                             </form>
@@ -390,8 +346,8 @@ export default function Index() {
 
             {/* Footer */}
             <footer className="flex justify-between w-full py-4 bg-dots-pattern">
-                <ContainerHome className="mb-24 px-0 flex items-end">
-                    <div className="w-1/3 flex flex-col items-start space-y-4">
+                <ContainerHome className="mb-12 md:mb-24 px-0 flex flex-col md:flex-row items-end w-full">
+                    <div className="w-full md:w-1/3 flex flex-col items-start space-y-4">
                         <img
                             src="/images/app/emter.png"
                             alt=""
@@ -406,14 +362,15 @@ export default function Index() {
                             All right reserved{" "}
                         </p>
                     </div>
-                    <div className="w-2/3 flex items-end justify-end">
-                        <div className="flex flex-col justify-end">
-                            <p className="text-secondary font-light text-end">
+                    <div className="w-full md:w-2/3 pt-12 md:pt-0 flex items-end justify-end">
+                        <div className="w-full flex flex-col justify-end">
+                            <p className="text-start text-secondary font-light md:text-end">
                                 Dibuat oleh tim professional
                             </p>
-                            <p className="text-primary font-medium">
-                                Rachel Ardana Putra Ginting | Muhammad Kholis |
-                                Dinda Fitria Indriana
+                            <p className="text-primary font-medium text-start md:text-end">
+                                <p>Rachel Ardana Putra Ginting</p>
+                                <p>Muhammad Kholis</p>
+                                <p>Dinda Fitria Indriana</p>
                             </p>
                         </div>
                     </div>
