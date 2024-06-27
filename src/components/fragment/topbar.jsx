@@ -1,7 +1,5 @@
-// Topbar.js
 import React from "react";
-import { Link } from "react-router-dom";
-import emterImg from "../../../public/images/app/emter.png";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     Menubar,
     MenubarContent,
@@ -10,24 +8,24 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "@/components/ui/menubar";
-import {
-    IconBell,
-    IconDashboard,
-    IconSettings,
-    IconUserCircle,
-} from "@tabler/icons-react";
 import { Button } from "../ui/button";
 import { useStateContext } from "@/contexts/ContextProvider";
 import http from "@/services/axios";
+import Navbar from "./navbar";
+import { Bell, CircleGauge, CircleUserRound, UserRoundCog } from "lucide-react";
+import NavLink from "./navlink";
 
 export default function Topbar({ user }) {
+    const navigate = useNavigate();
     const { setUser, setToken } = useStateContext();
+    const location = useLocation();
 
     const handleLogout = async () => {
         try {
             await http.post("/auth/logout");
             setUser(null);
             setToken(null);
+            navigate("/auth/login");
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 console.log("Unauthorized, token invalid or expired");
@@ -39,29 +37,33 @@ export default function Topbar({ user }) {
 
     return (
         <>
-            <nav className="bg-white fixed z-[99] top-0 border-b-[1.5px] border-b-slate-300 w-full h-[72px]">
+            <nav className="bg-white fixed z-[99] top-0 md:border-b-[2px] border-b-secondary/20 w-full h-[72px]">
                 <div className="max-w-8xl mx-auto px-4 sm:px-4 lg:px-24">
                     <div className="flex justify-between w-full items-center">
-                        <Link
+                        <NavLink
                             to="/"
-                            className="text-2xl p-2 rounded font-bold text-black"
+                            className="text-2xl p-2 rounded font-bold text-primary"
                         >
-                            <img src={emterImg} alt="" className="w-40" />
-                        </Link>
+                            <img
+                                src="/images/app/emter.png"
+                                alt=""
+                                className="w-40"
+                            />
+                        </NavLink>
                         {user ? (
-                            <div className="flex justify-end items-center">
-                                <IconBell
-                                    size="24"
-                                    stroke="1.2"
-                                    className="text-slate-900"
+                            <div className="flex justify-end items-center gap-x-2">
+                                <Bell
+                                    size={24}
+                                    absoluteStrokeWidth={true}
+                                    className="text-secondary"
                                 />
                                 <Menubar className="border-none items-center flex">
                                     <MenubarMenu>
-                                        <MenubarTrigger>
-                                            <IconUserCircle
+                                        <MenubarTrigger className="bg-white focus:bg-primary/10 focus:text-white  hover:bg-primary/10 rounded-xl py-3">
+                                            <CircleUserRound
+                                                absoluteStrokeWidth={true}
                                                 size="36"
-                                                stroke="1.4"
-                                                className="text-slate-900"
+                                                className="text-primary"
                                             />
                                         </MenubarTrigger>
                                         <MenubarContent align="end">
@@ -76,30 +78,48 @@ export default function Topbar({ user }) {
                                                 </div>
                                             </MenubarItem>
                                             <MenubarSeparator />
-                                            <MenubarItem>
-                                                <IconDashboard
-                                                    size={20}
-                                                    className="mr-2"
-                                                />{" "}
-                                                Dashboard
-                                            </MenubarItem>
+                                            <NavLink
+                                                to="/dashboard"
+                                                active={
+                                                    location.pathname ===
+                                                    "/dashboard"
+                                                }
+                                                className="flex items-center w-full h-full"
+                                            >
+                                                <MenubarItem>
+                                                    <CircleGauge
+                                                        size={18}
+                                                        className={`mr-2`}
+                                                    />
+                                                    Dashboard
+                                                </MenubarItem>
+                                            </NavLink>
                                             <MenubarSeparator />
-                                            <MenubarItem>
-                                                <IconSettings
-                                                    size={20}
-                                                    className="mr-2"
-                                                />{" "}
-                                                Pengaturan
-                                            </MenubarItem>
+                                            <NavLink
+                                                to={`/profiles/${user?.username}`}
+                                                active={
+                                                    location.pathname ===
+                                                    `/profiles/${user?.username}`
+                                                }
+                                                className="flex items-center w-full h-full"
+                                            >
+                                                <MenubarItem>
+                                                    <UserRoundCog
+                                                        size={18}
+                                                        className="mr-2"
+                                                    />{" "}
+                                                    Pengaturan
+                                                </MenubarItem>
+                                            </NavLink>
                                             <MenubarSeparator />
-                                            <MenubarItem>
-                                                <Button
-                                                    className="w-full"
-                                                    onClick={handleLogout}
-                                                >
+                                            <Button
+                                                className="w-48"
+                                                onClick={handleLogout}
+                                            >
+                                                <MenubarItem className="flex justify-center">
                                                     Logout
-                                                </Button>
-                                            </MenubarItem>
+                                                </MenubarItem>
+                                            </Button>
                                         </MenubarContent>
                                     </MenubarMenu>
                                 </Menubar>
@@ -108,6 +128,7 @@ export default function Topbar({ user }) {
                     </div>
                 </div>
             </nav>
+            <Navbar user={user} />
         </>
     );
 }

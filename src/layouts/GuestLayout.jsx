@@ -5,9 +5,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function GuestLayout() {
-    const { token } = useStateContext();
-    if (token) {
-        return <Navigate to="/admin/dashboard" />;
+    const { token, user } = useStateContext();
+    if (token && user) {
+        return <Navigate to="/dashboard" />;
     }
     return (
         <div>

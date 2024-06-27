@@ -1,65 +1,58 @@
-import { IconCheck, IconExclamationMark, IconX } from "@tabler/icons-react";
-import React, { useEffect, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon } from "lucide-react";
+import { Fragment } from "react";
 
-export default function Toast({ variant = "red", message, duration = 3000 }) {
-    const [status, setStatus] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setStatus(false);
-        }, duration);
-
-        return () => clearTimeout(timer);
-    }, [duration]);
-
-    const handleClose = () => {
-        setStatus(false);
-    };
-
-    if (!status) return null;
-
+export default function Toast({
+    isToast,
+    onClose,
+    title,
+    children,
+}) {
     return (
-        <div
-            id={`toast-${variant}`}
-            className="fixed top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-xs flex items-center justify-center p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
-            role="alert"
-        >
-            <div
-                className={`inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-${variant}-500 bg-${variant}-100 rounded-lg dark:bg-${variant}-800 dark:text-${variant}-200 bg-green-100 text-green-800`}
-            >
-                {variant === "red" ? (
-                    <IconX />
-                ) : variant === "green" ? (
-                    <IconCheck />
-                ) : (
-                    <IconExclamationMark className="p-4 bg-yellow-500/50" />
-                )}
-            </div>
-            <div className="ms-3 text-sm font-normal mr-2">{message}</div>
-            <button
-                type="button"
-                className={`ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700`}
-                data-dismiss-target="#toast-danger"
-                aria-label="Close"
-                onClick={handleClose}
-            >
-                <span className="sr-only">Close</span>
-                <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14"
-                >
-                    <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                    />
-                </svg>
-            </button>
-        </div>
+        <>
+            <Transition appear show={isToast} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={onClose}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-primary bg-opacity-25" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel
+                                    className={`w-full max-w-lg transform overflow-hidden rounded-lg bg-white px-6 py-4 text-left align-middle shadow-xl transition-all`}
+                                >
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-start text-primary leading-6 mb-5 mt-2 text-primary"
+                                    >
+                                        <p className="font-normal text-primary">
+                                            {title}
+                                        </p>
+                                    </Dialog.Title>
+                                    <div className="mt-2">{children}</div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+        </>
     );
 }

@@ -1,22 +1,37 @@
-// DefaultLayout.jsx
 import Topbar from "@/components/fragment/topbar";
+import Container from "@/components/ui/container";
 import { useStateContext } from "@/contexts/ContextProvider";
-import http from "@/services/axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function DefaultLayout() {
     const { user, token } = useStateContext();
-    if (!token) {
+    if (!token || user == null) {
         return <Navigate to="/auth/login" />;
     }
-
     return (
         <div>
             <Topbar user={user} />
             <main>
-                <Outlet />
+                <Container>
+                    <Outlet />
+                </Container>
             </main>
+            <ToastContainer
+                autoClose={4000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                className="toast-container"
+                theme="light"
+                transition:Slide
+            />
         </div>
     );
 }
