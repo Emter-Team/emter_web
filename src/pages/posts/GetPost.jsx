@@ -202,13 +202,18 @@ export default function GetPost() {
                                         </Table.Td>
                                         <Table.Td className="w-50">
                                             {post.avatar ? (
-                                                <img src="" alt="" />
+                                                <img
+                                                    width="50"
+                                                    className="rounded"
+                                                    src={service.picture}
+                                                    alt={service.name}
+                                                />
                                             ) : (
                                                 <img
                                                     width="50"
                                                     className="rounded"
                                                     src="/images/notfound/notfound.jpg"
-                                                    alt=""
+                                                    alt="Gambar tidak ditemukan"
                                                 />
                                             )}
                                         </Table.Td>

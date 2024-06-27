@@ -46,9 +46,9 @@ export default function DetailOfficer() {
                 <div className="flex flex-col md:flex-row gap-6">
                     <div>
                         <img
-                            src="/images/notfound/notfound.jpg"
+                            src={officer.picture}
+                            alt={officer.name}
                             className="rounded-lg w-full"
-                            alt=""
                         />
                     </div>
                     <div className="w-full md:w-1/2">

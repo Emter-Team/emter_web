@@ -219,10 +219,10 @@ export default function GetVehicles() {
                                         <Table.Td className="w-[10%]">
                                             {vehicle.picture ? (
                                                 <img
-                                                    width="50"
-                                                    className="rounded"
-                                                    src="/images/notfound/notfound.jpg"
-                                                    alt=""
+                                                width="50"
+                                                className="rounded"
+                                                src={vehicle.picture}
+                                                alt={vehicle.name}
                                                 />
                                             ) : (
                                                 <img

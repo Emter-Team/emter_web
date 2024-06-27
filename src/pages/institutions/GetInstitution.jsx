@@ -220,7 +220,12 @@ export default function GetInstitution() {
                                         </Table.Td>
                                         <Table.Td className="w-50">
                                             {institution.avatar ? (
-                                                <img src="" alt="" />
+                                                <img
+                                                    width="50"
+                                                    className="rounded"
+                                                    src={institution.avatar}
+                                                    alt={institution.name}
+                                                />
                                             ) : (
                                                 <img
                                                     width="50"

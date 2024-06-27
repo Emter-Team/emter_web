@@ -145,9 +145,10 @@ export default function GetService() {
                                         <Table.Td className="w-50">
                                             {service.picture ? (
                                                 <img
+                                                    width="50"
+                                                    className="rounded"
                                                     src={service.picture}
                                                     alt={service.name}
-                                                    width="50"
                                                 />
                                             ) : (
                                                 <img

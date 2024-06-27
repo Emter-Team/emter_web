@@ -178,7 +178,12 @@ export default function GetOfficers() {
                                         </Table.Td>
                                         <Table.Td className="w-50">
                                             {officer.avatar ? (
-                                                <img src="" alt="" />
+                                                <img
+                                                    width="50"
+                                                    className="rounded"
+                                                    src={officer.avatar}
+                                                    alt={officer.name}
+                                                />
                                             ) : (
                                                 <img
                                                     width="50"

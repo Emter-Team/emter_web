@@ -62,9 +62,9 @@ export default function DetailResident() {
                 <div className="flex flex-col md:flex-row gap-6">
                     <div>
                         <img
-                            src="/images/notfound/notfound.jpg"
+                            src={resident.picture}
+                            alt={resident.name}
                             className="rounded-lg w-full"
-                            alt=""
                         />
                     </div>
                     <div className="w-full md:w-1/2">

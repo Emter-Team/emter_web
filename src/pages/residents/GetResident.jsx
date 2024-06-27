@@ -193,7 +193,7 @@ export default function GetResident() {
                                 residents.map((resident, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                        {paginationLinks.from + index}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {resident.resident.nik}
@@ -224,13 +224,18 @@ export default function GetResident() {
                                         </Table.Td>
                                         <Table.Td className="w-50">
                                             {resident.avatar ? (
-                                                <img src="" alt="" />
+                                                <img
+                                                width="50"
+                                                className="rounded"
+                                                    src={resident.avatar}
+                                                    alt={resident.name}
+                                                />
                                             ) : (
                                                 <img
                                                     width="50"
                                                     className="rounded"
                                                     src="/images/notfound/notfound.jpg"
-                                                    alt=""
+                                                    alt="Gambar tidak ditemukan"
                                                 />
                                             )}
                                         </Table.Td>

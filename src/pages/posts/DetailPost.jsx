@@ -6,6 +6,13 @@ import { formatDate } from "@/lib/dateUtils";
 import { ChevronRight, MapPin } from "lucide-react";
 import NavLink from "@/components/fragment/navlink";
 import SidebarPost from "@/components/fragment/sidebar/sidebarPost";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function DetailPost() {
     const { id } = useParams();
@@ -71,13 +78,16 @@ export default function DetailPost() {
                     <div className="flex gap-x-3 items-center mt-8 mb-4">
                         <div>
                             {post.institution.user.avatar ? (
-                                <img src="" alt="" />
+                                <img
+                                    src={post.institution.user.avatar}
+                                    alt="Avatar"
+                                />
                             ) : (
                                 <img
                                     width="50"
                                     className="rounded"
                                     src="/images/notfound/notfound.jpg"
-                                    alt=""
+                                    alt="Not Found"
                                 />
                             )}
                         </div>
@@ -96,23 +106,41 @@ export default function DetailPost() {
                         <div>
                             {post.image_posts.length > 0 ? (
                                 <>
-                                    {post.image_posts.map(
-                                        (image_post, index) => (
-                                            <img
-                                                key={index}
-                                                className="rounded-md bg-cover"
-                                                src={image_post.url}
-                                                alt=""
-                                            />
-                                        )
-                                    )}
+                                    <Carousel>
+                                        <CarouselContent>
+                                            {post.image_posts.map(
+                                                (image_post, index) => (
+                                                    <>
+                                                        <CarouselItem>
+                                                            <img
+                                                                key={index}
+                                                                className="rounded-md object-cover mb-4"
+                                                                style={{
+                                                                    height: "500px",
+                                                                    width: "100%",
+                                                                }}
+                                                                src={
+                                                                    image_post.image
+                                                                }
+                                                                alt={`Post Image ${
+                                                                    index + 1
+                                                                }`}
+                                                            />
+                                                        </CarouselItem>
+                                                    </>
+                                                )
+                                            )}
+                                        </CarouselContent>
+                                        <CarouselPrevious />
+                                        <CarouselNext />
+                                    </Carousel>
                                 </>
                             ) : (
                                 <img
                                     className="rounded-md"
                                     width="100%"
                                     src="/images/notfound/notfound.jpg"
-                                    alt=""
+                                    alt="Not Found"
                                 />
                             )}
                         </div>
@@ -126,13 +154,16 @@ export default function DetailPost() {
                             <div className="flex gap-x-3 items-center mt-8 mb-4">
                                 <div>
                                     {post.institution.user.avatar ? (
-                                        <img src="" alt="" />
+                                        <img
+                                            src={post.institution.user.avatar}
+                                            alt="Avatar"
+                                        />
                                     ) : (
                                         <img
                                             width="50"
                                             className="rounded"
                                             src="/images/notfound/notfound.jpg"
-                                            alt=""
+                                            alt="Not Found"
                                         />
                                     )}
                                 </div>
