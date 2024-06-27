@@ -83,6 +83,7 @@ export default function GetVehicles() {
         try {
             const response = await http.get("/admin/institutions");
             setInstitutions(response.data.data.data);
+            console.log(response);
         } catch (error) {
         } finally {
             setLoading(false);

@@ -87,6 +87,11 @@ export default function GetPost() {
 
         // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
+            axios.get('/', {
+                config: {
+                    Au
+                }
+            })
             try {
                 const response = await http.get("/admin/posts", {
                     params,

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
 import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
+import { useNavigate } from "react-router-dom";
 
 export default function GetPostCategories() {
     const [post_categories, setPosts] = useState([]);
@@ -50,7 +51,9 @@ export default function GetPostCategories() {
                 });
                 setPosts(response.data.data.data);
                 setPaginationLinks(response.data.data.meta.links);
-                setTotalPostCategories(response.data.data.total_officers);
+                setTotalPostCategories(
+                    response.data.data.total_post_categories
+                );
             } catch (error) {
                 console.error(error);
             } finally {
@@ -72,6 +75,12 @@ export default function GetPostCategories() {
                 setLoading(false);
             }
         }, 300); // 0.3 seconds delay
+    };
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("create");
     };
 
     return (
@@ -98,7 +107,12 @@ export default function GetPostCategories() {
                                 value={searchName}
                                 onChange={(e) => setSearchName(e.target.value)}
                             />
-                            <Button>Tambah Data</Button>
+                            <Button
+                                onClick={handleClick}
+                                className="bg-primary"
+                            >
+                                Tambah Data
+                            </Button>
                         </div>
                     </div>
                 </div>

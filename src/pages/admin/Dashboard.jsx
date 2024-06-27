@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ReactApexChart from "react-apexcharts";
 import http from "@/services/axios";
 import { IconCategory, IconCategory2, IconReport } from "@tabler/icons-react";
+import Loading from "@/components/ui/loading";
 
 export default function Dashboard() {
     const [chartData, setChartData] = useState({
@@ -40,24 +41,26 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            try {
-                const response = await http.get("/admin/dashboard");
-                const dashboardData = response.data.data;
-                setChartData({
-                    usersChart: dashboardData.usersChart,
-                    postsChart: dashboardData.postsChart,
-                    incidentsChart: dashboardData.incidentsChart,
-                    vehiclesChart: dashboardData.vehiclesChart,
-                });
-                setData({
-                    current: dashboardData.current,
-                    lastMonth: dashboardData.lastMonth,
-                });
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
+            setTimeout(async () => {
+                try {
+                    const response = await http.get("/admin/dashboard");
+                    const dashboardData = response.data.data;
+                    setChartData({
+                        usersChart: dashboardData.usersChart,
+                        postsChart: dashboardData.postsChart,
+                        incidentsChart: dashboardData.incidentsChart,
+                        vehiclesChart: dashboardData.vehiclesChart,
+                    });
+                    setData({
+                        current: dashboardData.current,
+                        lastMonth: dashboardData.lastMonth,
+                    });
+                } catch (error) {
+                    setError(error);
+                } finally {
+                    setLoading(false);
+                }
+            }, 300);
         };
 
         fetchData();
@@ -119,7 +122,7 @@ export default function Dashboard() {
 
     const calculateChange = (current, lastMonth) => current - lastMonth;
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loading />;
     if (error) return <p>Error: {error.message}</p>;
 
     return (

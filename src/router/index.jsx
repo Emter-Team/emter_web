@@ -17,6 +17,7 @@ import GetIncidentType from "@/pages/settings/incident_types/GetIncidentType.jsx
 import GetService from "@/pages/settings/service/GetService.jsx";
 import DetailProfile from "@/pages/profiles/DetailProfile.jsx";
 import FormUpdateProfile from "@/pages/profiles/FormUpdateProfile.jsx";
+import FormCategories from "@/pages/settings/post_categories/FormCategories.jsx";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
             {
                 path: "post_categories",
                 element: <GetPostCategories />,
+            },
+            {
+                path: "post_categories/create",
+                element: <FormCategories />,
             },
             {
                 path: "incident_types",
