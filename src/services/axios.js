@@ -25,7 +25,7 @@ http.interceptors.response.use(
         } else {
             console.error("Network Error or Server is down", error);
         }
-        return error;
+        return Promise.reject(error);
     }
 );
 
