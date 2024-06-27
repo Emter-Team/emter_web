@@ -5,7 +5,6 @@ import Loading from "@/components/ui/loading";
 import { formatDate } from "@/lib/dateUtils";
 import { ChevronRight, MapPin } from "lucide-react";
 import NavLink from "@/components/fragment/navlink";
-import SidebarPost from "@/components/fragment/sidebar/sidebarPost";
 import {
     Carousel,
     CarouselContent,
@@ -59,11 +58,12 @@ export default function DetailPost() {
 
     return (
         <>
-            <SidebarPost />
-            <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
+            <div className="w-full mt-10 md:mt-20 p-0 md:p-4 h-screen">
                 <div className="w-full">
                     <div className="space-y-3">
-                        <p className="text-secondary">{formatDate(post.created_at)}</p>
+                        <p className="text-secondary">
+                            {formatDate(post.created_at)}
+                        </p>
                         <h3 className="text-xl md:text-3xl font-semibold text-primary">
                             {post.title}
                         </h3>
