@@ -3,7 +3,7 @@ import Container from "@/components/ui/container";
 import { useStateContext } from "@/contexts/ContextProvider";
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function DefaultLayout() {
@@ -20,7 +20,7 @@ export default function DefaultLayout() {
                 </Container>
             </main>
             <ToastContainer
-                autoClose={3000}
+                autoClose={4000}
                 hideProgressBar={true}
                 newestOnTop={false}
                 closeOnClick
@@ -28,8 +28,9 @@ export default function DefaultLayout() {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
+                className="toast-container"
                 theme="light"
-                transition:Zoom
+                transition:Slide
             />
         </div>
     );
