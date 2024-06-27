@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const bgPatterns = require("tailwindcss-bg-patterns");
+
 module.exports = {
     darkMode: ["class"],
     content: [
@@ -18,7 +20,7 @@ module.exports = {
             success: "#22c55e",
         },
         fontFamily: {
-            sans: ["Work Sans", "sans-serif"],
+            sans: ["Work Sans", "Poppins", "sans-serif"],
         },
         container: {
             center: true,
@@ -29,6 +31,10 @@ module.exports = {
         },
         extend: {
             keyframes: {
+                shine: {
+                    "0%": { transform: "translateX(-100%)" },
+                    "100%": { transform: "translateX(400%)" },
+                },
                 "accordion-down": {
                     from: { height: "0" },
                     to: { height: "var(--radix-accordion-content-height)" },
@@ -39,10 +45,11 @@ module.exports = {
                 },
             },
             animation: {
+                shine: "shine 1.5s linear infinite",
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [require("tailwindcss-animate"), bgPatterns],
 };

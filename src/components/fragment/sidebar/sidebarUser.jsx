@@ -6,7 +6,7 @@ export default function SidebarUser() {
         <div className="h-min md:h-screen w-full md:w-2/12 mt-20 pt-4 flex flex-col gap-4">
             <NavLink
                 to="/residents"
-                active={   location.pathname.startsWith("/residents")}
+                active={location.pathname.startsWith("/residents")}
                 className="whitespace-nowrap"
             >
                 Masyarakat

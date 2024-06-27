@@ -20,8 +20,13 @@ import FormUpdateProfile from "@/pages/profiles/FormUpdateProfile.jsx";
 import FormCategories from "@/pages/settings/post_categories/FormCategories.jsx";
 import FormIncidentType from "@/pages/settings/incident_types/FormIncidentType.jsx";
 import FormService from "@/pages/settings/service/FormService.jsx";
+import Index from "@/pages/home/Index.jsx";
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Index />, 
+    },
     {
         path: "/",
         element: <DefaultLayout />,
