@@ -1,5 +1,14 @@
 import React from "react";
-import NavLink from "../navlink";
+import { NavLink } from "react-router-dom";
+import {
+    Menubar,
+    MenubarContent,
+    MenubarItem,
+    MenubarMenu,
+    MenubarSeparator,
+    MenubarTrigger,
+} from "@/components/ui/menubar";
+import { AlignLeft } from "lucide-react";
 
 export default function NavbarHome() {
     return (
@@ -16,37 +25,72 @@ export default function NavbarHome() {
                             className="w-60"
                         />
                     </a>
-                    <div className="flex justify-end items-center gap-x-8">
+                    <div className="hidden md:flex justify-end items-center gap-x-8">
                         <a
-                            href="#tentangkami"
-                            active={location.pathname.startsWith(
-                                "/#tentangkami"
-                            )}
+                            href="/#tentang"
+                            activeClassName="text-[18px] text-primary font-bold"
                             className="text-[18px] text-primary"
                         >
                             Tentang Kami
                         </a>
                         <a
-                            href="#tujuan"
-                            active={location.pathname.startsWith("/#tujuan")}
+                            href="/#tujuan"
+                            activeClassName="text-[18px] text-primary font-bold"
                             className="text-[18px] text-primary"
                         >
                             Tujuan
                         </a>
                         <a
-                            href="#fitur"
-                            active={location.pathname.startsWith("/#fitur")}
+                            href="/#fitur"
+                            activeClassName="text-[18px] text-primary font-bold"
                             className="text-[18px] text-primary"
                         >
                             Fitur
                         </a>
                         <a
-                            href="#teknologi"
-                            active={location.pathname.startsWith("/#teknologi")}
+                            href="/#teknologi"
+                            activeClassName="text-[18px] text-primary font-bold"
                             className="text-[18px] text-primary"
                         >
                             Teknologi
                         </a>
+                        <a
+                            href="/#hubungi"
+                            activeClassName="text-[18px] text-primary font-bold"
+                            className="text-[18px] text-primary"
+                        >
+                            Hubungi
+                        </a>
+                    </div>
+                    <div className="flex justify-end sm:hidden text-secondary w-full items-center">
+                        <Menubar className="border-none items-center flex">
+                            <MenubarMenu>
+                                <MenubarTrigger className="bg-white focus:bg-primary/10 focus:text-white  hover:bg-primary/10 rounded-xl py-3">
+                                    <AlignLeft
+                                        absoluteStrokeWidth={true}
+                                        size="36"
+                                        className="text-primary"
+                                    />
+                                </MenubarTrigger>
+                                <MenubarContent align="end">
+                                    <a href="/#tentang">
+                                        <MenubarItem>Tentang Kami</MenubarItem>
+                                    </a>
+                                    <a href="/#tujuan">
+                                        <MenubarItem>Tujuan</MenubarItem>
+                                    </a>
+                                    <a href="/#fitur">
+                                        <MenubarItem>Fitur</MenubarItem>
+                                    </a>
+                                    <a href="/#teknologi">
+                                        <MenubarItem>Teknologi</MenubarItem>
+                                    </a>
+                                    <a href="/#hubungi">
+                                        <MenubarItem>Hubungi Kami</MenubarItem>
+                                    </a>
+                                </MenubarContent>
+                            </MenubarMenu>
+                        </Menubar>
                     </div>
                 </div>
             </div>
