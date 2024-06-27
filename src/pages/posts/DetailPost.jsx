@@ -63,7 +63,7 @@ export default function DetailPost() {
             <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
                 <div className="w-full">
                     <div className="space-y-3">
-                        <p>{formatDate(post.created_at)}</p>
+                        <p className="text-secondary">{formatDate(post.created_at)}</p>
                         <h3 className="text-xl md:text-3xl font-semibold text-primary">
                             {post.title}
                         </h3>
@@ -111,7 +111,9 @@ export default function DetailPost() {
                                             {post.image_posts.map(
                                                 (image_post, index) => (
                                                     <>
-                                                        <CarouselItem>
+                                                        <CarouselItem
+                                                            key={index}
+                                                        >
                                                             <img
                                                                 key={index}
                                                                 className="rounded-md object-cover mb-4"
@@ -151,7 +153,7 @@ export default function DetailPost() {
 
                     <div className="w-full md:w-5/12 mb-12">
                         <div>
-                            <div className="flex gap-x-3 items-center mt-8 mb-4">
+                            <div className="flex gap-x-3 items-center mb-4">
                                 <div>
                                     {post.institution.user.avatar ? (
                                         <img
