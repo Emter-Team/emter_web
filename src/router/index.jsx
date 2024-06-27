@@ -18,6 +18,8 @@ import GetService from "@/pages/settings/service/GetService.jsx";
 import DetailProfile from "@/pages/profiles/DetailProfile.jsx";
 import FormUpdateProfile from "@/pages/profiles/FormUpdateProfile.jsx";
 import FormCategories from "@/pages/settings/post_categories/FormCategories.jsx";
+import FormIncidentType from "@/pages/settings/incident_types/FormIncidentType.jsx";
+import FormService from "@/pages/settings/service/FormService.jsx";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
                 element: <GetService />,
             },
             {
+                path: "services/create",
+                element: <FormService />,
+            },
+            {
                 path: "posts",
                 element: <GetPost />,
             },
@@ -75,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: "incident_types",
                 element: <GetIncidentType />,
+            },
+            {
+                path: "incident_types/create",
+                element: <FormIncidentType />,
             },
             {
                 path: "vehicles",

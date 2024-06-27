@@ -1,0 +1,119 @@
+import React, { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import Loading from "@/components/ui/loading";
+import { Input } from "@/components/ui/input";
+import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
+import { Label } from "@radix-ui/react-dropdown-menu";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "react-toastify";
+import Error from "@/components/ui/error";
+import { useNavigate } from "react-router-dom";
+import http from "@/services/axios";
+
+export default function FormService() {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState({});
+    const nameRef = useRef();
+    const descriptionRef = useRef();
+    const pictureRef = useRef();
+
+    const navigate = useNavigate();
+
+    const handleAddService = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const formData = new FormData();
+        formData.append("name", nameRef.current.value);
+        formData.append("description", descriptionRef.current.value);
+        if (pictureRef.current.files[0]) {
+            formData.append("picture", pictureRef.current.files[0]);
+        }
+
+        try {
+            await http.post("/admin/services", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            toast.success("Layanan berhasil ditambahkan");
+            setError({});
+            nameRef.current.value = "";
+            descriptionRef.current.value = "";
+            pictureRef.current.value = "";
+            navigate("/services");
+        } catch (err) {
+            const response = err.response;
+            if (response && response.status === 400) {
+                setError(response.data.message);
+            } else {
+                toast.error("Terjadi kesalahan pada server");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <>
+            {loading && <Loading />}
+            <SidebarSetting />
+            <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
+                <div>
+                    <div className="title w-full">
+                        <h3 className="text-3xl font-semibold text-primary">
+                            Form Tambah Data
+                        </h3>
+                        <p className="text-secondary">
+                            Form untuk menambahkan data Jenis Layanan yang ada
+                            di sistem
+                        </p>
+                    </div>
+                    <div className="w-full mt-8 border rounded-md border-primary/50 p-4">
+                        <form onSubmit={handleAddService}>
+                            <div>
+                                <Label htmlFor="name">Nama Layanan</Label>
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    ref={nameRef}
+                                    autoComplete="name"
+                                />
+                                {error.name && <Error>{error.name[0]}</Error>}
+                            </div>
+
+                            <div className="mt-4">
+                                <Label htmlFor="description">Deskripsi</Label>
+                                <Textarea
+                                    id="description"
+                                    name="description"
+                                    ref={descriptionRef}
+                                />
+                                {error.description && (
+                                    <Error>{error.description[0]}</Error>
+                                )}
+                            </div>
+
+                            <div className="mt-4">
+                                <Label htmlFor="picture">Gambar</Label>
+                                <Input
+                                    id="picture"
+                                    type="file"
+                                    name="picture"
+                                    ref={pictureRef}
+                                />
+                                {error.picture && (
+                                    <Error>{error.picture[0]}</Error>
+                                )}
+                            </div>
+
+                            <div className="flex items-center justify-end mt-4">
+                                <Button type="submit">Simpan</Button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
