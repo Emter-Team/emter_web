@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
 
 export default function GetIncidentType() {
-    const [services, setServices] = useState([]);
+    const [incidentTypes, setIncidentTypes] = useState([]);
     const [totalIncidentTypes, setTotalIncidentTypes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -54,8 +54,8 @@ export default function GetIncidentType() {
                 const response = await http.get("/admin/incident_types/", {
                     params,
                 });
-                setServices(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setIncidentTypes(response.data.data.data);
+                setPaginationLinks(response.data.data.meta);
                 setTotalIncidentTypes(response.data.data.total_incident_types);
             } catch (error) {
                 console.error(error);
@@ -129,11 +129,11 @@ export default function GetIncidentType() {
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {services.length > 0 ? (
-                                services.map((service, index) => (
+                            {incidentTypes.length > 0 ? (
+                                incidentTypes.map((service, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {service.name}
@@ -160,7 +160,7 @@ export default function GetIncidentType() {
                                                     <Link
                                                         className="group:name w-full h-full"
                                                         to={
-                                                            "/services/" +
+                                                            "/incidentTypes/" +
                                                             service.username
                                                         }
                                                     >
@@ -199,7 +199,7 @@ export default function GetIncidentType() {
                         </Table.Tbody>
                     </Table>
 
-                    {services.length > 0 && (
+                    {incidentTypes.length > 0 && (
                         <div className="flex w-full justify-between items-center pb-12">
                             <p className="text-sm text-primary mt-10">
                                 Total Jenis Layanan Darurat:{" "}
@@ -208,7 +208,7 @@ export default function GetIncidentType() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>

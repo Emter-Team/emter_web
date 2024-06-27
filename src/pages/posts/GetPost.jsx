@@ -21,7 +21,6 @@ import {
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
-import SidebarPost from "@/components/fragment/sidebar/sidebarPost";
 
 export default function GetPost() {
     const [posts, setPosts] = useState([]);
@@ -87,11 +86,6 @@ export default function GetPost() {
 
         // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
-            axios.get('/', {
-                config: {
-                    Au
-                }
-            })
             try {
                 const response = await http.get("/admin/posts", {
                     params,
@@ -125,7 +119,6 @@ export default function GetPost() {
     return (
         <>
             {loading && <Loading />} {/* Show loading indicator */}
-
             <div className="w-full mt-10 md:mt-20 p-0 md:p-4 h-screen">
                 <div className="w-full flex flex-col justify-center md:flex-row md:justify-end">
                     <div className="title w-full md:w-1/3">
