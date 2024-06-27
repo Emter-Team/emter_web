@@ -13,13 +13,12 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
-import SidebarIncident from "@/components/fragment/sidebar/sidebarIncident";
+import { Link, useNavigate } from "react-router-dom";
 import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
 
 export default function GetIncidentType() {
     const [services, setServices] = useState([]);
-    const [totalServices, setTotalServices] = useState([]);
+    const [totalIncidentTypes, setTotalIncidentTypes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationLinks, setPaginationLinks] = useState([]);
@@ -52,13 +51,12 @@ export default function GetIncidentType() {
         // Add a delay of 0.3 seconds before showing loading indicator
         setTimeout(async () => {
             try {
-                const response = await http.get("/admin/services/", {
+                const response = await http.get("/admin/incident_types/", {
                     params,
                 });
-                console.log(response);
                 setServices(response.data.data.data);
                 setPaginationLinks(response.data.data.meta.links);
-                setTotalServices(response.data.data.total_services);
+                setTotalIncidentTypes(response.data.data.total_incident_types);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -71,7 +69,7 @@ export default function GetIncidentType() {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/services/${username}`);
+                await http.delete(`/admin/incident_types/${username}`);
                 setIsDeleteToast(false);
                 getServices(currentPage);
             } catch (error) {
@@ -80,6 +78,11 @@ export default function GetIncidentType() {
                 setLoading(false);
             }
         }, 300); // 0.3 seconds delay
+    };
+
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("create");
     };
 
     return (
@@ -106,7 +109,12 @@ export default function GetIncidentType() {
                                 value={searchName}
                                 onChange={(e) => setSearchName(e.target.value)}
                             />
-                            <Button>Tambah Data</Button>
+                            <Button
+                                onClick={handleClick}
+                                className="bg-primary"
+                            >
+                                Tambah Data
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -192,11 +200,11 @@ export default function GetIncidentType() {
                     </Table>
 
                     {services.length > 0 && (
-                        <div className="flex w-full justify-between items-center">
+                        <div className="flex w-full justify-between items-center pb-12">
                             <p className="text-sm text-primary mt-10">
                                 Total Jenis Layanan Darurat:{" "}
                                 <span className="font-bold">
-                                    {totalServices}
+                                    {totalIncidentTypes}
                                 </span>
                             </p>
                             <Pagination
