@@ -68,7 +68,7 @@ export default function GetVehicles() {
                     params,
                 });
                 setVehicles(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setPaginationLinks(response.data.data.meta);
                 setTotalVehicles(response.data.data.total_vehicles);
             } catch (error) {
                 console.error(error);
@@ -83,7 +83,6 @@ export default function GetVehicles() {
         try {
             const response = await http.get("/admin/institutions");
             setInstitutions(response.data.data.data);
-            console.log(response);
         } catch (error) {
         } finally {
             setLoading(false);
@@ -193,7 +192,7 @@ export default function GetVehicles() {
                                 vehicles.map((vehicle, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-[2%]">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-[10%]">
                                             {vehicle.institution.user.name}
@@ -266,7 +265,7 @@ export default function GetVehicles() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>

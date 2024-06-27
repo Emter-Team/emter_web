@@ -65,7 +65,7 @@ export default function GetOfficers() {
             try {
                 const response = await http.get("/admin/officers/", { params });
                 setOfficers(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setPaginationLinks(response.data.data.meta);
                 setTotalOfficers(response.data.data.total_officers);
             } catch (error) {
                 console.error(error);
@@ -152,7 +152,7 @@ export default function GetOfficers() {
                                 officers.map((officer, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {
@@ -255,7 +255,7 @@ export default function GetOfficers() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>

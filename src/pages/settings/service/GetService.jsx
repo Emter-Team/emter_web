@@ -54,9 +54,8 @@ export default function GetService() {
                 const response = await http.get("/admin/services/", {
                     params,
                 });
-                console.log(response);
                 setServices(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setPaginationLinks(response.data.data.meta);
                 setTotalServices(response.data.data.total_services);
             } catch (error) {
                 console.error(error);
@@ -124,7 +123,7 @@ export default function GetService() {
                                 services.map((service, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {service.name}
@@ -199,7 +198,7 @@ export default function GetService() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>

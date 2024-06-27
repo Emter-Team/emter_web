@@ -74,7 +74,7 @@ export default function GetResident() {
             try {
                 const response = await http.get("/admin/residents", { params });
                 setResidents(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setPaginationLinks(response.data.data.meta);
                 setTotalResidents(response.data.data.total_residents);
             } catch (error) {
                 console.error(error);
@@ -90,7 +90,7 @@ export default function GetResident() {
             try {
                 await http.put(`/admin/residents/verificate/${username}`);
                 setIsToast(false);
-                getResidents(currentPage); // Refresh resident list after verification
+                getResidents(currentPage);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -193,7 +193,7 @@ export default function GetResident() {
                                 residents.map((resident, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                        {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {resident.resident.nik}
@@ -315,7 +315,7 @@ export default function GetResident() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>

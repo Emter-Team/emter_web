@@ -7,7 +7,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IconCircleCheckFilled, IconCircleXFilled } from "@tabler/icons-react";
-import { CheckCheck, Eye, MoreHorizontal, Trash, Trash2 } from "lucide-react";
+import { CheckCheck, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
@@ -88,7 +88,7 @@ export default function GetInstitution() {
                     params,
                 });
                 setInstitutions(response.data.data.data);
-                setPaginationLinks(response.data.data.meta.links);
+                setPaginationLinks(response.data.data.meta);
                 setTotalInstitutions(response.data.data.total_institutions);
             } catch (error) {
                 console.error(error);
@@ -194,7 +194,7 @@ export default function GetInstitution() {
                                 institutions.map((institution, index) => (
                                     <Table.Tr key={index}>
                                         <Table.Td className="w-5">
-                                            {index + 1}
+                                            {paginationLinks.from + index}
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {institution.name}
@@ -311,7 +311,7 @@ export default function GetInstitution() {
                                 </span>
                             </p>
                             <Pagination
-                                links={paginationLinks}
+                                links={paginationLinks.links}
                                 onPageChange={(page) => setCurrentPage(page)}
                             />
                         </div>
