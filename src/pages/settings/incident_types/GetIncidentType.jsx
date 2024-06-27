@@ -65,11 +65,11 @@ export default function GetIncidentType() {
         }, 300); // 0.3 seconds delay
     };
 
-    const handleTrash = (username) => {
+    const handleTrash = (slug) => {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/incident_types/${username}`);
+                await http.delete(`/admin/incident_types/${slug}`);
                 setIsDeleteToast(false);
                 getServices(currentPage);
             } catch (error) {
@@ -160,8 +160,8 @@ export default function GetIncidentType() {
                                                     <Link
                                                         className="group:name w-full h-full"
                                                         to={
-                                                            "/incidentTypes/" +
-                                                            service.username
+                                                            "/incident_types/edit/" +
+                                                            service.slug
                                                         }
                                                     >
                                                         <DropdownMenuItem className="group:name">

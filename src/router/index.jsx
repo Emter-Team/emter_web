@@ -91,6 +91,10 @@ const router = createBrowserRouter([
                 element: <FormIncidentType />,
             },
             {
+                path: "incident_types/edit/:id",
+                element: <FormIncidentType />,
+            },
+            {
                 path: "vehicles",
                 element: <GetVehicles />,
             },

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Loading from "@/components/ui/loading";
 import { Input } from "@/components/ui/input";
@@ -7,32 +7,53 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "react-toastify";
 import Error from "@/components/ui/error";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import http from "@/services/axios";
 
 export default function FormIncidentType() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});
-    const nameRef = useRef();
-    const descriptionRef = useRef();
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [id, setId] = useState("");
 
     const navigate = useNavigate();
+    const { id: paramId } = useParams(); // Get the id from the URL
 
-    const handleAddCategory = async (e) => {
+    useEffect(() => {
+        if (paramId) {
+            setIsEditMode(true);
+            http.get(`/admin/incident_types/${paramId}`)
+                .then((response) => {
+                    const { name, description, id } = response.data.data;
+                    setId(id);
+                    setName(name);
+                    setDescription(description);
+                })
+                .catch((err) => {
+                    toast.error("Gagal memuat data jenis kejadian");
+                });
+        }
+    }, [paramId]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const payload = {
-            name: nameRef.current.value,
-            description: descriptionRef.current.value,
-        };
+        const payload = { name, description };
 
         try {
-            await http.post("/admin/post_categories", payload);
-            toast.success("Kategori berhasil ditambahkan");
+            if (isEditMode) {
+                await http.put(`/admin/incident_types/${id}`, payload);
+                toast.success("Jenis Kejadian berhasil diperbarui");
+            } else {
+                await http.post("/admin/incident_types", payload);
+                toast.success("Jenis Kejadian berhasil ditambahkan");
+            }
             setError({});
-            nameRef.current.value = "";
-            descriptionRef.current.value = "";
-            navigate("/post_categories");
+            setName("");
+            setDescription("");
+            navigate("/incident_types");
         } catch (err) {
             const response = err.response;
             if (response && response.status === 400) {
@@ -53,33 +74,37 @@ export default function FormIncidentType() {
                 <div>
                     <div className="title w-full">
                         <h3 className="text-3xl font-semibold text-primary">
-                            Form Tambah Data
+                            {isEditMode ? "Form Edit Data" : "Form Tambah Data"}
                         </h3>
                         <p className="text-secondary">
-                            Form untuk menambahkan data Laporan Kejadian yang
-                            ada di sistem
+                            Form untuk {isEditMode ? "mengubah" : "menambahkan"}{" "}
+                            data Jenis Kejadian yang ada di sistem
                         </p>
                     </div>
                     <div className="w-full mt-8 border rounded-md border-primary/50 p-4">
-                        <form onSubmit={handleAddCategory}>
+                        <form onSubmit={handleSubmit}>
                             <div>
-                                <Label htmlFor="name">Nama Kategori</Label>
+                                <Label htmlFor="name">Jenis</Label>
                                 <Input
                                     id="name"
                                     type="text"
                                     name="name"
-                                    ref={nameRef}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                     autoComplete="name"
                                 />
                                 {error.name && <Error>{error.name[0]}</Error>}
                             </div>
 
                             <div className="mt-4">
-                                <Label htmlFor="description">Keterangan</Label>
+                                <Label htmlFor="description">Deskripsi</Label>
                                 <Textarea
                                     id="description"
                                     name="description"
-                                    ref={descriptionRef}
+                                    value={description}
+                                    onChange={(e) =>
+                                        setDescription(e.target.value)
+                                    }
                                 />
                                 {error.description && (
                                     <Error>{error.description[0]}</Error>
