@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, MoreHorizontal, Pencil } from "lucide-react";
 import Table from "@/components/fragment/table";
 import { Button } from "@/components/ui/button";
 import Toast from "@/components/fragment/toast";
@@ -8,7 +8,13 @@ import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
 import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function GetPostCategories() {
     const [post_categories, setPosts] = useState([]);
@@ -24,7 +30,6 @@ export default function GetPostCategories() {
 
     function openDeleteToast(PostCategoriesId, title) {
         setIsDeleteToast(true);
-        setToastTitle(title);
         setPostCategoriesId(PostCategoriesId);
     }
 
@@ -140,17 +145,52 @@ export default function GetPostCategories() {
                                             {post_category.description}
                                         </Table.Td>
                                         <Table.Td>
-                                            <Button
-                                                variant="secondary border-none"
-                                                onClick={() =>
-                                                    openDeleteToast(
-                                                        post_category.id,
-                                                        post_category.name
-                                                    )
-                                                }
-                                            >
-                                                <Trash2 size={18} />
-                                            </Button>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <div className="group">
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="h-8 w-8 p-0 group-hover:bg-primary"
+                                                        >
+                                                            <span className="sr-only">
+                                                                Open menu
+                                                            </span>
+                                                            <MoreHorizontal className="h-4 w-4 group-hover:text-white" />
+                                                        </Button>
+                                                    </div>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end">
+                                                    <Link
+                                                        className="group:name w-full h-full"
+                                                        to={
+                                                            "/post_categories/" +
+                                                            post_category.username
+                                                        }
+                                                    >
+                                                        <DropdownMenuItem className="group:name">
+                                                            <Pencil
+                                                                size={18}
+                                                                className={`mr-2`}
+                                                            />
+                                                            Ubah
+                                                        </DropdownMenuItem>
+                                                    </Link>
+                                                    <DropdownMenuItem
+                                                        onClick={() =>
+                                                            openDeleteToast(
+                                                                post_category.id,
+                                                                post_category.name
+                                                            )
+                                                        }
+                                                    >
+                                                        <Trash2
+                                                            size={18}
+                                                            className={`mr-2`}
+                                                        />
+                                                        Hapus
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         </Table.Td>
                                     </Table.Tr>
                                 ))
