@@ -111,7 +111,7 @@ export default function GetIncidentType() {
                             />
                             <Button
                                 onClick={handleClick}
-                                className="bg-primary"
+                                className="bg-primary text-white"
                             >
                                 Tambah Data
                             </Button>
