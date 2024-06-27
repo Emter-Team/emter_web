@@ -13,7 +13,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
 
 export default function GetService() {
@@ -80,6 +80,11 @@ export default function GetService() {
         }, 300); // 0.3 seconds delay
     };
 
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("create");
+    };
+
     return (
         <>
             {loading && <Loading />} {/* Show loading indicator */}
@@ -104,7 +109,12 @@ export default function GetService() {
                                 value={searchName}
                                 onChange={(e) => setSearchName(e.target.value)}
                             />
-                            <Button>Tambah Data</Button>
+                            <Button
+                                onClick={handleClick}
+                                className="bg-primary"
+                            >
+                                Tambah Data
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -115,6 +125,7 @@ export default function GetService() {
                                 <Table.Th>#</Table.Th>
                                 <Table.Th>Nama</Table.Th>
                                 <Table.Th>Deskripsi</Table.Th>
+                                <Table.Th>Gambar</Table.Th>
                                 <Table.Th className="w-12 px-2">Aksi</Table.Th>
                             </tr>
                         </Table.Thead>
@@ -130,6 +141,22 @@ export default function GetService() {
                                         </Table.Td>
                                         <Table.Td className="w-min">
                                             {service.description}
+                                        </Table.Td>
+                                        <Table.Td className="w-50">
+                                            {service.picture ? (
+                                                <img
+                                                    src={service.picture}
+                                                    alt={service.name}
+                                                    width="50"
+                                                />
+                                            ) : (
+                                                <img
+                                                    width="50"
+                                                    className="rounded"
+                                                    src="/images/notfound/notfound.jpg"
+                                                    alt="Gambar tidak ditemukan"
+                                                />
+                                            )}
                                         </Table.Td>
                                         <Table.Td>
                                             <DropdownMenu>
