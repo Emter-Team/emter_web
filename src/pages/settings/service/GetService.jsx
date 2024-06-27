@@ -65,11 +65,11 @@ export default function GetService() {
         }, 300); // 0.3 seconds delay
     };
 
-    const handleTrash = (username) => {
+    const handleTrash = (slug) => {
         setLoading(true);
         setTimeout(async () => {
             try {
-                await http.delete(`/admin/services/${username}`);
+                await http.delete(`/admin/services/${slug}`);
                 setIsDeleteToast(false);
                 getServices(currentPage);
             } catch (error) {
@@ -178,8 +178,8 @@ export default function GetService() {
                                                     <Link
                                                         className="group:name w-full h-full"
                                                         to={
-                                                            "/services/" +
-                                                            service.username
+                                                            "/services/edit/" +
+                                                            service.slug
                                                         }
                                                     >
                                                         <DropdownMenuItem className="group:name">

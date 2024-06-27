@@ -63,6 +63,10 @@ const router = createBrowserRouter([
                 element: <FormService />,
             },
             {
+                path: "services/edit/:id",
+                element: <FormService />,
+            },
+            {
                 path: "posts",
                 element: <GetPost />,
             },

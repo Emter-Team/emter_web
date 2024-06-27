@@ -63,6 +63,7 @@ export default function Navbar({ user }) {
             <NavLink
                 to="/services"
                 className={`flex items-center whitespace-nowrap ${
+                    location.pathname.startsWith("/services") ||
                     location.pathname.startsWith("/incident_types") ||
                     location.pathname.startsWith("/post_categories")
                         ? "font-semibold px-1 border-b border-b-2 border-secondary"
