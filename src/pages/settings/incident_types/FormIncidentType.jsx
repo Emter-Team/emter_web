@@ -10,7 +10,7 @@ import Error from "@/components/ui/error";
 import { useNavigate } from "react-router-dom";
 import http from "@/services/axios";
 
-export default function FormCategories() {
+export default function FormIncidentType() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});
     const nameRef = useRef();
@@ -36,7 +36,7 @@ export default function FormCategories() {
         } catch (err) {
             const response = err.response;
             if (response && response.status === 400) {
-                setError(response.data.message); // Adjust this based on the actual error structure
+                setError(response.data.message);
             } else {
                 toast.error("Terjadi kesalahan pada server");
             }
@@ -56,8 +56,8 @@ export default function FormCategories() {
                             Form Tambah Data
                         </h3>
                         <p className="text-secondary">
-                            Form untuk menambahkan data Jenis Berita yang ada di
-                            sistem
+                            Form untuk menambahkan data Laporan Kejadian yang
+                            ada di sistem
                         </p>
                     </div>
                     <div className="w-full mt-8 border rounded-md border-primary/50 p-4">
@@ -75,7 +75,7 @@ export default function FormCategories() {
                             </div>
 
                             <div className="mt-4">
-                                <Label htmlFor="description">Deskripsi</Label>
+                                <Label htmlFor="description">Keterangan</Label>
                                 <Textarea
                                     id="description"
                                     name="description"
