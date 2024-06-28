@@ -21,11 +21,12 @@ import FormCategories from "@/pages/settings/post_categories/FormCategories.jsx"
 import FormIncidentType from "@/pages/settings/incident_types/FormIncidentType.jsx";
 import FormService from "@/pages/settings/service/FormService.jsx";
 import Index from "@/pages/home/Index.jsx";
+import GetIncidents from "@/pages/incidents/GetIncident.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Index />, 
+        element: <Index />,
     },
     {
         path: "/",
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
             {
                 path: "services/edit/:id",
                 element: <FormService />,
+            },
+            {
+                path: "incidents",
+                element: <GetIncidents />,
             },
             {
                 path: "posts",
