@@ -9,11 +9,11 @@ import {
 import ContainerHome from "@/components/ui/containerHome";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Label } from "@/components/ui/label";
 
 export default function Index() {
     useEffect(() => {
@@ -48,10 +48,11 @@ export default function Index() {
                             className="text-lg text-center md:text-start text-secondary/80 pt-4"
                             data-aos="fade-right"
                         >
-                            Emter adalah aplikasi terintegrasi yang memungkinkan
-                            pemanggilan akses cepat ke layanan darurat seperti
-                            Pemadam Kebakaran, Ambulans, Polisi dan Badan SAR
-                            melalui satu pintu masuk
+                            Emter (Emergency Center) adalah aplikasi
+                            terintegrasi yang memungkinkan pemanggilan akses
+                            cepat ke layanan darurat seperti Pemadam Kebakaran,
+                            Ambulans, Polisi dan Badan SAR melalui satu pintu
+                            masuk
                         </p>
                         {/* <div className="flex gap-x-4 pt-4">
                             <a
@@ -85,10 +86,11 @@ export default function Index() {
                     </div>
                     <div className="w-full md:w-1/2 order-1 md:order-2 flex justify-center md:justify-end">
                         <img
-                            src="/images/app/emter_only.png"
-                            width="80%"
-                            alt=""
-                            data-aos="fade-in"
+                            loading="lazy"
+                            src="/images/app/emter_only.webp"
+                            width="90%"
+                            alt="Emter (Emergency Center)"
+                            data-aos="zoom-in"
                             data-aos-duration="1000"
                         />
                     </div>
@@ -122,9 +124,9 @@ export default function Index() {
                         className="flex flex-col md:flex-row items-center w-full mb-12 gap-x-24"
                         data-aos="fade-up-right"
                     >
-                        <div className="w-full md:w-1/2">
+                        <div className="w-full md:w-1/2 flex justify-start md:justify-center">
                             <img
-                                src="/images/homepage/emter_web_phone.png"
+                                src="/images/homepage/emter_web_phone.webp"
                                 width="90%"
                                 alt=""
                             />
@@ -141,8 +143,7 @@ export default function Index() {
                                     className="text-secondary text-center md:text-start mt-2 font-light"
                                     data-aos="fade-up-left"
                                 >
-                                    Berikut adalah tujuan dari Aplikasi
-                                    (Emergency Center)
+                                    Berikut adalah tujuan dari Aplikasi Emter
                                 </p>
                             </div>
                             <Accordion
@@ -152,7 +153,7 @@ export default function Index() {
                                 data-aos="fade-up-left"
                             >
                                 <AccordionItem value="item-1">
-                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
+                                    <AccordionTrigger className="text-start text-lg md:text-xl text-secondary/80">
                                         Membantu masyarakat
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -162,7 +163,7 @@ export default function Index() {
                                     </AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem value="item-2">
-                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
+                                    <AccordionTrigger className="text-start text-lg md:text-xl text-secondary/80">
                                         Meningkatkan akses layanan darurat
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -173,7 +174,7 @@ export default function Index() {
                                     </AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem value="item-3">
-                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
+                                    <AccordionTrigger className="text-start text-lg md:text-xl text-secondary/80">
                                         Memberikan informasi
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -183,7 +184,7 @@ export default function Index() {
                                     </AccordionContent>
                                 </AccordionItem>
                                 <AccordionItem value="item-4">
-                                    <AccordionTrigger className="text-lg md:text-xl text-secondary">
+                                    <AccordionTrigger className="text-start text-lg md:text-xl text-secondary/80">
                                         Meningkatkan koordinasi
                                     </AccordionTrigger>
                                     <AccordionContent className="text-base font-light text-secondary">
@@ -208,11 +209,11 @@ export default function Index() {
                         <div className="w-full md:w-2/3 order-2 md:order-1">
                             <div className="mb-4 mt-12">
                                 <h3 className="text-3xl md:text-5xl text-center md:text-start font-semibold text-primary">
-                                    Fitur yang kami diberikan <br /> kepada Anda
+                                    Fitur yang kami berikan <br /> kepada Anda
                                 </h3>
                                 <p className="text-secondary text-center md:text-start mt-2 font-light">
                                     Berikut adalah fitur unggulan dari Aplikasi
-                                    (Emergency Center)
+                                    Emter
                                 </p>
                             </div>
                             <div className="flex flex-col md:flex-row items-start justify-start gap-2 w-full mb-8 text-primary">
@@ -262,9 +263,10 @@ export default function Index() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/3 order-1 md:order-2">
+                        <div className="w-full md:w-1/3 order-1 flex justify-center md:justify-end md:order-2">
                             <img
-                                src="/images/homepage/mobile_ui.png"
+                                loading="lazi"
+                                src="/images/homepage/mobile_ui.webp"
                                 width="90%"
                                 alt=""
                                 data-aos="zoom-in"
@@ -290,7 +292,7 @@ export default function Index() {
                             />
                         </div>
                         <div className="w-full md:w-1/2 order-1 md:order-2">
-                            <div className="mb-4 mt-12">
+                            <div className="mb-4">
                                 <h3 className="text-3xl md:text-5xl text-center md:text-start font-semibold text-primary">
                                     Kontak Kami
                                 </h3>
@@ -345,33 +347,39 @@ export default function Index() {
             </section>
 
             {/* Footer */}
-            <footer className="flex justify-between w-full py-4 bg-dots-pattern">
-                <ContainerHome className="mb-12 md:mb-24 px-0 flex flex-col md:flex-row items-end w-full">
-                    <div className="w-full md:w-1/3 flex flex-col items-start space-y-4">
-                        <img
-                            src="/images/app/emter.png"
-                            alt=""
-                            className="w-48"
-                        />
-                        <p className="text font-light text-start text-secondary">
-                            Mengubah Layanan Darurat untuk Masyarakat agar lebih
-                            cepat, baik dan tepat
-                        </p>
-                        <p className="font-light text-secondary mt-4">
-                            &copy; {new Date().getFullYear()} Emergency Center -
-                            All right reserved{" "}
-                        </p>
-                    </div>
-                    <div className="w-full md:w-2/3 pt-12 md:pt-0 flex items-end justify-end">
-                        <div className="w-full flex flex-col justify-end">
-                            <p className="text-start text-secondary font-light md:text-end">
-                                Dibuat oleh tim professional
+            <footer className="flex justify-between w-full bg-dots-pattern">
+                <ContainerHome className="mb-12 md:mb-24 px-0 w-full">
+                    <div className="flex flex flex-col md:flex-row items-start justify-end w-full">
+                        <div className="w-full md:w-1/3 flex flex-col items-start space-y-4 order-2 md:order-1">
+                            <img
+                                src="/images/app/emter.webp"
+                                alt=""
+                                className="w-48"
+                            />
+                            <p className="text font-light text-start text-secondary">
+                                Mengubah Layanan Darurat untuk Masyarakat agar
+                                lebih cepat, baik dan tepat
                             </p>
-                            <p className="text-primary font-medium text-start md:text-end">
-                                <p>Rachel Ardana Putra Ginting</p>
-                                <p>Muhammad Kholis</p>
-                                <p>Dinda Fitria Indriana</p>
+                            <p className="font-light text-secondary mt-4">
+                                &copy; {new Date().getFullYear()} Emergency
+                                Center - All Right Reserved{" "}
                             </p>
+                        </div>
+                        <div className="w-full md:w-2/3 md:pt-0 flex items-end justify-end order-1 md:order-2 mb-8">
+                            <div className="w-full flex flex-col justify-end">
+                                <p className="text-start text-secondary mb-3 font-light md:text-end">
+                                    Dibuat oleh pengembang yang ahli dalam
+                                    bidangnya
+                                </p>
+                                <p className="text-start text-lg font-semibold text-primary md:text-end">
+                                    Muhammad Reza Zulman, SST., M.Sc (Mentor)
+                                </p>
+                                <p className="text-lg text-primary flex flex-col gap-x-4 justify-start md:justify-end font-medium text-start md:text-end">
+                                    <p>Rachel Ardana Putra Ginting</p>
+                                    <p>Muhammad Kholis</p>
+                                    <p>Dinda Fitria Indriana</p>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </ContainerHome>

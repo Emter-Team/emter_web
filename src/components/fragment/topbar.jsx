@@ -45,7 +45,7 @@ export default function Topbar({ user }) {
                             className="text-2xl p-2 rounded font-bold text-primary"
                         >
                             <img
-                                src="/images/app/emter.png"
+                                src="/images/app/emter.webp"
                                 alt=""
                                 className="w-40"
                             />
