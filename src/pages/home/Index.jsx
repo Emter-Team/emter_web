@@ -220,7 +220,7 @@ export default function Index() {
                                 <div className="w-full md:w-1/2">
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Ease to call
+                                        Easy to call emergency
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
@@ -228,37 +228,37 @@ export default function Index() {
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Pencarian Instansi Terdekat
+                                        Pencarian Lokasi Terdekat
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Pembaruan Status
+                                        Peta Digital
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Informasi Lalu Lintas
+                                        Chat App
                                     </div>
                                 </div>
                                 <div className="w-full md:w-1/2">
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Persebaran Kejadian
+                                        Blog Informasi Terpercaya
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Notifikasi Real-Time
+                                        Analisis Data Kejadian
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Aksesibilitas Tinggi
+                                        Verifikasi KTP (Kartu Tanda Penduduk)
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Membagi Lokasi
+                                        Verifikasi Pengguna Umum
                                     </div>
                                     <div className="flex items-center gap-x-4 py-4">
                                         <CheckCircle className="text-success" />{" "}
-                                        Pembaruan Petunjuk
+                                        Autentikasi
                                     </div>
                                 </div>
                             </div>
@@ -291,27 +291,27 @@ export default function Index() {
                             <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white to-transparent opacity-100 animate-shine"></div>
                         </div>
                     </div>
-                    <div className="w-3/4 flex items-center justify-evenly px-24">
+                    <div className="w-3/4 flex items-center justify-center gap-x-4 md:gap-x-0 md:justify-evenly px-24">
                         <img
-                            className="w-24"
+                            className="w-16 md:w-24"
                             src="images/homepage/laravel.webp"
                             alt=""
                             data-aos="flip-left"
                         />
                         <img
-                            className="w-20"
+                            className="w-12 md:w-20"
                             src="images/homepage/flutter.webp"
                             alt=""
                             data-aos="flip-left"
                         />
                         <img
-                            className="w-24"
+                            className="w-16 md:w-24"
                             src="images/homepage/reactjs.webp"
                             alt=""
                             data-aos="flip-left"
                         />
                         <img
-                            className="w-24"
+                            className="w-16 md:w-24"
                             src="images/homepage/azure.webp"
                             alt=""
                             data-aos="flip-left"
