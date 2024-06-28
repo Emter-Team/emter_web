@@ -276,8 +276,52 @@ export default function Index() {
                 </ContainerHome>
             </section>
 
+            {/* Teknologi */}
+            <section id="teknologi" className="pt-28 pb-12">
+                <div className="w-full flex flex-col items-center bg-danger/20 text-white py-12">
+                    <div className="flex justify-center text-center flex-col">
+                        <h5 className="text-2xl text-primary text-center font-semibold">
+                            Teknologi yang digunakan untuk membangun Emter
+                        </h5>
+                        <p className="text-center mb-12 text-secondary/80 font-light">
+                            Emter dibangun dengan skalabilitas dan juga penerapa
+                            yang baik
+                        </p>
+                        <div className="absolute inset-0 w-full h-full overflow-hidden">
+                            <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white to-transparent opacity-100 animate-shine"></div>
+                        </div>
+                    </div>
+                    <div className="w-3/4 flex items-center justify-evenly px-24">
+                        <img
+                            className="w-24"
+                            src="images/homepage/laravel.webp"
+                            alt=""
+                            data-aos="flip-left"
+                        />
+                        <img
+                            className="w-20"
+                            src="images/homepage/flutter.webp"
+                            alt=""
+                            data-aos="flip-left"
+                        />
+                        <img
+                            className="w-24"
+                            src="images/homepage/reactjs.webp"
+                            alt=""
+                            data-aos="flip-left"
+                        />
+                        <img
+                            className="w-24"
+                            src="images/homepage/azure.webp"
+                            alt=""
+                            data-aos="flip-left"
+                        />
+                    </div>
+                </div>
+            </section>
+
             {/* Hubungi Kami */}
-            <section id="hubungi" className="pt-4">
+            <section id="hubungi" className="pt-28">
                 <ContainerHome>
                     <div className="w-full mb-24 flex flex-col gap-x-8 md:flex-row justify-between items-start">
                         <div className="w-full md:w-1/2 order-2 md:order-1 flex flex-col md:flex-col">
@@ -296,7 +340,7 @@ export default function Index() {
                                 <h3 className="text-3xl md:text-5xl text-center md:text-start font-semibold text-primary">
                                     Kontak Kami
                                 </h3>
-                                <p className="text-secondary mt-2 font-light">
+                                <p className="text-secondary text-center md:text-start mt-2 font-light">
                                     Jika kamu ragu, bingung atau ingin bertanya,
                                     silahkan kirimkan!
                                 </p>
