@@ -284,8 +284,8 @@ export default function Index() {
                             Teknologi yang digunakan untuk membangun Emter
                         </h5>
                         <p className="text-center mb-12 text-secondary/80 font-light">
-                            Emter dibangun dengan skalabilitas dan juga penerapa
-                            yang baik
+                            Emter dibangun dengan skalabilitas dan juga
+                            penerapan yang baik
                         </p>
                         <div className="absolute inset-0 w-full h-full overflow-hidden">
                             <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white to-transparent opacity-100 animate-shine"></div>
