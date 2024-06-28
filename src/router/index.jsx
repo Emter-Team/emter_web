@@ -22,6 +22,7 @@ import FormIncidentType from "@/pages/settings/incident_types/FormIncidentType.j
 import FormService from "@/pages/settings/service/FormService.jsx";
 import Index from "@/pages/home/Index.jsx";
 import GetIncidents from "@/pages/incidents/GetIncident.jsx";
+import DetailIncidents from "@/pages/incidents/DetailIncident.jsx";
 
 const router = createBrowserRouter([
     {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: "incidents",
                 element: <GetIncidents />,
+            },
+            {
+                path: "incidents/:id",
+                element: <DetailIncidents />,
             },
             {
                 path: "posts",
