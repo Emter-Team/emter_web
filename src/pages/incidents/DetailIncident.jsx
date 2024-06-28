@@ -144,7 +144,7 @@ export default function DetailIncidents() {
                             )}
                         </div>
                         <div className="font-light my-6 text-secondary">
-                            {incident.content}
+                            {incident.description}
                         </div>
                     </div>
                 </div>
