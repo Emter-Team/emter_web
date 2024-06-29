@@ -60,14 +60,14 @@ export default function DetailResident() {
             <SidebarUser />
             <div className="w-full mt-10 md:mt-20 p-0 md:p-4 md:w-10/12 h-screen">
                 <div className="flex flex-col md:flex-row gap-6">
-                    <div>
+                    <div className="w-full md:w-1/4">
                         <img
-                            src={resident.picture}
+                            src={resident.avatar}
                             alt={resident.name}
                             className="rounded-lg w-full"
                         />
                     </div>
-                    <div className="w-full md:w-1/2">
+                    <div className="w-full md:w-3/4">
                         <div className="space-y-3">
                             <p>{formatDate(resident.created_at)}</p>
                             <h3 className="text-xl md:text-3xl font-semibold">
