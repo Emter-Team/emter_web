@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import http from "@/services/axios";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
@@ -7,7 +7,7 @@ import SidebarProfile from "@/components/fragment/sidebar/sidebarProfile";
 import Loading from "@/components/ui/loading";
 import { useStateContext } from "@/contexts/ContextProvider";
 import { AlertTriangle } from "lucide-react";
-import Toast from "@/components/fragment/toast"; // Import komponen Toast
+import Toast from "@/components/fragment/toast"; 
 
 export default function DeleteAccount() {
     const navigate = useNavigate();
