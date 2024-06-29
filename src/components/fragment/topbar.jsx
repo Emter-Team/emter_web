@@ -67,16 +67,27 @@ export default function Topbar({ user }) {
                                             />
                                         </MenubarTrigger>
                                         <MenubarContent align="end">
-                                            <MenubarItem>
-                                                <div className="flex flex-col truncate ...">
-                                                    <h4 className="truncate ... font-semibold">
-                                                        {user?.name}
-                                                    </h4>
-                                                    <div className="truncate ...">
-                                                        {user?.email}
+                                            <NavLink
+                                                to={`/profiles/${user?.username}`}
+                                                isActive={() => {
+                                                    return (
+                                                        location.pathname ===
+                                                        `/profiles/${user?.username}`
+                                                    );
+                                                }}
+                                                className="flex items-center w-full h-full"
+                                            >
+                                                <MenubarItem>
+                                                    <div className="flex flex-col truncate ...">
+                                                        <h4 className="truncate ... font-semibold">
+                                                            {user?.name}
+                                                        </h4>
+                                                        <div className="truncate ...">
+                                                            {user?.email}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </MenubarItem>
+                                                </MenubarItem>
+                                            </NavLink>
                                             <MenubarSeparator />
                                             <NavLink
                                                 to="/dashboard"

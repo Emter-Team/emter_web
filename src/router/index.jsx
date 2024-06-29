@@ -23,6 +23,8 @@ import FormService from "@/pages/settings/service/FormService.jsx";
 import Index from "@/pages/home/Index.jsx";
 import GetIncidents from "@/pages/incidents/GetIncident.jsx";
 import DetailIncidents from "@/pages/incidents/DetailIncident.jsx";
+import FormChangePasswordProfile from "@/pages/profiles/FormChangePasswordProfile.jsx";
+import DeleteAccount from "@/pages/profiles/DeleteAccount.jsx";
 
 const router = createBrowserRouter([
     {
@@ -127,11 +129,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "profiles/:id/change_password",
-                element: <FormUpdateProfile />,
+                element: <FormChangePasswordProfile />,
             },
             {
                 path: "profiles/:id/danger",
-                element: <FormUpdateProfile />,
+                element: <DeleteAccount />,
             },
         ],
     },
