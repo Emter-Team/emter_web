@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
 import SidebarSetting from "@/components/fragment/sidebar/sidebarSetting";
+import { toast } from "react-toastify";
 
 export default function GetIncidentType() {
     const [incidentTypes, setIncidentTypes] = useState([]);
