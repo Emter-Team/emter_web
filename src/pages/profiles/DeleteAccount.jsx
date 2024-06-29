@@ -7,7 +7,7 @@ import SidebarProfile from "@/components/fragment/sidebar/sidebarProfile";
 import Loading from "@/components/ui/loading";
 import { useStateContext } from "@/contexts/ContextProvider";
 import { AlertTriangle } from "lucide-react";
-import Toast from "@/components/fragment/toast"; 
+import Toast from "@/components/fragment/toast";
 
 export default function DeleteAccount() {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function DeleteAccount() {
 
     const { user, setUser, setToken } = useStateContext();
 
-    const [isDeleteToast, setIsDeleteToast] = useState(false); // State untuk menampilkan Toast delete
+    const [isDeleteToast, setIsDeleteToast] = useState(false);
     const [error, setError] = useState({});
 
     const openDeleteToast = () => {
