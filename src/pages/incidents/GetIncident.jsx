@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
 import { IconCircleCheckFilled, IconCircleXFilled } from "@tabler/icons-react";
+import { toast } from "react-toastify";
 
 export default function GetIncidents() {
     const [incidents, setIncidents] = useState([]);
@@ -49,7 +50,7 @@ export default function GetIncidents() {
     }
 
     useEffect(() => {
-        getPosts(currentPage);
+        getIncident(currentPage);
         getIncidentType();
         getInstitution();
     }, [searchName, institutionFilter, incidentTypeFilter, currentPage]);
@@ -76,7 +77,7 @@ export default function GetIncidents() {
         }
     };
 
-    const getPosts = async (page) => {
+    const getIncident = async (page) => {
         setLoading(true);
         const params = {
             name: searchName,
@@ -108,7 +109,8 @@ export default function GetIncidents() {
             try {
                 await http.delete(`/admin/incidents/${username}`);
                 setIsDeleteToast(false);
-                getPosts(currentPage);
+                getIncident(currentPage);
+                toast.success("Masyarakat Berhasil Dihapus");
             } catch (error) {
                 console.error(error);
             } finally {

@@ -21,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
+import { toast } from "react-toastify";
 
 export default function GetPost() {
     const [posts, setPosts] = useState([]);
@@ -107,6 +108,7 @@ export default function GetPost() {
             try {
                 await http.delete(`/admin/posts/${username}`);
                 setIsDeleteToast(false);
+                toast.success("Berita Berhasil Dihapus");
                 getPosts(currentPage);
             } catch (error) {
                 console.error(error);

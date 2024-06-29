@@ -71,6 +71,7 @@ export default function GetService() {
             try {
                 await http.delete(`/admin/services/${slug}`);
                 setIsDeleteToast(false);
+                toast.success("Layanan Berhasil Dihapus");
                 getServices(currentPage);
             } catch (error) {
                 console.error(error);

@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
 import SidebarUser from "@/components/fragment/sidebar/sidebarUser";
+import { toast } from "react-toastify";
 
 export default function GetInstitution() {
     const [institutions, setInstitutions] = useState([]);
@@ -104,6 +105,7 @@ export default function GetInstitution() {
             try {
                 await http.delete(`/admin/institutions/${username}`);
                 setIsDeleteToast(false);
+                toast.success("Instansi Berhasil Dihapus");
                 getInstitutions(currentPage);
             } catch (error) {
                 console.error(error);

@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
 import SidebarUser from "@/components/fragment/sidebar/sidebarUser";
+import { toast } from "react-toastify";
 
 export default function GetResident() {
     const [residents, setResidents] = useState([]);
@@ -90,6 +91,7 @@ export default function GetResident() {
             try {
                 await http.put(`/admin/residents/verificate/${username}`);
                 setIsToast(false);
+                toast.success("Verifikasi KTP Berhasil");
                 getResidents(currentPage);
             } catch (error) {
                 console.error(error);
@@ -105,6 +107,7 @@ export default function GetResident() {
             try {
                 await http.delete(`/admin/residents/${username}`);
                 setIsDeleteToast(false);
+                toast.success("Masyarakat Berhasil Dihapus");
                 getResidents(currentPage);
             } catch (error) {
                 console.error(error);

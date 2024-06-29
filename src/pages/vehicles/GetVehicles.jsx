@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
+import { toast } from "react-toastify";
 
 export default function GetVehicles() {
     const [vehicles, setVehicles] = useState([]);
@@ -95,6 +96,7 @@ export default function GetVehicles() {
             try {
                 await http.delete(`/admin/vehicles/${username}`);
                 setIsDeleteToast(false);
+                toast.success("Kendaraan Berhasil Dihapus");
                 getVehicles(currentPage);
             } catch (error) {
                 console.error(error);

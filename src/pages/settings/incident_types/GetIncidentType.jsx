@@ -71,6 +71,7 @@ export default function GetIncidentType() {
             try {
                 await http.delete(`/admin/incident_types/${slug}`);
                 setIsDeleteToast(false);
+                toast.success("Jenis Kejadian Berhasil Dihapus");
                 getServices(currentPage);
             } catch (error) {
                 console.error(error);

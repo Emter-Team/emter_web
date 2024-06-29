@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import http from "@/services/axios";
 import Pagination from "@/components/fragment/paginate";
 import SidebarUser from "@/components/fragment/sidebar/sidebarUser";
+import { toast } from "react-toastify";
 
 export default function GetOfficers() {
     const [officers, setOfficers] = useState([]);
@@ -81,6 +82,7 @@ export default function GetOfficers() {
             try {
                 await http.delete(`/admin/officers/${username}`);
                 setIsDeleteToast(false);
+                toast.success("Petugas Berhasil Dihapus");
                 getOfficers(currentPage);
             } catch (error) {
                 console.error(error);
