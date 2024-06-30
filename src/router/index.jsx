@@ -25,6 +25,7 @@ import GetIncidents from "@/pages/incidents/GetIncident.jsx";
 import DetailIncidents from "@/pages/incidents/DetailIncident.jsx";
 import FormChangePasswordProfile from "@/pages/profiles/FormChangePasswordProfile.jsx";
 import DeleteAccount from "@/pages/profiles/DeleteAccount.jsx";
+import GetMaps from "@/pages/maps/GetMaps.jsx";
 
 const router = createBrowserRouter([
     {
@@ -134,6 +135,10 @@ const router = createBrowserRouter([
             {
                 path: "profiles/:id/danger",
                 element: <DeleteAccount />,
+            },
+            {
+                path: "maps",
+                element: <GetMaps />,
             },
         ],
     },

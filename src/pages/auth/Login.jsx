@@ -29,9 +29,10 @@ export default function Login() {
         } catch (err) {
             const response = err.response;
             console.log(response);
-            if (response.data.status === 422) {
+            if (response.status === 422) {
                 setError(response.data.message);
             } else if (response && response.status === 400) {
+                setError(response.data.message);
                 toast.error("Gagal login");
             } else {
                 toast.error("Terjadi kesalahan");
