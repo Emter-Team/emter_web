@@ -32,7 +32,7 @@ export default function GetResident() {
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationLinks, setPaginationLinks] = useState([]);
 
-    const [isToast, setIsToast] = useState(false);
+const [isToast, setIsToast] = useState(false);
     const [isDeleteToast, setIsDeleteToast] = useState(false);
     const [toastTitle, setToastTitle] = useState("");
     const [residentId, setResidentId] = useState("");
@@ -51,6 +51,10 @@ export default function GetResident() {
         setIsDeleteToast(true);
         setToastTitle(title);
         setResidentId(residentId);
+    }
+
+    function onCancelToast() {
+        setIsToast(false);
     }
 
     function onCancelDeleteToast() {
@@ -228,8 +232,8 @@ export default function GetResident() {
                                         <Table.Td className="w-50">
                                             {resident.avatar ? (
                                                 <img
-                                                width="50"
-                                                className="rounded"
+                                                    width="50"
+                                                    className="rounded"
                                                     src={resident.avatar}
                                                     alt={resident.name}
                                                 />
@@ -334,8 +338,7 @@ export default function GetResident() {
             <Toast
                 isToast={isToast}
                 onClose={() => setIsToast(false)}
-                title={toastTitle}
-                name="Verifikasi"
+                title={`Tindakan ini akan mulai menverifikasi Masyarakat. Apakah kamu yakin sudah memeriksa dan melihat dengan benar datanya ${toastTitle} ?`}
             >
                 <div className="flex justify-end gap-2">
                     <Button
@@ -356,7 +359,7 @@ export default function GetResident() {
             <Toast
                 isToast={isDeleteToast}
                 onClose={() => setIsDeleteToast(false)}
-                title={toastTitle}
+                title={`Tindakan ini akan mulai menghapus Masyarakat. Apakah kamu yakin ingin menghapus ${toastTitle} ?`}
             >
                 <div className="flex justify-end gap-2">
                     <Button

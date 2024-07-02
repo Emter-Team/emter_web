@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom";
 
 export default function Navbar({ user }) {
     const location = useLocation();
-
     return (
         <div className="fixed flex scrolling-wrapper z-[99] w-full flex-row overflow-x-auto overflow-y-hidden gap-x-6 max-w-8xl mx-auto px-4 sm:px-4 lg:px-24 bg-white items-center flex h-[50px] border-b border-secondary/20">
+            {console.log(user.role)}
             {user.role.name === "administration" ? (
                 <>
                     <NavLink
@@ -112,6 +112,16 @@ export default function Navbar({ user }) {
                         }`}
                     >
                         Daftar Kendaraan
+                    </NavLink>
+                    <NavLink
+                        to="/institution/incidents"
+                        className={`flex items-center whitespace-nowrap ${
+                            location.pathname.startsWith("/institution/incidents")
+                                ? "font-semibold px-1 border-b border-b-2 border-secondary"
+                                : ""
+                        }`}
+                    >
+                        Daftar Kejadian Darurat
                     </NavLink>
                     <NavLink
                         to="/institution/posts"

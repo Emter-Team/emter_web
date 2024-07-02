@@ -7,6 +7,7 @@ import { IconCategory, IconCategory2, IconReport } from "@tabler/icons-react";
 import Loading from "@/components/ui/loading";
 
 export default function Dashboard() {
+
     const [chartData, setChartData] = useState({
         usersChart: [],
         postsChart: [],

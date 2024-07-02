@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ReactApexChart from "react-apexcharts";
 import http from "@/services/axios";
-import { IconCategory, IconCategory2, IconReport } from "@tabler/icons-react";
+import { IconReport } from "@tabler/icons-react";
 import Loading from "@/components/ui/loading";
 
 export default function GetDashboardInstitution() {
@@ -173,11 +173,11 @@ export default function GetDashboardInstitution() {
                         <h4 className="text-3xl font-semibold leading-none">
                             {data.current.incidents}
                             <p className="text-xs mt-1.5 text-secondary font-light">
-                                {calculateChange(
+                                {/* {calculateChange(
                                     data.current.incidents,
                                     data.lastMonth.incidents
-                                )}{" "}
-                                dari bulan lalu
+                                )}{" "} */}
+                                0 dari bulan lalu
                             </p>
                         </h4>
                     </div>

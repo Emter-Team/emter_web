@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import NavLink from "@/components/fragment/navlink";
 import { useNavigate } from "react-router-dom";
 import Loading from "@/components/ui/loading";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function Register() {
     const [services, setServices] = useState([]);
@@ -56,7 +57,7 @@ export default function Register() {
             setUser(response.data.data);
             setToken(response.data.data.token);
             setError({});
-            console.log(response.data.data);
+            navigate("/auth/login");
             toast.success("Registrasi berhasil");
             setLoading(false);
         } catch (err) {
@@ -200,13 +201,11 @@ export default function Register() {
                 </div>
                 <div className="mt-4">
                     <Label htmlFor="description">Deskripsi</Label>
-                    <Input
+                    <Textarea
                         id="description"
-                        type="text"
                         name="description"
                         value={form.description}
                         onChange={handleChange}
-                        autoComplete="description"
                     />
                     {error.description && <Error>{error.description}</Error>}
                 </div>
@@ -268,13 +267,7 @@ export default function Register() {
                     </div>
                 </div>
                 <div className="pt-8 flex items-center gap-x-4 justify-end">
-                    <Button
-                        type="reset"
-                        className="w-1/4 border-secondary/50 border bg-white text-primary"
-                    >
-                        Reset
-                    </Button>
-                    <Button type="submit" className="w-3/4">
+                    <Button type="submit" className="w-full">
                         Daftar
                     </Button>
                 </div>

@@ -13,10 +13,9 @@ export default function Login() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const [error, setError] = useState({});
+    const navigate = useNavigate(); // Move useNavigate outside of handleLogin
 
     const { setUser, setToken } = useStateContext();
-
-    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -29,12 +28,25 @@ export default function Login() {
             const response = await http.post("/auth/login", payload);
             setUser(response.data.data);
             setToken(response.data.data.token);
+
+            if (response.data.data.email_verified_at === null) {
+                navigate("/auth/email-verify");
+                toast.success("Berhasil Login, Silahkan Verifikasi Email");
+            } else {
+                if (response.data.data.role.name === "institution") {
+                    navigate("/institution/dashboard");
+                    toast.success("Berhasil Login");
+                } else {
+                    navigate("/dashboard");
+                    toast.success("Berhasil Login");
+                }
+            }
             setError({});
         } catch (err) {
             const response = err.response;
-            if (response.status === 422) {
+            if (response && response.status === 422) {
                 setError(response.data.message);
-            } else if (response.status === 400) {
+            } else if (response && response.status === 400) {
                 setError(response.data.message);
                 toast.error("Gagal login");
             } else {
@@ -103,17 +115,7 @@ export default function Login() {
                     {error && <Error>{error.password}</Error>}
                 </div>
 
-                <div className="flex justify-between mb-8">
-                    <label className="flex items-center">
-                        {/* <Checkbox
-                            name="remember"
-                            value={data.remember}
-                            onChange={handleOnChange}
-                        /> */}
-                        <span className="ml-2 text-sm text-secondary">
-                            Remember me
-                        </span>
-                    </label>
+                <div className="flex justify-end mb-8">
                     {/* {canResetPassword && ( */}
                     <NavLink
                         to="/auth/forgot_password"
@@ -125,13 +127,7 @@ export default function Login() {
                 </div>
 
                 <div className="flex items-center gap-x-4 justify-end">
-                    <Button
-                        type="reset"
-                        className="w-1/4 border-secondary/50 border bg-white text-primary"
-                    >
-                        Reset
-                    </Button>
-                    <Button type="submit" className="w-3/4">
+                    <Button type="submit" className="w-full">
                         Masuk
                     </Button>
                 </div>

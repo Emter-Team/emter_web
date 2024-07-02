@@ -34,6 +34,7 @@ import GetOfficersInstitution from "@/pages/institution/officers/GetOfficersInst
 import DetailOfficersInstitution from "@/pages/institution/officers/DetailOfficersInstitution.jsx";
 import GetPostsInstitution from "@/pages/institution/posts/GetPostsInstitution.jsx";
 import GetDashboardInstitution from "@/pages/institution/Dashboard.jsx";
+import GetIncidentsInstitution from "@/pages/institution/incidents/GetIncidentInstitution.jsx";
 
 const router = createBrowserRouter([
     {
@@ -174,6 +175,10 @@ const router = createBrowserRouter([
                     {
                         path: "posts",
                         element: <GetPostsInstitution />,
+                    },
+                    {
+                        path: "incidents",
+                        element: <GetIncidentsInstitution />,
                     },
                     // {
                     //     path: "officers/:id",
