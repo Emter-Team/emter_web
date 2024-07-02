@@ -12,8 +12,9 @@ import { Button } from "../ui/button";
 import { useStateContext } from "@/contexts/ContextProvider";
 import http from "@/services/axios";
 import Navbar from "./navbar";
-import { Bell, CircleGauge, CircleUserRound, UserRoundCog } from "lucide-react";
+import { CircleGauge, CircleUserRound, UserRoundCog } from "lucide-react";
 import NavLink from "./navlink";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
 
 export default function Topbar({ user }) {
     const navigate = useNavigate();
@@ -51,12 +52,17 @@ export default function Topbar({ user }) {
                             />
                         </NavLink>
                         {user ? (
-                            <div className="flex justify-end items-center gap-x-2">
-                                <Bell
+                            <div className="flex justify-end items-center gap-x-4">
+                                <IconBrandWhatsapp
                                     size={24}
                                     absoluteStrokeWidth={true}
                                     className="text-secondary"
-                                />
+                                ></IconBrandWhatsapp>
+                                {/* <Bell
+                                    size={24}
+                                    absoluteStrokeWidth={true}
+                                    className="text-secondary"
+                                /> */}
                                 <Menubar className="border-none items-center flex">
                                     <MenubarMenu>
                                         <MenubarTrigger className="bg-white focus:bg-primary/10 focus:text-white  hover:bg-primary/10 rounded-xl py-3">

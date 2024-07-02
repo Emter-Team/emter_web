@@ -8,7 +8,7 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "@/components/ui/menubar";
-import { AlignLeft } from "lucide-react";
+import { AlignLeft, Tally1 } from "lucide-react";
 
 export default function NavbarHome() {
     return (
@@ -25,7 +25,7 @@ export default function NavbarHome() {
                             className="w-60"
                         />
                     </a>
-                    <div className="hidden md:flex justify-end items-center gap-x-8">
+                    <div className="hidden md:flex justify-center items-center gap-x-8">
                         <a
                             href="/#tentang"
                             activeClassName="text-[18px] text-primary font-bold"
@@ -62,6 +62,22 @@ export default function NavbarHome() {
                             Hubungi
                         </a>
                     </div>
+                    <div className="flex justify-end gap-x-4">
+                        <NavLink
+                            to="/auth/register"
+                            activeClassName="text-[18px] text-primary font-bold"
+                            className="text-[18px] rounded-md px-3.5 py-2 border border-primary text-primary "
+                        >
+                            Daftar
+                        </NavLink>
+                        <NavLink
+                            to="/auth/login"
+                            activeClassName="text-[18px] text-primary font-bold"
+                            className="text-[18px] text-white rounded-md px-3.5 py-2 bg-danger border"
+                        >
+                            Masuk
+                        </NavLink>
+                    </div>
                     <div className="flex justify-end sm:hidden text-secondary w-full items-center">
                         <Menubar className="border-none items-center flex">
                             <MenubarMenu>
@@ -88,6 +104,12 @@ export default function NavbarHome() {
                                     <a href="/#hubungi">
                                         <MenubarItem>Hubungi Kami</MenubarItem>
                                     </a>
+                                    <NavLink to="/register">
+                                        <MenubarItem>Daftar</MenubarItem>
+                                    </NavLink>
+                                    <NavLink to="/hubungi">
+                                        <MenubarItem>Masuk</MenubarItem>
+                                    </NavLink>
                                 </MenubarContent>
                             </MenubarMenu>
                         </Menubar>

@@ -11,6 +11,10 @@ export default function DefaultLayout() {
     if (!token || user == null) {
         return <Navigate to="/auth/login" />;
     }
+
+    if (user.email_verified_at == null) {
+        return <Navigate to="/auth/email-verify" />;
+    }
     return (
         <div>
             <Topbar user={user} />

@@ -26,6 +26,9 @@ import DetailIncidents from "@/pages/incidents/DetailIncident.jsx";
 import FormChangePasswordProfile from "@/pages/profiles/FormChangePasswordProfile.jsx";
 import DeleteAccount from "@/pages/profiles/DeleteAccount.jsx";
 import GetMaps from "@/pages/maps/GetMaps.jsx";
+import Register from "@/pages/auth/Register.jsx";
+import VerifyEmail from "@/pages/auth/VerifyEmail.jsx";
+import GetVehiclesInstitution from "@/pages/institution/GetVehiclesInstitution.jsx";
 
 const router = createBrowserRouter([
     {
@@ -140,6 +143,15 @@ const router = createBrowserRouter([
                 path: "maps",
                 element: <GetMaps />,
             },
+            {
+                path: "/institution/",
+                children: [
+                    {
+                        path: "vehicles",
+                        element: <GetVehiclesInstitution />,
+                    },
+                ],
+            },
         ],
     },
     {
@@ -149,6 +161,14 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 element: <Login />,
+            },
+            {
+                path: "register",
+                element: <Register />,
+            },
+            {
+                path: "email-verify",
+                element: <VerifyEmail />,
             },
         ],
     },
