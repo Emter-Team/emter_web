@@ -28,7 +28,12 @@ import DeleteAccount from "@/pages/profiles/DeleteAccount.jsx";
 import GetMaps from "@/pages/maps/GetMaps.jsx";
 import Register from "@/pages/auth/Register.jsx";
 import VerifyEmail from "@/pages/auth/VerifyEmail.jsx";
-import GetVehiclesInstitution from "@/pages/institution/GetVehiclesInstitution.jsx";
+import GetVehiclesInstitution from "@/pages/institution/vehicles/GetVehiclesInstitution.jsx";
+import FormVehicleInstitution from "@/pages/institution/vehicles/FormVehicleInstitution.jsx";
+import GetOfficersInstitution from "@/pages/institution/officers/GetOfficersInstitution.jsx";
+import DetailOfficersInstitution from "@/pages/institution/officers/DetailOfficersInstitution.jsx";
+import GetPostsInstitution from "@/pages/institution/posts/GetPostsInstitution.jsx";
+import GetDashboardInstitution from "@/pages/institution/Dashboard.jsx";
 
 const router = createBrowserRouter([
     {
@@ -147,9 +152,37 @@ const router = createBrowserRouter([
                 path: "/institution/",
                 children: [
                     {
+                        path: "dashboard",
+                        element: <GetDashboardInstitution />,
+                    },
+                    {
                         path: "vehicles",
                         element: <GetVehiclesInstitution />,
                     },
+                    {
+                        path: "vehicles/create",
+                        element: <FormVehicleInstitution />,
+                    },
+                    {
+                        path: "officers",
+                        element: <GetOfficersInstitution />,
+                    },
+                    {
+                        path: "officers/:id",
+                        element: <DetailOfficersInstitution />,
+                    },
+                    {
+                        path: "posts",
+                        element: <GetPostsInstitution />,
+                    },
+                    // {
+                    //     path: "officers/:id",
+                    //     element: <DetailPostsInstitution />,
+                    // },
+                    // {
+                    //     path: "officers/create",
+                    //     element: <FormOfficersInstitution />,
+                    // },
                 ],
             },
         ],

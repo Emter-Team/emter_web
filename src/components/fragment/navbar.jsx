@@ -7,7 +7,7 @@ export default function Navbar({ user }) {
 
     return (
         <div className="fixed flex scrolling-wrapper z-[99] w-full flex-row overflow-x-auto overflow-y-hidden gap-x-6 max-w-8xl mx-auto px-4 sm:px-4 lg:px-24 bg-white items-center flex h-[50px] border-b border-secondary/20">
-            {user.role.name === "resident" ? (
+            {user.role.name === "administration" ? (
                 <>
                     <NavLink
                         to="/dashboard"
@@ -78,9 +78,11 @@ export default function Navbar({ user }) {
             ) : (
                 <>
                     <NavLink
-                        to="/dashboard"
+                        to="/institution/dashboard"
                         className={`flex items-center whitespace-nowrap ${
-                            location.pathname.startsWith("/dashboard")
+                            location.pathname.startsWith(
+                                "/institution/dashboard"
+                            )
                                 ? "font-semibold px-1 border-b border-b-2 border-secondary"
                                 : ""
                         }`}
@@ -88,11 +90,11 @@ export default function Navbar({ user }) {
                         Dasbor
                     </NavLink>
                     <NavLink
-                        to="/officers"
+                        to="/institution/officers"
                         className={`flex items-center whitespace-nowrap ${
-                            location.pathname.startsWith("/residents") ||
-                            location.pathname.startsWith("/officers") ||
-                            location.pathname.startsWith("/institutions")
+                            location.pathname.startsWith(
+                                "/institution/officers"
+                            )
                                 ? "font-semibold px-1 border-b border-b-2 border-secondary"
                                 : ""
                         }`}
@@ -100,25 +102,26 @@ export default function Navbar({ user }) {
                         Daftar Petugas
                     </NavLink>
                     <NavLink
-                        to="/posts"
-                        className={`flex items-center whitespace-nowrap ${
-                            location.pathname.startsWith("/posts") ||
-                            location.pathname.startsWith("/post_categories")
-                                ? "font-semibold px-1 border-b border-b-2 border-secondary"
-                                : ""
-                        }`}
-                    >
-                        Daftar Berita
-                    </NavLink>
-                    <NavLink
                         to="/institution/vehicles"
                         className={`flex items-center whitespace-nowrap ${
-                            location.pathname.startsWith("/incidents")
+                            location.pathname.startsWith(
+                                "/institutions/vehicles"
+                            )
                                 ? "font-semibold px-1 border-b border-b-2 border-secondary"
                                 : ""
                         }`}
                     >
                         Daftar Kendaraan
+                    </NavLink>
+                    <NavLink
+                        to="/institution/posts"
+                        className={`flex items-center whitespace-nowrap ${
+                            location.pathname.startsWith("/institution/posts")
+                                ? "font-semibold px-1 border-b border-b-2 border-secondary"
+                                : ""
+                        }`}
+                    >
+                        Daftar Berita
                     </NavLink>
                 </>
             )}
