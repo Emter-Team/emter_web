@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-    baseURL: "https://845d-114-122-20-86.ngrok-free.app/",
+    baseURL: "https://845d-114-122-20-86.ngrok-free.app/api/",
     withCredentials: true,
 });
 
